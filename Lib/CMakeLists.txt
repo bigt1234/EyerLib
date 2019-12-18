@@ -8,6 +8,12 @@ MESSAGE(STATUS "operation system is ${CMAKE_SYSTEM}")
 
 SET(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/install/)
 
+include_directories (googletest/googletest/include)
+
+ADD_SUBDIRECTORY(EyerCore)
+ADD_SUBDIRECTORY(EyerCoreTest)
+ADD_SUBDIRECTORY(googletest)
+
 IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
     MESSAGE(STATUS "current platform: Linux ")
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Windows")
@@ -16,7 +22,6 @@ ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Android")
     MESSAGE(STATUS "current platform: Android")
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     MESSAGE(STATUS "current platform: Darwin")
-    ADD_SUBDIRECTORY(EyerCore)
 ELSE ()
     MESSAGE(STATUS "other platform: ${CMAKE_SYSTEM_NAME}")
 ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux")

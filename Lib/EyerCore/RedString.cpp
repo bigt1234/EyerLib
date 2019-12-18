@@ -15,7 +15,6 @@ char * red_copy_str(char * src)
     return dist;
 }
 
-
 RedString::RedString()
 {
     str = red_copy_str((char *)"");
@@ -23,7 +22,6 @@ RedString::RedString()
 
 RedString::RedString(const char * _str)
 {
-
     if(_str == NULL){
         str = red_copy_str((char *)"");
         return;

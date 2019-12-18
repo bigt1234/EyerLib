@@ -19,9 +19,25 @@ add_library(
     RedByte.cpp
 )
 
+target_link_libraries (EyerCore pthread)
+target_link_libraries (EyerCore gtest)
 
-target_link_libraries(EyerCore pthread)
+set(head_files 
+    Red.hpp 
+    RedArg.hpp
+    RedByte.hpp
+    RedFile.hpp
+    RedIPAddr.hpp
+    RedLog.hpp
+    RedLruMap.hpp
+    RedMap.hpp
+    RedQueue.hpp
+    RedString.hpp
+    RedYuv.hpp
+    RedYuvQueue.hpp
+)
 
+INSTALL(FILES ${head_files} DESTINATION include/EyerCore)
 INSTALL(
     TARGETS EyerCore
     RUNTIME DESTINATION bin        
