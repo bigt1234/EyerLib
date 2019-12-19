@@ -10,8 +10,16 @@ SET(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/install/)
 
 include_directories (googletest/googletest/include)
 
+
+set(CMAKE_EXE_LINKER_FLAGS
+    "-framework AudioToolbox -framework CoreGraphics -framework CoreMedia -framework Cocoa -framework VideoToolbox -framework AVFoundation -framework Security -framework CoreFoundation -framework CoreVideo -framework OpenGL -framework AppKit -framework CoreImage -framework VideoDecodeAcceleration"
+)
+
+
 ADD_SUBDIRECTORY(EyerCore)
 ADD_SUBDIRECTORY(EyerCoreTest)
+ADD_SUBDIRECTORY(EyerAV)
+ADD_SUBDIRECTORY(EyerAVTest)
 ADD_SUBDIRECTORY(googletest)
 
 IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
