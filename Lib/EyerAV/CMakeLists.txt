@@ -5,6 +5,8 @@ add_library(
     EyerAV
     EyerAVPacket.cpp
     EyerAVReader.cpp
+    EyerAVDecoder.cpp
+    EyerEyeStream.cpp
 )
 
 target_link_libraries (EyerAV pthread)

@@ -57,4 +57,37 @@ namespace Eyer
         int ret = av_read_frame(piml->formatCtx, packet->piml->packet);
         return ret;
     }
+
+    int EyerAVReader::GetStreamCount()
+    {
+        if(piml->formatCtx == nullptr){
+            return -1;
+        }
+
+        // TODO 判断文件是否打开成功
+
+        return piml->formatCtx->nb_streams;
+    }
+
+    int EyerAVReader::GetStream(EyerEyeStream & stream, int index)
+    {
+        if(piml->formatCtx == nullptr){
+            return -1;
+        }
+
+        // TODO 判断文件是否打开成功
+        if(index < 0){
+            return -1;
+        }
+        if(index >= GetStreamCount()){
+            return -1;
+        }
+
+        stream.streamIndex = piml->formatCtx->streams[index]->index;
+        // piml->formatCtx->streams[index]->codecpar
+
+        // avcodec_copy_context();
+
+        return 0;
+    }
 }
