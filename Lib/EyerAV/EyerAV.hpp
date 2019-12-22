@@ -8,19 +8,26 @@ namespace Eyer
     class EyerAVPacket;
     class EyerAVReader;
 
+    class EyerAVPacketPrivate;
+    class EyerAVReaderPrivate;
+
     class EyerAVPacket
     {
-        void * packet = nullptr;
+    public:
+        EyerAVPacketPrivate * piml = nullptr;
     public:
         EyerAVPacket();
         ~EyerAVPacket();
+
+        int GetStreamId();
+        uint64_t GetPTS();
+        uint64_t GetDTS();
     };
 
     class EyerAVReader
     {
-    private:
-        RedString path;
-        void * formatCtx = nullptr;
+    public:
+        EyerAVReaderPrivate * piml = nullptr;
     public:
         EyerAVReader(RedString _path);
         ~EyerAVReader();

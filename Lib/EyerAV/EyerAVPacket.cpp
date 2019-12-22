@@ -4,19 +4,43 @@ extern "C"{
 #include <libavformat/avformat.h>
 }
 
+#include "EyerAVPacketPrivate.hpp"
+
 namespace Eyer
 {
     EyerAVPacket::EyerAVPacket()
     {
-        packet = (void *)av_packet_alloc();
-        av_init_packet((AVPacket *)packet);
+        piml = new EyerAVPacketPrivate();
+
+        piml->packet = av_packet_alloc();
+        av_init_packet(piml->packet);
     }
 
     EyerAVPacket::~EyerAVPacket()
     {
-        if (packet != nullptr) {
-            av_free_packet((AVPacket *)packet);
-            packet = nullptr;
+        if (piml->packet != nullptr) {
+            av_free_packet(piml->packet);
+            piml->packet = nullptr;
         }
+
+        if(piml != nullptr){
+            delete piml;
+            piml = nullptr;
+        }
+    }
+
+    int EyerAVPacket::GetStreamId()
+    {
+        return piml->packet->stream_index;
+    }
+
+    uint64_t EyerAVPacket::GetPTS()
+    {
+        return piml->packet->pts;
+    }
+
+    uint64_t EyerAVPacket::GetDTS()
+    {
+        return piml->packet->dts;
     }
 }
