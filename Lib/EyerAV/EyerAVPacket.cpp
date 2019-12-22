@@ -19,7 +19,7 @@ namespace Eyer
     EyerAVPacket::~EyerAVPacket()
     {
         if (piml->packet != nullptr) {
-            av_free_packet(piml->packet);
+            av_packet_free(&piml->packet);
             piml->packet = nullptr;
         }
 
