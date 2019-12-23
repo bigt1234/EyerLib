@@ -31,8 +31,6 @@ ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Android")
     MESSAGE(STATUS "current platform: Android")
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     MESSAGE(STATUS "current platform: Darwin")
-ELSE ()
-    MESSAGE(STATUS "other platform: ${CMAKE_SYSTEM_NAME}")
 
     include_directories (../3rdpart/mac/ffmpeg_install/include)
     target_link_libraries (EyerAV ${CMAKE_SOURCE_DIR}/3rdpart/mac/ffmpeg_install/lib/libavcodec.a)
@@ -47,6 +45,9 @@ ELSE ()
     target_link_libraries (EyerAV lzma)
     target_link_libraries (EyerAV iconv)
     target_link_libraries (EyerAV ${CMAKE_SOURCE_DIR}/3rdpart/mac/x264_install/lib/libx264.a)
+    
+ELSE ()
+    MESSAGE(STATUS "other platform: ${CMAKE_SYSTEM_NAME}")
 
 ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux")
 
