@@ -6,6 +6,7 @@ extern "C"{
 
 #include "EyerAVReaderPrivate.hpp"
 #include "EyerAVPacketPrivate.hpp"
+#include "EyerAVStreamPrivate.hpp"
 
 namespace Eyer
 {
@@ -84,9 +85,8 @@ namespace Eyer
         }
 
         stream.streamIndex = piml->formatCtx->streams[index]->index;
-        // piml->formatCtx->streams[index]->codecpar
-
-        // avcodec_copy_context();
+        
+        avcodec_copy_context(stream.piml->codecContext, piml->formatCtx->streams[index]->codec);
 
         return 0;
     }

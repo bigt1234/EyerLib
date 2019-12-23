@@ -1,11 +1,16 @@
-#ifndef	EYER_LIB_AV_PACKET_PRIVATE_H
-#define	EYER_LIB_AV_PACKET_PRIVATE_H
+#ifndef	EYER_LIB_AV_DECODER_PRIVATE_H
+#define	EYER_LIB_AV_DECODER_PRIVATE_H
+
+extern "C"{
+#include <libavformat/avformat.h>
+}
 
 namespace Eyer
 {
     class EyerAVDecoderPrivate
     {
     public:
+        AVCodecContext * codecContext = nullptr;
     };
 }
 

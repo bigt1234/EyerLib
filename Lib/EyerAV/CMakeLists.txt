@@ -7,9 +7,11 @@ add_library(
     EyerAVReader.cpp
     EyerAVDecoder.cpp
     EyerEyeStream.cpp
+    EyerAVFrame.cpp
 )
 
 target_link_libraries (EyerAV pthread)
+target_link_libraries (EyerAV EyerCore)
 
 IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
     MESSAGE(STATUS "current platform: Linux ")
