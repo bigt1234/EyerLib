@@ -2,7 +2,8 @@
 
 #include "EyerAV/EyerAV.hpp"
 
-char * pathStr = (char *)"/home/redknot/Videos/M_1280_720.mp4";
+// char * pathStr = (char *)"/home/redknot/Videos/M_1280_720.mp4";
+char * pathStr = (char *)"/Users/yuqiaomiao/Video/1280_720.mp4";
 
 TEST(EyerAVPacket, packet){
     for(int i=0;i<100;i++){
