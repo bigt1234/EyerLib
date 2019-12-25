@@ -85,11 +85,10 @@ TEST(Decoder, decoder){
 
         ASSERT_EQ(ret, 0) << "这里应该返回成功";
 
-        writer.AddStream(&stream);
+        writer.AddStream(&stream, encoder);
     }
 
     writer.Open();
-    writer.WriteHand();
 
     while (1)
     {
@@ -123,8 +122,8 @@ TEST(Decoder, decoder){
                     break;
                 }
 
-                printf("packet PTS: %lld\n", packet.GetPTS());
-                printf("packet DTS: %lld\n", packet.GetDTS());
+                // printf("packet PTS: %lld\n", packet.GetPTS());
+                // printf("packet DTS: %lld\n", packet.GetDTS());
 
                 packet.SetStreamId(streamId);
                 writer.WritePacket(&packet);
@@ -133,19 +132,19 @@ TEST(Decoder, decoder){
         }
     }
 
-    printf("==========END============\n");
     writer.Close();
-    printf("==========END============\n");
 
     for(int i=0;i<decoderList.size();i++){
         Eyer::EyerAVDecoder * decoder = decoderList[i];
         delete decoder;
     }
+    decoderList.clear();
 
     for(int i=0;i<encoderList.size();i++){
         Eyer::EyerAVEncoder * encoder = encoderList[i];
         delete encoder;
     }
+    encoderList.clear();
 }
 
 
