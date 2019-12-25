@@ -15,6 +15,8 @@ namespace Eyer
     class EyerAVDecoderPrivate;
     class EyerAVStreamPrivate;
     class EyerAVFramePrivate;
+    class EyerAVEncoderPrivate;
+    class EyerAVWriterPrivate;
 
     class EyerAVPacket
     {
@@ -25,8 +27,14 @@ namespace Eyer
         ~EyerAVPacket();
 
         int GetStreamId();
+
         uint64_t GetPTS();
         uint64_t GetDTS();
+
+        int SetPTS(uint64_t pts);
+        int SetDTS(uint64_t dts);
+
+        int SetStreamId(int id);
     };
 
     class EyerAVFrame
@@ -55,6 +63,23 @@ namespace Eyer
         int GetStream(EyerEyeStream & stream, int index);
     };
 
+    class EyerAVWriter
+    {
+    public:
+        EyerAVWriterPrivate * piml = nullptr;
+    public:
+        EyerAVWriter(RedString _path);
+        ~EyerAVWriter();
+
+        int Open();
+        int Close();
+
+        int AddStream(EyerEyeStream * stream);
+
+        int WriteHand();
+        int WritePacket(EyerAVPacket * packet);
+    };
+
     class EyerEyeStream
     {
     public:
@@ -77,6 +102,21 @@ namespace Eyer
 
         int SendPacket(EyerAVPacket * packet);
         int RecvFrame(EyerAVFrame * frame);
+    };
+
+
+    class EyerAVEncoder
+    {
+    public:
+        EyerAVEncoderPrivate * piml = nullptr;
+    public:
+        EyerAVEncoder();
+        ~EyerAVEncoder();
+
+        int Init(EyerEyeStream * stream);
+
+        int SendFrame(EyerAVFrame * frame);
+        int RecvPacket(EyerAVPacket * packet);
     };
 }
 
