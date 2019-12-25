@@ -43,4 +43,23 @@ namespace Eyer
     {
         return piml->packet->dts;
     }
+
+
+    int EyerAVPacket::SetPTS(uint64_t pts)
+    {
+        piml->packet->pts = pts;
+        return 0;
+    }
+    
+    int EyerAVPacket::SetDTS(uint64_t dts)
+    {
+        piml->packet->dts = dts;
+        return 0;
+    }
+
+    int EyerAVPacket::SetStreamId(int id)
+    {
+        piml->packet->stream_index = id;
+        return 0;
+    }
 }

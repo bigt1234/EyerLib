@@ -1,5 +1,5 @@
-#ifndef	EYER_LIB_AV_READER_PRIVATE_H
-#define	EYER_LIB_AV_READER_PRIVATE_H
+#ifndef	EYER_LIB_AV_WRITE_PRIVATE_H
+#define	EYER_LIB_AV_WRITE_PRIVATE_H
 
 #include "EyerAV.hpp"
 
@@ -10,7 +10,7 @@ extern "C"{
 
 namespace Eyer
 {
-    class EyerAVReaderPrivate
+    class EyerAVWriterPrivate
     {
     public:
         RedString path;
