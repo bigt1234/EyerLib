@@ -9,6 +9,7 @@ namespace Eyer
     class EyerAVReader;
     class EyerAVDecoder;
     class EyerEyeStream;
+    class EyerAVEncoder;
 
     class EyerAVPacketPrivate;
     class EyerAVReaderPrivate;
@@ -74,7 +75,7 @@ namespace Eyer
         int Open();
         int Close();
 
-        int AddStream(EyerEyeStream * stream);
+        int AddStream(EyerEyeStream * stream, EyerAVEncoder * encoder);
 
         int WriteHand();
         int WritePacket(EyerAVPacket * packet);

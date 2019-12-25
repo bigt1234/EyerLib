@@ -22,7 +22,7 @@ namespace Eyer
     EyerAVWriter::~EyerAVWriter()
     {
         if(piml->formatCtx != NULL){
-            Close();
+            // Close();
             avformat_free_context(piml->formatCtx);
             piml->formatCtx = NULL;
         }
@@ -40,28 +40,30 @@ namespace Eyer
             return -1;
         }
 
+        avformat_write_header(piml->formatCtx, nullptr);
+
         return 0;
     }
 
     int EyerAVWriter::Close()
     {
-        printf("==========1============\n");
         av_write_trailer(piml->formatCtx);
-        printf("==========2============\n");
         avio_close(piml->formatCtx->pb);
-        printf("==========3============\n");
-        // avformat_close_input(&piml->formatCtx);
-        printf("==========4============\n");
         return 0;
     }
 
-    int EyerAVWriter::AddStream(EyerEyeStream * stream)
+    int EyerAVWriter::AddStream(EyerEyeStream * stream, EyerAVEncoder * encoder)
     {
-        AVStream * avStream = avformat_new_stream(piml->formatCtx, NULL);
+        AVStream * avStream = avformat_new_stream(piml->formatCtx, stream->piml->codecContext->codec);
 
         avcodec_copy_context(avStream->codec, stream->piml->codecContext);
 
         avStream->codec->codec_tag = 0;
+
+        avcodec_copy_context(avStream->codec, encoder->piml->codecContext);
+
+        avStream->codec->codec_tag = 0;
+        encoder->piml->codecContext->codec_tag = 0;
         
         return avStream->id;
     }
@@ -74,7 +76,6 @@ namespace Eyer
 
     int EyerAVWriter::WriteHand()
     {
-        avformat_write_header(piml->formatCtx, nullptr);
         return 0;
     }
 }
