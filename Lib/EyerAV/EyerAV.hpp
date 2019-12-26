@@ -8,7 +8,7 @@ namespace Eyer
     class EyerAVPacket;
     class EyerAVReader;
     class EyerAVDecoder;
-    class EyerEyeStream;
+    class EyerAVStream;
     class EyerAVEncoder;
 
     class EyerAVPacketPrivate;
@@ -19,7 +19,7 @@ namespace Eyer
     class EyerAVEncoderPrivate;
     class EyerAVWriterPrivate;
 
-    enum EyerEyeStreamType{
+    enum EyerAVStreamType{
         STREAM_TYPE_UNKNOW = 0,
         STREAM_TYPE_AUDIO = 1,
         STREAM_TYPE_VIDEO = 2
@@ -67,7 +67,7 @@ namespace Eyer
         int Read(EyerAVPacket * packet);
 
         int GetStreamCount();
-        int GetStream(EyerEyeStream & stream, int index);
+        int GetStream(EyerAVStream & stream, int index);
     };
 
     class EyerAVWriter
@@ -87,16 +87,16 @@ namespace Eyer
         int WritePacket(EyerAVPacket * packet);
     };
 
-    class EyerEyeStream
+    class EyerAVStream
     {
     public:
         int streamIndex = -1;
         EyerAVStreamPrivate * piml = nullptr;
     public:
-        EyerEyeStream();
-        ~EyerEyeStream();
+        EyerAVStream();
+        ~EyerAVStream();
 
-        EyerEyeStreamType GetStreamType();
+        EyerAVStreamType GetStreamType();
     };
 
     class EyerAVDecoder
@@ -107,7 +107,7 @@ namespace Eyer
         EyerAVDecoder();
         ~EyerAVDecoder();
 
-        int Init(EyerEyeStream * stream);
+        int Init(EyerAVStream * stream);
 
         int SendPacket(EyerAVPacket * packet);
         int RecvFrame(EyerAVFrame * frame);
@@ -122,7 +122,7 @@ namespace Eyer
         EyerAVEncoder();
         ~EyerAVEncoder();
 
-        int Init(EyerEyeStream * stream);
+        int Init(EyerAVStream * stream);
 
         int Flush();
 

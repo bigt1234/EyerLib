@@ -29,14 +29,14 @@ namespace Eyer
         }
     }
 
-    int EyerAVEncoder::Init(EyerEyeStream * stream)
+    int EyerAVEncoder::Init(EyerAVStream * stream)
     {
         AVCodec * codec = nullptr;
 
-        EyerEyeStreamType streamType = stream->GetStreamType();
-        if(streamType == EyerEyeStreamType::STREAM_TYPE_UNKNOW){
+        EyerAVStreamType streamType = stream->GetStreamType();
+        if(streamType == EyerAVStreamType::STREAM_TYPE_UNKNOW){
         }
-        if(streamType == EyerEyeStreamType::STREAM_TYPE_AUDIO){
+        if(streamType == EyerAVStreamType::STREAM_TYPE_AUDIO){
             // 初始化 AAC 编码器
             codec = avcodec_find_encoder(AV_CODEC_ID_AAC);
 
@@ -52,7 +52,7 @@ namespace Eyer
 
             avcodec_copy_context(piml->codecContext, stream->piml->codecContext);
         }
-        if(streamType == EyerEyeStreamType::STREAM_TYPE_VIDEO){
+        if(streamType == EyerAVStreamType::STREAM_TYPE_VIDEO){
             // 初始化 H264 编码器
             codec = avcodec_find_encoder(AV_CODEC_ID_H264);
 

@@ -6,7 +6,7 @@ add_library(
     EyerAVPacket.cpp
     EyerAVReader.cpp
     EyerAVDecoder.cpp
-    EyerEyeStream.cpp
+    EyerAVStream.cpp
     EyerAVFrame.cpp
     EyerAVEncoder.cpp
     EyerAVWriter.cpp

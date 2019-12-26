@@ -25,7 +25,7 @@ namespace Eyer
         }
     }
 
-    int EyerAVDecoder::Init(EyerEyeStream * stream)
+    int EyerAVDecoder::Init(EyerAVStream * stream)
     {
         avcodec_copy_context(piml->codecContext, stream->piml->codecContext);
 

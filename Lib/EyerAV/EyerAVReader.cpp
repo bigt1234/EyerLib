@@ -70,7 +70,7 @@ namespace Eyer
         return piml->formatCtx->nb_streams;
     }
 
-    int EyerAVReader::GetStream(EyerEyeStream & stream, int index)
+    int EyerAVReader::GetStream(EyerAVStream & stream, int index)
     {
         if(piml->formatCtx == nullptr){
             return -1;
@@ -86,7 +86,7 @@ namespace Eyer
 
         stream.streamIndex = piml->formatCtx->streams[index]->index;
 
-        stream.piml->type = EyerEyeStreamType::STREAM_TYPE_UNKNOW;
+        stream.piml->type = EyerAVStreamType::STREAM_TYPE_UNKNOW;
 
         avcodec_copy_context(stream.piml->codecContext, piml->formatCtx->streams[index]->codec);
 

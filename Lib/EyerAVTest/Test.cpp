@@ -52,7 +52,7 @@ TEST(EyerAVFormat3, format3_read_frame){
 }
 
 
-/*
+
 TEST(VideoRecoder, videoRecoder){
     RedString path(pathStr);
     Eyer::EyerAVReader reader(path);
@@ -69,7 +69,7 @@ TEST(VideoRecoder, videoRecoder){
     std::vector<Eyer::EyerAVEncoder *> encoderList;
 
     for(int i=0;i<streamCount;i++){
-        Eyer::EyerEyeStream stream;
+        Eyer::EyerAVStream stream;
         int ret = reader.GetStream(stream, i);
         ASSERT_EQ(ret, 0) << "这里应该返回成功";
         if(ret){
@@ -168,7 +168,7 @@ TEST(VideoRecoder, videoRecoder){
     }
     encoderList.clear();
 }
-*/
+
 
 
 TEST(VideoRecoder, split){
@@ -191,7 +191,7 @@ TEST(VideoRecoder, split){
     int streamCount = templVideo.GetStreamCount();
 
     for(int i=0;i<streamCount;i++){
-        Eyer::EyerEyeStream stream;
+        Eyer::EyerAVStream stream;
         int ret = templVideo.GetStream(stream, i);
 
         Eyer::EyerAVEncoder * encoder = new Eyer::EyerAVEncoder();
@@ -216,7 +216,7 @@ TEST(VideoRecoder, split){
         int streamCount = reader->GetStreamCount();
 
         for(int i=0;i<streamCount;i++){
-            Eyer::EyerEyeStream stream;
+            Eyer::EyerAVStream stream;
             int ret = reader->GetStream(stream, i);
             ASSERT_EQ(ret, 0) << "这里应该返回成功";
             if(ret){
