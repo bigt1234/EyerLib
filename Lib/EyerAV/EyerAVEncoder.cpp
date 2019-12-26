@@ -123,4 +123,10 @@ namespace Eyer
         int ret = avcodec_receive_packet(piml->codecContext, packet->piml->packet);
         return ret;
     }
+
+    int EyerAVEncoder::Flush()
+    {
+        avcodec_flush_buffers(piml->codecContext);
+        return 0;
+    }
 }

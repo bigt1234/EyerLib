@@ -124,6 +124,8 @@ namespace Eyer
 
         int Init(EyerEyeStream * stream);
 
+        int Flush();
+
         int SendFrame(EyerAVFrame * frame);
         int RecvPacket(EyerAVPacket * packet);
     };
