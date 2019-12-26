@@ -21,4 +21,16 @@ namespace Eyer
             piml = nullptr;
         }
     }
+
+    EyerEyeStreamType EyerEyeStream::GetStreamType()
+    {
+        if(piml->codecContext->codec_type == AVMediaType::AVMEDIA_TYPE_VIDEO){
+            return EyerEyeStreamType::STREAM_TYPE_VIDEO;
+        }
+        if(piml->codecContext->codec_type == AVMediaType::AVMEDIA_TYPE_AUDIO){
+            return EyerEyeStreamType::STREAM_TYPE_AUDIO;
+        }
+
+        return EyerEyeStreamType::STREAM_TYPE_AUDIO;
+    }
 }

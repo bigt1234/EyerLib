@@ -19,6 +19,12 @@ namespace Eyer
     class EyerAVEncoderPrivate;
     class EyerAVWriterPrivate;
 
+    enum EyerEyeStreamType{
+        STREAM_TYPE_UNKNOW = 0,
+        STREAM_TYPE_AUDIO = 1,
+        STREAM_TYPE_VIDEO = 2
+    };
+
     class EyerAVPacket
     {
     public:
@@ -75,7 +81,7 @@ namespace Eyer
         int Open();
         int Close();
 
-        int AddStream(EyerEyeStream * stream, EyerAVEncoder * encoder);
+        int AddStream(EyerAVEncoder * encoder);
 
         int WriteHand();
         int WritePacket(EyerAVPacket * packet);
@@ -89,6 +95,8 @@ namespace Eyer
     public:
         EyerEyeStream();
         ~EyerEyeStream();
+
+        EyerEyeStreamType GetStreamType();
     };
 
     class EyerAVDecoder

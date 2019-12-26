@@ -85,7 +85,9 @@ namespace Eyer
         }
 
         stream.streamIndex = piml->formatCtx->streams[index]->index;
-        
+
+        stream.piml->type = EyerEyeStreamType::STREAM_TYPE_UNKNOW;
+
         avcodec_copy_context(stream.piml->codecContext, piml->formatCtx->streams[index]->codec);
 
         return 0;

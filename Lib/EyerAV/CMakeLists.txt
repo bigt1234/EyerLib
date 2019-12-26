@@ -10,6 +10,15 @@ add_library(
     EyerAVFrame.cpp
     EyerAVEncoder.cpp
     EyerAVWriter.cpp
+
+    EyerAV.hpp
+    EyerAVDecoderPrivate.hpp
+    EyerAVEncoderPrivate.hpp
+    EyerAVFramePrivate.hpp
+    EyerAVPacketPrivate.hpp
+    EyerAVReaderPrivate.hpp
+    EyerAVStreamPrivate.hpp
+    EyerAVWriterPrivate.hpp
 )
 
 target_link_libraries (EyerAV pthread)

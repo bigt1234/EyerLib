@@ -52,15 +52,18 @@ namespace Eyer
         return 0;
     }
 
-    int EyerAVWriter::AddStream(EyerEyeStream * stream, EyerAVEncoder * encoder)
+    int EyerAVWriter::AddStream(EyerAVEncoder * encoder)
     {
-        AVStream * avStream = avformat_new_stream(piml->formatCtx, stream->piml->codecContext->codec);
-
-        avcodec_copy_context(avStream->codec, stream->piml->codecContext);
-
-        avStream->codec->codec_tag = 0;
+        if(encoder->piml->codecContext == nullptr){
+            return -1;
+        }
+        
+        AVStream * avStream = avformat_new_stream(piml->formatCtx, encoder->piml->codecContext->codec);
 
         avcodec_copy_context(avStream->codec, encoder->piml->codecContext);
+
+        avStream->time_base.den = encoder->piml->codecContext->time_base.den;
+        avStream->time_base.num = encoder->piml->codecContext->time_base.num;
 
         avStream->codec->codec_tag = 0;
         encoder->piml->codecContext->codec_tag = 0;

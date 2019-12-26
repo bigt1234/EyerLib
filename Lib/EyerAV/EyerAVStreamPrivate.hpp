@@ -14,6 +14,7 @@ namespace Eyer
     {
     public:
         AVCodecContext * codecContext = nullptr;
+        EyerEyeStreamType type = EyerEyeStreamType::STREAM_TYPE_UNKNOW;
     };
 }
 
