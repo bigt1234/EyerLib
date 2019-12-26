@@ -17,6 +17,9 @@ namespace Eyer
     EyerAVEncoder::~EyerAVEncoder()
     {
         if(piml->codecContext != nullptr){
+            if(avcodec_is_open(piml->codecContext)){
+                avcodec_close(piml->codecContext);
+            }
             avcodec_free_context(&piml->codecContext);
             piml->codecContext = nullptr;
         }
@@ -29,8 +32,9 @@ namespace Eyer
     int EyerAVEncoder::Init(EyerEyeStream * stream)
     {
         avcodec_copy_context(piml->codecContext, stream->piml->codecContext);
-
         AVCodec * codec = avcodec_find_encoder(piml->codecContext->codec_id);
+
+        // piml->codecContext = avcodec_alloc_context3(codec);
 
         if(piml->codecContext->codec_id == AV_CODEC_ID_H264){
             piml->codecContext->me_range = 16;
@@ -46,6 +50,7 @@ namespace Eyer
             RedLog("Open Decoder Fail\n");
             return -1;
         }
+        
         return 0;
     }
 

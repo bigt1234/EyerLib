@@ -2,8 +2,11 @@
 
 #include "EyerAV/EyerAV.hpp"
 
-char * pathStr = (char *)"/Users/yuqiaomiao/Video/1280_720.mp4";
-char * outPathStr = (char *)"/Users/yuqiaomiao/Video/1280_720_out.mp4";
+// char * pathStr = (char *)"/Users/yuqiaomiao/Video/1280_720.mp4";
+// char * outPathStr = (char *)"/Users/yuqiaomiao/Video/1280_720_out.mp4";
+
+char * pathStr = (char *)"/home/redknot/Videos/M_1280_720.mp4";
+char * outPathStr = (char *)"/home/redknot/Videos/M_1280_720_out.mp4";
 
 TEST(EyerAVPacket, packet){
     for(int i=0;i<100;i++){
@@ -88,10 +91,13 @@ TEST(Decoder, decoder){
         writer.AddStream(&stream, encoder);
     }
 
+    /*
     writer.Open();
 
-    while (1)
+    int index = 0;
+    while (index<50)
     {
+        index++;
         Eyer::EyerAVPacket packet;
         int ret = reader.Read(&packet);
         if(ret){
@@ -132,7 +138,28 @@ TEST(Decoder, decoder){
         }
     }
 
+    for(int i=0;i<encoderList.size();i++){
+        Eyer::EyerAVEncoder * encoder = encoderList[i];
+
+        while(1){
+            Eyer::EyerAVPacket packet;
+            ret = encoder->RecvPacket(&packet);
+            if(ret){
+                break;
+            }
+
+            // printf("packet PTS: %lld\n", packet.GetPTS());
+            // printf("packet DTS: %lld\n", packet.GetDTS());
+
+            packet.SetStreamId(i);
+            writer.WritePacket(&packet);
+            // RedLog("Get Packet : %d\n", streamId);
+        }
+    }
+
+
     writer.Close();
+    */
 
     for(int i=0;i<decoderList.size();i++){
         Eyer::EyerAVDecoder * decoder = decoderList[i];
