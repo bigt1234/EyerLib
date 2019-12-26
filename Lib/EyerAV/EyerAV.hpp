@@ -113,6 +113,20 @@ namespace Eyer
         int RecvFrame(EyerAVFrame * frame);
     };
 
+    enum CodecId
+    {
+        CODEC_ID_UNKNOW = 0,
+        CODEC_ID_H264 = 1,
+        CODEC_ID_AAC = 2
+    };
+
+    class EncoderParam
+    {
+    public:
+        CodecId codecId = CodecId::CODEC_ID_UNKNOW;
+        int width = 0;
+        int height = 0;
+    };
 
     class EyerAVEncoder
     {
@@ -123,6 +137,7 @@ namespace Eyer
         ~EyerAVEncoder();
 
         int Init(EyerAVStream * stream);
+        int Init(EncoderParam * param);
 
         int Flush();
 
