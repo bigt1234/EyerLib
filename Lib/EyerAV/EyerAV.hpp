@@ -92,11 +92,16 @@ namespace Eyer
     public:
         int streamIndex = -1;
         EyerAVStreamPrivate * piml = nullptr;
+
+        double duration = 0;
     public:
         EyerAVStream();
         ~EyerAVStream();
 
         EyerAVStreamType GetStreamType();
+
+        int SetDuration(double _duration);
+        double GetDuration();
     };
 
     class EyerAVDecoder

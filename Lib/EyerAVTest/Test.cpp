@@ -51,8 +51,10 @@ TEST(EyerAVFormat3, format3_read_frame){
     reader.Close();
 }
 
+#include "EyerAVDecoderTest.hpp"
 
 
+/*
 TEST(VideoRecoder, videoRecoder){
     Eyer::EyerString path = pathStr;
     Eyer::EyerAVReader reader(path);
@@ -312,6 +314,7 @@ TEST(VideoRecoder, split){
     }
     encoderList.clear();
 }
+*/
 
 int main(int argc,char **argv){
     testing::InitGoogleTest(&argc, argv);

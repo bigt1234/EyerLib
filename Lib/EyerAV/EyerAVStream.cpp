@@ -33,4 +33,15 @@ namespace Eyer
 
         return EyerAVStreamType::STREAM_TYPE_AUDIO;
     }
+
+    int EyerAVStream::SetDuration(double _duration)
+    {
+        duration = _duration;
+        return 0;
+    }
+
+    double EyerAVStream::GetDuration()
+    {
+        return duration;
+    }
 }

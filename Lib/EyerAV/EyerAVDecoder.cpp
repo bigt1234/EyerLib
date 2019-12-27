@@ -42,7 +42,11 @@ namespace Eyer
     int EyerAVDecoder::SendPacket(EyerAVPacket * packet)
     {
         // TODO 判断解码器是否打开
-        int ret = avcodec_send_packet(piml->codecContext, packet->piml->packet);
+        AVPacket * avpkt = nullptr;
+        if(packet != nullptr){
+            avpkt = packet->piml->packet;
+        }
+        int ret = avcodec_send_packet(piml->codecContext, avpkt);
         return ret;
     }
 
