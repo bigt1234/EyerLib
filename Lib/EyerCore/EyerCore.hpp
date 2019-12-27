@@ -2,5 +2,6 @@
 #define	EYER_CORE_H
 
 #include "Red.hpp"
+#include "EyerString.hpp"
 
 #endif

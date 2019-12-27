@@ -10,7 +10,7 @@ extern "C"{
 
 namespace Eyer
 {
-    EyerAVReader::EyerAVReader(RedString _path)
+    EyerAVReader::EyerAVReader(EyerString _path)
     {
         piml = new EyerAVReaderPrivate();
         piml->path = _path;

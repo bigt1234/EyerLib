@@ -58,7 +58,7 @@ namespace Eyer
     public:
         EyerAVReaderPrivate * piml = nullptr;
     public:
-        EyerAVReader(RedString _path);
+        EyerAVReader(EyerString _path);
         ~EyerAVReader();
 
         int Open();
@@ -75,7 +75,7 @@ namespace Eyer
     public:
         EyerAVWriterPrivate * piml = nullptr;
     public:
-        EyerAVWriter(RedString _path);
+        EyerAVWriter(EyerString _path);
         ~EyerAVWriter();
 
         int Open();

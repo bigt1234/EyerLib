@@ -1,6 +1,29 @@
 #include <gtest/gtest.h>
 
-#include "EyerCore/Red.hpp"
+#include "EyerCore/EyerCore.hpp"
+
+TEST(EyerString, string){
+    Eyer::EyerString str = "miaowumiaowu";
+
+    Eyer::EyerString strA = str;
+
+    Eyer::EyerString strB;
+    strB = str;
+
+    Eyer::EyerString strEmptyA;
+    EXPECT_TRUE(strEmptyA.IsEmpty());
+
+    Eyer::EyerString strEmptyB;
+    EXPECT_TRUE(strEmptyB.IsEmpty());
+
+    EXPECT_TRUE(strEmptyA == strEmptyB);
+
+    strEmptyA = str;
+    EXPECT_FALSE(strEmptyA == strEmptyB);
+
+    strEmptyB = str;
+    EXPECT_TRUE(strEmptyA == strEmptyB);
+}
 
 TEST(RedString_Test,string){
     RedString a;

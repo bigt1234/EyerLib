@@ -17,6 +17,11 @@ add_library(
     RedMap.cpp
     RedLruMap.cpp
     RedByte.cpp
+
+    EyerString.cpp
+
+    EyerCore.hpp
+    EyerString.hpp
 )
 
 target_link_libraries (EyerCore pthread)
@@ -35,6 +40,8 @@ set(head_files
     RedString.hpp
     RedYuv.hpp
     RedYuvQueue.hpp
+    EyerString.hpp
+    EyerCore.hpp
 )
 
 INSTALL(FILES ${head_files} DESTINATION include/EyerCore)

@@ -19,14 +19,14 @@ TEST(EyerAVPacket, packet){
 }
 
 TEST(EyerAVFormat1, format1){
-    RedString path("");
+    Eyer::EyerString path = "";
     Eyer::EyerAVReader reader(path);
     int ret = reader.Open();
     ASSERT_LT(ret, 0) << "这里应该打开失败";
 }
 
 TEST(EyerAVFormat2, format2_open_success){
-    RedString path(pathStr);
+    Eyer::EyerString path = pathStr;
     Eyer::EyerAVReader reader(path);
     int ret = reader.Open();
     ASSERT_EQ(ret, 0) << "这里应该打开成功";
@@ -34,7 +34,7 @@ TEST(EyerAVFormat2, format2_open_success){
 }
 
 TEST(EyerAVFormat3, format3_read_frame){
-    RedString path(pathStr);
+    Eyer::EyerString path = pathStr;
     Eyer::EyerAVReader reader(path);
     int ret = reader.Open();
     ASSERT_EQ(ret, 0) << "这里应该打开成功";
@@ -54,7 +54,7 @@ TEST(EyerAVFormat3, format3_read_frame){
 
 
 TEST(VideoRecoder, videoRecoder){
-    RedString path(pathStr);
+    Eyer::EyerString path = pathStr;
     Eyer::EyerAVReader reader(path);
     int ret = reader.Open();
     ASSERT_EQ(ret, 0) << "这里应该打开成功";
@@ -62,7 +62,7 @@ TEST(VideoRecoder, videoRecoder){
     int streamCount = reader.GetStreamCount();
     ASSERT_EQ(streamCount, 2) << "如果使用的是提供的测试文件，那么这里应该返回2";
 
-    RedString outPath(outPathStr);
+    Eyer::EyerString outPath = outPathStr;
     Eyer::EyerAVWriter writer(outPath);
 
     std::vector<Eyer::EyerAVDecoder *> decoderList;
@@ -174,16 +174,16 @@ TEST(VideoRecoder, videoRecoder){
 TEST(VideoRecoder, split){
     std::vector<Eyer::EyerAVReader *> readerList;
     {
-        RedString path("/Users/yuqiaomiao/Video/1280_720.mp4");
+        Eyer::EyerString path = "/Users/yuqiaomiao/Video/1280_720.mp4";
         Eyer::EyerAVReader * reader = new Eyer::EyerAVReader(path);
         readerList.push_back(reader);
     }
 
-    RedString outPath(outPathSStr);
+    Eyer::EyerString outPath = outPathSStr;
     Eyer::EyerAVWriter writer(outPath);
 
     // 弄个模版视频
-    RedString templPath("/Users/yuqiaomiao/Video/1280_720.mp4");
+    Eyer::EyerString templPath = "/Users/yuqiaomiao/Video/1280_720.mp4";
     Eyer::EyerAVReader templVideo(templPath);
     std::vector<Eyer::EyerAVEncoder *> encoderList;
 
