@@ -18,6 +18,8 @@ namespace Eyer {
 
         EyerString & operator = (const EyerString & s);
         bool operator == (const EyerString & s);
+
+        EyerString operator + (const EyerString & s);
     };
 }
 

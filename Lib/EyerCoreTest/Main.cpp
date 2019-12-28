@@ -3,26 +3,37 @@
 #include "EyerCore/EyerCore.hpp"
 
 TEST(EyerString, string){
-    Eyer::EyerString str = "miaowumiaowu";
+    for(int i=0;i<100;i++){
+        Eyer::EyerString str = (Eyer::EyerString)"miaowumiaowu";
 
-    Eyer::EyerString strA = str;
+        Eyer::EyerString strA = str;
 
-    Eyer::EyerString strB;
-    strB = str;
+        Eyer::EyerString strB;
+        strB = str;
 
-    Eyer::EyerString strEmptyA;
-    EXPECT_TRUE(strEmptyA.IsEmpty());
+        Eyer::EyerString strEmptyA;
+        EXPECT_TRUE(strEmptyA.IsEmpty());
 
-    Eyer::EyerString strEmptyB;
-    EXPECT_TRUE(strEmptyB.IsEmpty());
+        Eyer::EyerString strEmptyB;
+        EXPECT_TRUE(strEmptyB.IsEmpty());
 
-    EXPECT_TRUE(strEmptyA == strEmptyB);
+        EXPECT_TRUE(strEmptyA == strEmptyB);
 
-    strEmptyA = str;
-    EXPECT_FALSE(strEmptyA == strEmptyB);
+        strEmptyA = str;
+        EXPECT_FALSE(strEmptyA == strEmptyB);
 
-    strEmptyB = str;
-    EXPECT_TRUE(strEmptyA == strEmptyB);
+        strEmptyB = str;
+        EXPECT_TRUE(strEmptyA == strEmptyB);
+    }
+
+    for(int i=0;i<100;i++){
+        Eyer::EyerString strA = "strA";
+        Eyer::EyerString strB = "strB";
+
+        Eyer::EyerString strAB = strA + strB;
+
+        EXPECT_TRUE(strAB == "strAstrB");
+    }
 }
 
 TEST(RedString_Test,string){
@@ -32,7 +43,7 @@ TEST(RedString_Test,string){
     EXPECT_FALSE(a == b);
 
     a = b;
-    EXPECT_TRUE(a == b); // 我是你爸爸
+    EXPECT_TRUE(a == b);
 }
 
 TEST(RedArgs_Test, args){

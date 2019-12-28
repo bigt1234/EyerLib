@@ -60,6 +60,43 @@ namespace Eyer {
         return false;
     }
 
+    EyerString EyerString::operator + (const EyerString & s){
+        EyerString outStr;
+
+        if(IsEmpty() && s.IsEmpty()){
+            return outStr;
+        }
+
+        int strALen = 0;
+        if(!IsEmpty()){
+            strALen = strlen(str);
+        }
+
+        int strBLen = 0;
+        if(!s.IsEmpty()){
+            strBLen = strlen(s.str);
+        }
+
+        int strLen = strALen + strBLen;
+        if(strLen <= 0){
+            return outStr;
+        }
+
+        // alloc
+        outStr.str = (char *)malloc(strLen + 1);
+        if(strALen > 0){
+            memcpy(outStr.str, str, strALen);
+        }
+
+        if(strBLen > 0){
+            memcpy(outStr.str + strALen, s.str, strBLen);
+        }
+
+        outStr.str[strLen] = '\0';
+
+        return outStr;
+    }
+
     bool EyerString::IsEmpty() const
     {
         if(str == nullptr){
