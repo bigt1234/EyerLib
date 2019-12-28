@@ -74,6 +74,21 @@ namespace Eyer
             }
 
             piml->codecContext = avcodec_alloc_context3(codec);
+
+            piml->codecContext->time_base.den = 90000;
+            piml->codecContext->time_base.num = 1;
+
+            piml->codecContext->codec_type = AVMEDIA_TYPE_AUDIO;
+            piml->codecContext->sample_fmt = AV_SAMPLE_FMT_FLTP;
+            // piml->codecContext->sample_fmt = AV_SAMPLE_FMT_S16;
+
+            piml->codecContext->sample_rate = 44100;
+
+            // piml->codecContext->channel_layout = AV_CH_LAYOUT_STEREO;
+            piml->codecContext->channel_layout = AV_CH_LAYOUT_MONO;
+            piml->codecContext->channels = av_get_channel_layout_nb_channels(piml->codecContext->channel_layout);
+
+            piml->codecContext->bit_rate = 64000;
         }
 
         int ret = avcodec_open2(piml->codecContext, codec, nullptr);
@@ -83,6 +98,12 @@ namespace Eyer
         }
 
         return 0;
+    }
+
+    int EyerAVEncoder::GetBufferSize()
+    {
+        int size = av_samples_get_buffer_size(NULL, piml->codecContext->channels,piml->codecContext->frame_size,piml->codecContext->sample_fmt, 1);
+        return size;
     }
 
     int EyerAVEncoder::Init(EyerAVStream * stream)

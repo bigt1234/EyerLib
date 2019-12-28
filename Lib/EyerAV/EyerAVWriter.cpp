@@ -68,7 +68,7 @@ namespace Eyer
         avStream->codec->codec_tag = 0;
         encoder->piml->codecContext->codec_tag = 0;
         
-        return avStream->id;
+        return avStream->index;
     }
 
     int EyerAVWriter::WritePacket(EyerAVPacket * packet)

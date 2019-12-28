@@ -4,8 +4,10 @@
 #include <gtest/gtest.h>
 #include "EyerAV/EyerAV.hpp"
 
+#include "Path.hpp"
+
 TEST(EyerAVFormat4, format4_read_frame){
-    Eyer::EyerAVReader reader("/Users/yuqiaomiao/Video/1280_720.mp4");
+    Eyer::EyerAVReader reader(pathStr);
     int ret = reader.Open();
     ASSERT_EQ(ret, 0) << "这里应该打开成功";
 

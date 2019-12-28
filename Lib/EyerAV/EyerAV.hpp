@@ -51,6 +51,10 @@ namespace Eyer
     public:
         EyerAVFrame();
         ~EyerAVFrame();
+
+        int SetPTS(uint64_t pts);
+
+        int SetData(unsigned char * data, int dataLen);
     };
 
     class EyerAVReader
@@ -145,6 +149,8 @@ namespace Eyer
         int Init(EncoderParam * param);
 
         int Flush();
+
+        int GetBufferSize();
 
         int SendFrame(EyerAVFrame * frame);
         int RecvPacket(EyerAVPacket * packet);
