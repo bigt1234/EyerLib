@@ -1,6 +1,9 @@
 add_executable(
     EyerAVTest
+
     Test.cpp
+
+    EyerAVDecoderTest.hpp
     )
 
 include_directories (../)

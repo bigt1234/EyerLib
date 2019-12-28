@@ -10,7 +10,7 @@ extern "C"{
 
 namespace Eyer
 {
-    EyerAVReader::EyerAVReader(RedString _path)
+    EyerAVReader::EyerAVReader(EyerString _path)
     {
         piml = new EyerAVReaderPrivate();
         piml->path = _path;
@@ -70,7 +70,7 @@ namespace Eyer
         return piml->formatCtx->nb_streams;
     }
 
-    int EyerAVReader::GetStream(EyerEyeStream & stream, int index)
+    int EyerAVReader::GetStream(EyerAVStream & stream, int index)
     {
         if(piml->formatCtx == nullptr){
             return -1;
@@ -84,10 +84,12 @@ namespace Eyer
             return -1;
         }
 
+        double duration = piml->formatCtx->streams[index]->duration * 1.0 * piml->formatCtx->streams[index]->time_base.num / piml->formatCtx->streams[index]->time_base.den;
+
+        stream.SetDuration(duration);
+
         stream.streamIndex = piml->formatCtx->streams[index]->index;
-
-        stream.piml->type = EyerEyeStreamType::STREAM_TYPE_UNKNOW;
-
+        stream.piml->type = EyerAVStreamType::STREAM_TYPE_UNKNOW;
         avcodec_copy_context(stream.piml->codecContext, piml->formatCtx->streams[index]->codec);
 
         return 0;

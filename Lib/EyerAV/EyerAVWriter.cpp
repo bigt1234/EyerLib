@@ -9,7 +9,7 @@
 
 namespace Eyer
 {
-    EyerAVWriter::EyerAVWriter(RedString _path)
+    EyerAVWriter::EyerAVWriter(EyerString _path)
     {
         piml = new EyerAVWriterPrivate();
         piml->path = _path;

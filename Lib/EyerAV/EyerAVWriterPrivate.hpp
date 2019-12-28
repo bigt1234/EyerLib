@@ -13,7 +13,7 @@ namespace Eyer
     class EyerAVWriterPrivate
     {
     public:
-        RedString path;
+        EyerString path;
         AVFormatContext * formatCtx = nullptr;
     };
 }

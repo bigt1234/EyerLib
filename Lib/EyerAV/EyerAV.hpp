@@ -8,7 +8,7 @@ namespace Eyer
     class EyerAVPacket;
     class EyerAVReader;
     class EyerAVDecoder;
-    class EyerEyeStream;
+    class EyerAVStream;
     class EyerAVEncoder;
 
     class EyerAVPacketPrivate;
@@ -19,7 +19,7 @@ namespace Eyer
     class EyerAVEncoderPrivate;
     class EyerAVWriterPrivate;
 
-    enum EyerEyeStreamType{
+    enum EyerAVStreamType{
         STREAM_TYPE_UNKNOW = 0,
         STREAM_TYPE_AUDIO = 1,
         STREAM_TYPE_VIDEO = 2
@@ -58,7 +58,7 @@ namespace Eyer
     public:
         EyerAVReaderPrivate * piml = nullptr;
     public:
-        EyerAVReader(RedString _path);
+        EyerAVReader(EyerString _path);
         ~EyerAVReader();
 
         int Open();
@@ -67,7 +67,7 @@ namespace Eyer
         int Read(EyerAVPacket * packet);
 
         int GetStreamCount();
-        int GetStream(EyerEyeStream & stream, int index);
+        int GetStream(EyerAVStream & stream, int index);
     };
 
     class EyerAVWriter
@@ -75,7 +75,7 @@ namespace Eyer
     public:
         EyerAVWriterPrivate * piml = nullptr;
     public:
-        EyerAVWriter(RedString _path);
+        EyerAVWriter(EyerString _path);
         ~EyerAVWriter();
 
         int Open();
@@ -87,16 +87,21 @@ namespace Eyer
         int WritePacket(EyerAVPacket * packet);
     };
 
-    class EyerEyeStream
+    class EyerAVStream
     {
     public:
         int streamIndex = -1;
         EyerAVStreamPrivate * piml = nullptr;
-    public:
-        EyerEyeStream();
-        ~EyerEyeStream();
 
-        EyerEyeStreamType GetStreamType();
+        double duration = 0;
+    public:
+        EyerAVStream();
+        ~EyerAVStream();
+
+        EyerAVStreamType GetStreamType();
+
+        int SetDuration(double _duration);
+        double GetDuration();
     };
 
     class EyerAVDecoder
@@ -107,12 +112,26 @@ namespace Eyer
         EyerAVDecoder();
         ~EyerAVDecoder();
 
-        int Init(EyerEyeStream * stream);
+        int Init(EyerAVStream * stream);
 
         int SendPacket(EyerAVPacket * packet);
         int RecvFrame(EyerAVFrame * frame);
     };
 
+    enum CodecId
+    {
+        CODEC_ID_UNKNOW = 0,
+        CODEC_ID_H264 = 1,
+        CODEC_ID_AAC = 2
+    };
+
+    class EncoderParam
+    {
+    public:
+        CodecId codecId = CodecId::CODEC_ID_UNKNOW;
+        int width = 0;
+        int height = 0;
+    };
 
     class EyerAVEncoder
     {
@@ -122,7 +141,10 @@ namespace Eyer
         EyerAVEncoder();
         ~EyerAVEncoder();
 
-        int Init(EyerEyeStream * stream);
+        int Init(EyerAVStream * stream);
+        int Init(EncoderParam * param);
+
+        int Flush();
 
         int SendFrame(EyerAVFrame * frame);
         int RecvPacket(EyerAVPacket * packet);
