@@ -10,6 +10,8 @@ namespace Eyer
 {
     EyerAVEncoder::EyerAVEncoder()
     {
+        av_register_all();
+        avformat_network_init();
         piml = new EyerAVEncoderPrivate();
         // piml->codecContext = avcodec_alloc_context3(nullptr);
     }
@@ -64,6 +66,12 @@ namespace Eyer
         if(param->codecId == CodecId::CODEC_ID_AAC){
             // 初始化 AAC 编码器
             codec = avcodec_find_encoder(AV_CODEC_ID_AAC);
+            if(codec == nullptr){
+                printf("avcodec_find_encoder(AV_CODEC_ID_AAC) Fail\n");
+            }
+            else{
+                // printf("avcodec_find_encoder(AV_CODEC_ID_AAC) Success\n");
+            }
 
             if(piml->codecContext != nullptr){
                 if(avcodec_is_open(piml->codecContext)){
@@ -84,8 +92,8 @@ namespace Eyer
 
             piml->codecContext->sample_rate = 44100;
 
-            // piml->codecContext->channel_layout = AV_CH_LAYOUT_STEREO;
-            piml->codecContext->channel_layout = AV_CH_LAYOUT_MONO;
+            piml->codecContext->channel_layout = AV_CH_LAYOUT_STEREO;
+            // piml->codecContext->channel_layout = AV_CH_LAYOUT_MONO;
             piml->codecContext->channels = av_get_channel_layout_nb_channels(piml->codecContext->channel_layout);
 
             piml->codecContext->bit_rate = 64000;

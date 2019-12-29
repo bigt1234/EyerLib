@@ -3,3 +3,5 @@ install/
 3rdpart/
 .vscode/
 *.user
+.idea/
+cmake-build-debug/

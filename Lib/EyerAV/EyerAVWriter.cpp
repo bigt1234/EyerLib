@@ -67,6 +67,9 @@ namespace Eyer
 
         avStream->codec->codec_tag = 0;
         encoder->piml->codecContext->codec_tag = 0;
+
+        printf("NUM:%d\n", avStream->time_base.num);
+        printf("DEN:%d\n", avStream->time_base.den);
         
         return avStream->index;
     }

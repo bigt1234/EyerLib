@@ -6,6 +6,8 @@ extern "C"{
 #include <libavcodec/avcodec.h>
 }
 
+#include <map>
+
 namespace Eyer
 {
     class EyerAVFramePrivate
@@ -13,6 +15,8 @@ namespace Eyer
     public:
         AVFrame * frame = nullptr;
         unsigned char * data = nullptr;
+
+        std::map<int, unsigned char *> dataCache;
     };
 }
 

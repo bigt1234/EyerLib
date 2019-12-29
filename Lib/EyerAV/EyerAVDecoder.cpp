@@ -36,6 +36,10 @@ namespace Eyer
             RedLog("Open Decoder Fail\n");
             return -1;
         }
+
+        printf("NUM:%d\n", piml->codecContext->time_base.num);
+        printf("DEN:%d\n", piml->codecContext->time_base.den);
+
         return 0;
     }
 
