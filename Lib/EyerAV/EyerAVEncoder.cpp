@@ -97,6 +97,8 @@ namespace Eyer
             piml->codecContext->channels = av_get_channel_layout_nb_channels(piml->codecContext->channel_layout);
 
             piml->codecContext->bit_rate = 64000;
+
+
         }
 
         int ret = avcodec_open2(piml->codecContext, codec, nullptr);
@@ -104,6 +106,8 @@ namespace Eyer
             RedLog("Open Decoder Fail\n");
             return -1;
         }
+
+        printf("Frame Size:%d\n", piml->codecContext->frame_size);
 
         return 0;
     }
@@ -207,6 +211,16 @@ namespace Eyer
 
         int ret = avcodec_receive_packet(piml->codecContext, packet->piml->packet);
         return ret;
+    }
+
+    int EyerAVEncoder::GetFrameSize()
+    {
+        return piml->codecContext->frame_size;
+    }
+
+    int EyerAVEncoder::GetChannelNum()
+    {
+        return piml->codecContext->channels;
     }
 
     int EyerAVEncoder::Flush()

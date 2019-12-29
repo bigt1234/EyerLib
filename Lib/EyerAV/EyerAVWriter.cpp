@@ -62,16 +62,36 @@ namespace Eyer
 
         avcodec_copy_context(avStream->codec, encoder->piml->codecContext);
 
-        avStream->time_base.den = encoder->piml->codecContext->time_base.den;
-        avStream->time_base.num = encoder->piml->codecContext->time_base.num;
+        avStream->time_base = encoder->piml->codecContext->time_base;
 
         avStream->codec->codec_tag = 0;
         encoder->piml->codecContext->codec_tag = 0;
-
-        printf("NUM:%d\n", avStream->time_base.num);
-        printf("DEN:%d\n", avStream->time_base.den);
         
         return avStream->index;
+    }
+
+    int EyerAVWriter::GetStreamTimeBaseDen(int streamIndex)
+    {
+        if(streamIndex < 0){
+            return -1;
+        }
+        if(streamIndex >= piml->formatCtx->nb_streams){
+            return -1;
+        }
+
+        return piml->formatCtx->streams[streamIndex]->time_base.den;
+    }
+
+    int EyerAVWriter::GetStreamTimeBaseNum(int streamIndex)
+    {
+        if(streamIndex < 0){
+            return -1;
+        }
+        if(streamIndex >= piml->formatCtx->nb_streams){
+            return -1;
+        }
+
+        return piml->formatCtx->streams[streamIndex]->time_base.num;
     }
 
     int EyerAVWriter::WritePacket(EyerAVPacket * packet)

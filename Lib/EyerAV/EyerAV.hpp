@@ -52,13 +52,16 @@ namespace Eyer
         EyerAVFrame();
         ~EyerAVFrame();
 
+        int SetData(EyerAVEncoder * encoder, unsigned char * data, int dataLen);
+        int SetZero(EyerAVEncoder * encoder);
+
         int SetPTS(uint64_t pts);
         uint64_t GetPTS();
 
-        int SetData(unsigned char * data, int dataLen, int dataChannel);
-        int SetZeroData(int dataLen, int dataChannel);
-
         int GetLineSize(int dataChannel);
+
+    private:
+        int Debug();
     };
 
     class EyerAVReader
@@ -90,6 +93,9 @@ namespace Eyer
         int Close();
 
         int AddStream(EyerAVEncoder * encoder);
+
+        int GetStreamTimeBaseDen(int streamIndex);
+        int GetStreamTimeBaseNum(int streamIndex);
 
         int WriteHand();
         int WritePacket(EyerAVPacket * packet);
@@ -155,6 +161,8 @@ namespace Eyer
         int Flush();
 
         int GetBufferSize();
+        int GetFrameSize();
+        int GetChannelNum();
 
         int SendFrame(EyerAVFrame * frame);
         int RecvPacket(EyerAVPacket * packet);

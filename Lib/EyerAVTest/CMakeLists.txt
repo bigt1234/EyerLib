@@ -7,6 +7,7 @@ add_executable(
         EyerAVEncoderTest.hpp
         Path.hpp
         EyerAVFrameTest.hpp
+        EyerAVEncoderSinTest.hpp
 )
 
 include_directories (../)

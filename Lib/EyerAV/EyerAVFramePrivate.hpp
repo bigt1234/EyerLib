@@ -14,9 +14,6 @@ namespace Eyer
     {
     public:
         AVFrame * frame = nullptr;
-        unsigned char * data = nullptr;
-
-        std::map<int, unsigned char *> dataCache;
     };
 }
 

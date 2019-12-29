@@ -46,6 +46,7 @@ TEST(EyerAVFormat3, format3_read_frame){
 // #include "EyerAVDecoderTest.hpp"
 #include "EyerAVEncoderTest.hpp"
 #include "EyerAVFrameTest.hpp"
+#include "EyerAVEncoderSinTest.hpp"
 
 int main(int argc,char **argv){
     testing::InitGoogleTest(&argc, argv);
