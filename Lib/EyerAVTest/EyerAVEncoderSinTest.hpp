@@ -28,7 +28,6 @@ TEST(EyerAVCodec, audio_encoder_sin){
 
     for(int i=0;i<1000;i++){
         Eyer::EyerAVFrame frame;
-        frame.SetZero(&encoder);
 
         encoder.SendFrame(&frame);
 

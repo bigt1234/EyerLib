@@ -52,16 +52,7 @@ namespace Eyer
         EyerAVFrame();
         ~EyerAVFrame();
 
-        int SetData(EyerAVEncoder * encoder, unsigned char * data, int dataLen);
-        int SetZero(EyerAVEncoder * encoder);
-
-        int SetPTS(uint64_t pts);
-        uint64_t GetPTS();
-
-        int GetLineSize(int dataChannel);
-
-    private:
-        int Debug();
+        int GetInfo();
     };
 
     class EyerAVReader
