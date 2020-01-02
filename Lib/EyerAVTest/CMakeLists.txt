@@ -8,7 +8,7 @@ add_executable(
         Path.hpp
         EyerAVFrameTest.hpp
         EyerAVEncoderSinTest.hpp
-)
+        EyerAVDecoderAudioTest.h)
 
 include_directories (../)
 

@@ -4,6 +4,12 @@
 
 #include "Path.hpp"
 
+#include "EyerAVDecoderTest.hpp"
+#include "EyerAVEncoderTest.hpp"
+#include "EyerAVFrameTest.hpp"
+#include "EyerAVEncoderSinTest.hpp"
+// #include "EyerAVDecoderAudioTest.h"
+
 TEST(EyerAVPacket, packet){
     for(int i=0;i<100;i++){
         Eyer::EyerAVPacket packet;
@@ -42,11 +48,6 @@ TEST(EyerAVFormat3, format3_read_frame){
 
     reader.Close();
 }
-
-// #include "EyerAVDecoderTest.hpp"
-#include "EyerAVEncoderTest.hpp"
-#include "EyerAVFrameTest.hpp"
-#include "EyerAVEncoderSinTest.hpp"
 
 int main(int argc,char **argv){
     testing::InitGoogleTest(&argc, argv);

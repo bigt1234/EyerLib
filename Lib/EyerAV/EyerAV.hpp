@@ -52,6 +52,13 @@ namespace Eyer
         EyerAVFrame();
         ~EyerAVFrame();
 
+        int GetLineSize(int channel);
+
+        int SetAudioFLTPData(unsigned char * channelData0, int channelDataLen0, unsigned char * channelData1, int channelDataLen1);
+
+        int GetWidth();
+        int GetHeight();
+
         int GetInfo();
     };
 

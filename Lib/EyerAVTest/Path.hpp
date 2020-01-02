@@ -5,8 +5,13 @@ char * pathStr = (char *)"/Users/yuqiaomiao/Video/1280_720.mp4";
 char * outPathStr = (char *)"/Users/yuqiaomiao/Video/1280_720_out.mp4";
 char * outPathSStr = (char *)"/Users/yuqiaomiao/Video/1280_720_S_out.mp4";
 */
-
+/*
 char * pathStr = (char *)"/home/redknot/Videos/M_1280_720.mp4";
 char * outPathStr = (char *)"/home/redknot/Videos/M_1280_720_out.mp4";
+*/
+
+char * pathStr = (char *)"/Users/lichi/Movies/VID_20200102_125837.mp4";
+char * outPathStr = (char *)"/Users/lichi/Movies/VID_20200102_125837_aaa.mp4";
+char * sinOutPathStr = (char *)"/Users/lichi/Movies/audio_encoder_sin.aac";
 
 #endif

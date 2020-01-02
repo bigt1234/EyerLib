@@ -4,7 +4,7 @@
 
 TEST(EyerString, string){
     for(int i=0;i<100;i++){
-        Eyer::EyerString str = (Eyer::EyerString)"miaowumiaowu";
+        Eyer::EyerString str = (Eyer::EyerString)"/Users/lichi/Downloads/size.flv";
 
         Eyer::EyerString strA = str;
 

@@ -5,7 +5,7 @@
 #include "EyerAV/EyerAV.hpp"
 
 TEST(EyerAVCodec, audio_encoder_sin){
-    Eyer::EyerAVWriter writer("/home/redknot/Videos/A/audio_encoder_sin.aac");
+    Eyer::EyerAVWriter writer(sinOutPathStr);
 
     Eyer::EncoderParam param;
     param.codecId = Eyer::CodecId::CODEC_ID_AAC;
@@ -28,6 +28,22 @@ TEST(EyerAVCodec, audio_encoder_sin){
 
     for(int i=0;i<1000;i++){
         Eyer::EyerAVFrame frame;
+
+        int size = encoder.GetFrameSize();
+
+        float * aData = (float *)malloc(size / 2);
+        for(int i=0;i<size / 2 / 4 ;i++){
+            aData[i] = 0.0f;
+        }
+
+        float * bData = (float *)malloc(size / 2);
+        for(int i=0;i<size / 2 / 4 ;i++){
+            bData[i] = sinf(i * 0.1f);
+        }
+        frame.SetAudioFLTPData((unsigned char *)aData, size / 2, (unsigned char *)bData, size / 2);
+
+        free(aData);
+        free(bData);
 
         encoder.SendFrame(&frame);
 
