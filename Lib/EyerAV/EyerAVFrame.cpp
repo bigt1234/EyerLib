@@ -20,29 +20,29 @@ namespace Eyer {
             delete piml;
             piml = nullptr;
         }
+
+        for(int i=0;i<dataManager.size();i++){
+            free(dataManager[i]);
+        }
+        dataManager.clear();
     }
 
-    int EyerAVFrame::GetLineSize(int channel)
-    {
+    int EyerAVFrame::GetLineSize(int channel) {
         return piml->frame->linesize[channel];
     }
 
-    int EyerAVFrame::GetWidth()
-    {
+    int EyerAVFrame::GetWidth() {
         return piml->frame->width;
     }
 
-    int EyerAVFrame::GetHeight()
-    {
+    int EyerAVFrame::GetHeight() {
         return piml->frame->height;
     }
 
-    int EyerAVFrame::GetInfo()
-    {
-        if(piml->frame->format == AV_SAMPLE_FMT_FLTP){
+    int EyerAVFrame::GetInfo() {
+        if (piml->frame->format == AV_SAMPLE_FMT_FLTP) {
             printf("AV_SAMPLE_FMT_FLTP\n");
-        }
-        else{
+        } else {
             printf("NOT AV_SAMPLE_FMT_FLTP\n");
         }
 
@@ -56,6 +56,23 @@ namespace Eyer {
     }
 
 
+    int EyerAVFrame::SetAudioData(unsigned char * _data, int _dataLen, int nbSamples, int channel, EyerAVFormat _format)
+    {
+        if(_format == EyerAVFormat::EYER_AV_SAMPLE_FMT_FLTP){
+            // float, planar
+            unsigned char * data = (unsigned char *)malloc(_dataLen);
+            dataManager.push_back(data);
+
+            memcpy(data, _data, _dataLen);
+
+            piml->frame->nb_samples = nbSamples;
+            avcodec_fill_audio_frame(piml->frame, channel, AV_SAMPLE_FMT_FLTP, (const uint8_t *) data, _dataLen, 0);
+
+            return 0;
+        }
+        return -1;
+    }
+
     int EyerAVFrame::SetAudioFLTPData(unsigned char * _channelData0, int _channelDataLen0, unsigned char * _channelData1, int _channelDataLen1)
     {
         int size = 8192;
@@ -66,19 +83,31 @@ namespace Eyer {
         memcpy(channelData1, _channelData1, _channelDataLen1);
 
         unsigned char * channelData = (unsigned char *)malloc(size);
-        /*
-        piml->frame->linesize[0] = size;
+        memcpy(channelData, channelData0, size / 2);
+        memcpy(channelData + size / 2, channelData1, size / 2);
+
+
         piml->frame->format = AV_SAMPLE_FMT_FLTP;
-
-        piml->frame->data[0] = channelData0;
-        piml->frame->data[1] = channelData1;
-
         piml->frame->channels = 2;
-
         piml->frame->nb_samples = 1024;
-         */
 
-        avcodec_fill_audio_frame(piml->frame, 2, AV_SAMPLE_FMT_FLTP, (const uint8_t *) arr, size, 1);
+        printf("====================================================\n");
+        printf("Linesize 0:%d\n", piml->frame->linesize[0]);
+        printf("Linesize 1:%d\n", piml->frame->linesize[1]);
+        printf("Channels:%d\n", piml->frame->channels);
+        printf("nb_samples:%d\n", piml->frame->nb_samples);
+        printf("nb_samples:%lld\n", piml->frame->channel_layout);
+        printf("format:%lld\n", piml->frame->format);
+
+        printf("---------------\n");
+        avcodec_fill_audio_frame(piml->frame, 2, AV_SAMPLE_FMT_FLTP, (const uint8_t *) channelData, size, 0);
+
+        printf("Linesize 0:%d\n", piml->frame->linesize[0]);
+        printf("Linesize 1:%d\n", piml->frame->linesize[1]);
+        printf("Channels:%d\n", piml->frame->channels);
+        printf("nb_samples:%d\n", piml->frame->nb_samples);
+        printf("channel_layout:%lld\n", piml->frame->channel_layout);
+        printf("format:%lld\n", piml->frame->format);
 
         return 0;
     }

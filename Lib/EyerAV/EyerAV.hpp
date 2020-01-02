@@ -2,6 +2,7 @@
 #define	EYER_LIB_AV_H
 
 #include "EyerCore/EyerCore.hpp"
+#include <vector>
 
 namespace Eyer
 {
@@ -23,6 +24,11 @@ namespace Eyer
         STREAM_TYPE_UNKNOW = 0,
         STREAM_TYPE_AUDIO = 1,
         STREAM_TYPE_VIDEO = 2
+    };
+
+    enum EyerAVFormat
+    {
+        EYER_AV_SAMPLE_FMT_FLTP = 1
     };
 
     class EyerAVPacket
@@ -48,9 +54,13 @@ namespace Eyer
     {
     public:
         EyerAVFramePrivate * piml = nullptr;
+
+        std::vector<void *> dataManager;
     public:
         EyerAVFrame();
         ~EyerAVFrame();
+
+        int SetAudioData(unsigned char * data, int dataLen, int nbSamples, int channel, EyerAVFormat format);
 
         int GetLineSize(int channel);
 
