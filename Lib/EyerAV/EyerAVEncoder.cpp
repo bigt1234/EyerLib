@@ -105,7 +105,7 @@ namespace Eyer
             return -1;
         }
 
-        printf("Frame Size:%d\n", piml->codecContext->frame_size);
+        // printf("Frame Size:%d\n", piml->codecContext->frame_size);
 
         return 0;
     }

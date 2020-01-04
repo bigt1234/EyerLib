@@ -37,10 +37,20 @@ namespace Eyer
             return -1;
         }
 
-        printf("NUM:%d\n", piml->codecContext->time_base.num);
-        printf("DEN:%d\n", piml->codecContext->time_base.den);
+        // printf("NUM:%d\n", piml->codecContext->time_base.num);
+        // printf("DEN:%d\n", piml->codecContext->time_base.den);
 
         return 0;
+    }
+
+    int EyerAVDecoder::GetFrameSize()
+    {
+        return piml->codecContext->frame_size;
+    }
+
+    int EyerAVDecoder::GetSampleRate()
+    {
+        return piml->codecContext->sample_rate;
     }
 
     int EyerAVDecoder::SendPacket(EyerAVPacket * packet)

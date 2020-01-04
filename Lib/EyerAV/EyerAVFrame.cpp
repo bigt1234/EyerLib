@@ -97,44 +97,4 @@ namespace Eyer {
         }
         return -1;
     }
-
-    int EyerAVFrame::SetAudioFLTPData(unsigned char * _channelData0, int _channelDataLen0, unsigned char * _channelData1, int _channelDataLen1)
-    {
-        int size = 8192;
-        unsigned char * channelData0 = (unsigned char *)malloc(_channelDataLen0);
-        memcpy(channelData0, _channelData0, _channelDataLen0);
-
-        unsigned char * channelData1 = (unsigned char *)malloc(_channelDataLen1);
-        memcpy(channelData1, _channelData1, _channelDataLen1);
-
-        unsigned char * channelData = (unsigned char *)malloc(size);
-        memcpy(channelData, channelData0, size / 2);
-        memcpy(channelData + size / 2, channelData1, size / 2);
-
-
-        piml->frame->format = AV_SAMPLE_FMT_FLTP;
-        piml->frame->channels = 2;
-        piml->frame->nb_samples = 1024;
-
-        printf("====================================================\n");
-        printf("Linesize 0:%d\n", piml->frame->linesize[0]);
-        printf("Linesize 1:%d\n", piml->frame->linesize[1]);
-        printf("Channels:%d\n", piml->frame->channels);
-        printf("nb_samples:%d\n", piml->frame->nb_samples);
-        printf("nb_samples:%lld\n", piml->frame->channel_layout);
-        printf("format:%lld\n", piml->frame->format);
-
-        printf("---------------\n");
-        avcodec_fill_audio_frame(piml->frame, 2, AV_SAMPLE_FMT_FLTP, (const uint8_t *) channelData, size, 0);
-
-        printf("Linesize 0:%d\n", piml->frame->linesize[0]);
-        printf("Linesize 1:%d\n", piml->frame->linesize[1]);
-        printf("Channels:%d\n", piml->frame->channels);
-        printf("nb_samples:%d\n", piml->frame->nb_samples);
-        printf("channel_layout:%lld\n", piml->frame->channel_layout);
-        printf("format:%lld\n", piml->frame->format);
-
-        return 0;
-    }
-    // avcodec_fill_audio_frame(piml->frame, 2, AV_SAMPLE_FMT_FLTP, (const uint8_t *) arr, size, 1);
 }

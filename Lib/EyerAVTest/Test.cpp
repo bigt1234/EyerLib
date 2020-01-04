@@ -1,9 +1,11 @@
 #include <gtest/gtest.h>
 
 #include "EyerAV/EyerAV.hpp"
-
 #include "Path.hpp"
 
+#include "EyerAVBitmapTest.h"
+
+/*
 #include "EyerAVDecoderTest.hpp"
 #include "EyerAVEncoderTest.hpp"
 #include "EyerAVFrameTest.hpp"
@@ -48,6 +50,7 @@ TEST(EyerAVFormat3, format3_read_frame){
 
     reader.Close();
 }
+*/
 
 int main(int argc,char **argv){
     testing::InitGoogleTest(&argc, argv);

@@ -67,8 +67,6 @@ namespace Eyer
 
         int GetLineSize(int channel);
 
-        int SetAudioFLTPData(unsigned char * channelData0, int channelDataLen0, unsigned char * channelData1, int channelDataLen1);
-
         int GetWidth();
         int GetHeight();
 
@@ -141,6 +139,9 @@ namespace Eyer
 
         int SendPacket(EyerAVPacket * packet);
         int RecvFrame(EyerAVFrame * frame);
+
+        int GetFrameSize();
+        int GetSampleRate();
     };
 
     enum CodecId
@@ -177,6 +178,35 @@ namespace Eyer
 
         int SendFrame(EyerAVFrame * frame);
         int RecvPacket(EyerAVPacket * packet);
+    };
+
+
+
+    enum EyerAVBitmapFormat
+    {
+        BITMAP_FORMAT_RGBA8888 = 1,
+    };
+
+    class EyerAVBitmap
+    {
+    private:
+        int width = 0;
+        int height = 0;
+        EyerAVBitmapFormat format = EyerAVBitmapFormat::BITMAP_FORMAT_RGBA8888;
+        unsigned char * pixelData = nullptr;
+    public:
+        EyerAVBitmap();
+        ~EyerAVBitmap();
+
+        int SetRGBA8888(int w, int h, unsigned char * _pixelData);
+
+        int GetW();
+        int GetH();
+
+        int SetW(int w);
+        int SetH(int h);
+
+        EyerAVBitmapFormat GetFormat();
     };
 }
 

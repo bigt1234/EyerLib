@@ -65,8 +65,6 @@ TEST(EyerAVCodec, audio_re_encoder){
                     break;
                 }
 
-                //printf("PTS:%lld\n", encoderPacket.GetPTS());
-                //printf("DTS:%lld\n", encoderPacket.GetDTS());
                 encoderPacket.SetStreamId(streamId);
                 writer.WritePacket(&encoderPacket);
             }

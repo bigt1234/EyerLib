@@ -19,6 +19,7 @@ add_library(
     EyerAVReaderPrivate.hpp
     EyerAVStreamPrivate.hpp
     EyerAVWriterPrivate.hpp
+    EyerAVBitmap.cpp
 )
 
 target_link_libraries (EyerAV pthread)

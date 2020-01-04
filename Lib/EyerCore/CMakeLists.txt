@@ -22,6 +22,9 @@ add_library(
 
     EyerCore.hpp
     EyerString.hpp
+
+    EyerLog.hpp
+    EyerLog.cpp
 )
 
 target_link_libraries (EyerCore pthread)
@@ -42,6 +45,7 @@ set(head_files
     RedYuvQueue.hpp
     EyerString.hpp
     EyerCore.hpp
+    EyerLog.hpp
 )
 
 INSTALL(FILES ${head_files} DESTINATION include/EyerCore)
