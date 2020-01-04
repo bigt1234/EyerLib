@@ -60,6 +60,9 @@ namespace Eyer
         EyerAVFrame();
         ~EyerAVFrame();
 
+        int SetPTS(int64_t pts);
+
+        int GetAudioData(unsigned char * data);
         int SetAudioData(unsigned char * data, int dataLen, int nbSamples, int channel, EyerAVFormat format);
 
         int GetLineSize(int channel);

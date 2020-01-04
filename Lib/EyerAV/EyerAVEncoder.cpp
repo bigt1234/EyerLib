@@ -83,7 +83,7 @@ namespace Eyer
 
             piml->codecContext = avcodec_alloc_context3(codec);
 
-            piml->codecContext->time_base.den = 90000;
+            piml->codecContext->time_base.den = 44100;
             piml->codecContext->time_base.num = 1;
 
             piml->codecContext->codec_type = AVMEDIA_TYPE_AUDIO;
@@ -96,9 +96,7 @@ namespace Eyer
             // piml->codecContext->channel_layout = AV_CH_LAYOUT_MONO;
             piml->codecContext->channels = av_get_channel_layout_nb_channels(piml->codecContext->channel_layout);
 
-            piml->codecContext->bit_rate = 64000;
-
-
+            // piml->codecContext->bit_rate = 8192;
         }
 
         int ret = avcodec_open2(piml->codecContext, codec, nullptr);

@@ -3,6 +3,7 @@
 
 #include <gtest/gtest.h>
 #include "EyerAV/EyerAV.hpp"
+#include <math.h>
 
 TEST(EyerAVCodec, audio_encoder_sin){
     Eyer::EyerAVWriter writer(sinOutPathStr);
@@ -26,24 +27,23 @@ TEST(EyerAVCodec, audio_encoder_sin){
 
     writer.Open();
 
-    for(int i=0;i<1000;i++){
+    for(int i=0;i<100;i++){
         Eyer::EyerAVFrame frame;
 
-        int size = encoder.GetFrameSize();
+        int frameSize = encoder.GetFrameSize();
+        int size = encoder.GetBufferSize();
 
-        float * aData = (float *)malloc(size / 2);
-        for(int i=0;i<size / 2 / 4 ;i++){
-            aData[i] = 0.0f;
+        float * d = (float *)malloc(size);
+        for(int i=0;i<size / 4;i++){
+            d[i] = sin(i * (3.1415926 / 1024.0 * 4.0)) * 0.3f;
+        }
+        for(int i=0;i<size / 4 / 2;i++){
+            d[i] = sin(i * (3.1415926 / 1024.0 * 4.0));
         }
 
-        float * bData = (float *)malloc(size / 2);
-        for(int i=0;i<size / 2 / 4 ;i++){
-            bData[i] = sinf(i * 0.1f);
-        }
-        frame.SetAudioFLTPData((unsigned char *)aData, size / 2, (unsigned char *)bData, size / 2);
+        frame.SetAudioData((unsigned char *)d, size, frameSize, 2, Eyer::EyerAVFormat::EYER_AV_SAMPLE_FMT_FLTP);
 
-        free(aData);
-        free(bData);
+        free(d);
 
         encoder.SendFrame(&frame);
 
@@ -54,6 +54,7 @@ TEST(EyerAVCodec, audio_encoder_sin){
                 break;
             }
 
+            // printf("Write Success\n");
             writer.WritePacket(&pkt);
         }
     }

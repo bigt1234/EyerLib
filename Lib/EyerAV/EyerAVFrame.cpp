@@ -27,6 +27,12 @@ namespace Eyer {
         dataManager.clear();
     }
 
+    int EyerAVFrame::SetPTS(int64_t pts)
+    {
+        piml->frame->pts = pts;
+        return 0;
+    }
+
     int EyerAVFrame::GetLineSize(int channel) {
         return piml->frame->linesize[channel];
     }
@@ -55,6 +61,12 @@ namespace Eyer {
         return 0;
     }
 
+    int EyerAVFrame::GetAudioData(unsigned char * data)
+    {
+        memcpy(data, piml->frame->data[0], 8192 / 2);
+        memcpy(data + 8192 / 2, piml->frame->data[1], 8192 / 2);
+        return 0;
+    }
 
     int EyerAVFrame::SetAudioData(unsigned char * _data, int _dataLen, int nbSamples, int channel, EyerAVFormat _format)
     {
@@ -65,8 +77,21 @@ namespace Eyer {
 
             memcpy(data, _data, _dataLen);
 
+            piml->frame->format = AV_SAMPLE_FMT_FLTP;
+            piml->frame->channels = channel;
             piml->frame->nb_samples = nbSamples;
-            avcodec_fill_audio_frame(piml->frame, channel, AV_SAMPLE_FMT_FLTP, (const uint8_t *) data, _dataLen, 0);
+            int ret = avcodec_fill_audio_frame(piml->frame, channel, AV_SAMPLE_FMT_FLTP, (const uint8_t *) data, _dataLen, 0);
+            // printf("avcodec_fill_audio_frame ret:%d\n", ret);
+
+            /*
+            printf("====================================================\n");
+            printf("Linesize 0:%d\n", piml->frame->linesize[0]);
+            printf("Linesize 1:%d\n", piml->frame->linesize[1]);
+            printf("Channels:%d\n", piml->frame->channels);
+            printf("nb_samples:%d\n", piml->frame->nb_samples);
+            printf("channel_layout:%lld\n", piml->frame->channel_layout);
+            printf("format:%lld\n", piml->frame->format);
+            */
 
             return 0;
         }
