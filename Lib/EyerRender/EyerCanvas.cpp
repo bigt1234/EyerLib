@@ -10,7 +10,7 @@ namespace Eyer
         width = _width;
         height = _height;
 
-        pixelData = (unsigned char *)malloc(width * height * 4);
+        pixelData = (unsigned char *)malloc(width * height * 4 * sizeof(unsigned char));
         for(int h=0;h<height;h++){
             for(int w=0;w<width;w++){
                 pixelData[(h * width + w) * 4 + 0] = 255; // R
@@ -72,7 +72,6 @@ namespace Eyer
                     {
                         rem -= dx;
                         y += (y2 >= y1) ? 1 : -1;
-                        //DrawPixel(x, y, c);
                     }
                 }
                 SetBufferPix(x2, y2, r, g, b);
@@ -88,7 +87,6 @@ namespace Eyer
                     {
                         rem -= dy;
                         x += (x2 >= x1) ? 1 : -1;
-                        //DrawPixel(x, y, c);
                     }
                 }
                 SetBufferPix(x2, y2, r, g, b);
@@ -105,22 +103,25 @@ namespace Eyer
 
     int EyerCanvas::SetBufferPix(int x, int y, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
     {
-        if(x > width){
+        // printf("x:%d === y:%d\n", x, y);
+        if(x >= width){
             return -1;
         }
         if(x < 0){
             return -1;
         }
-        if(y > height){
+        if(y >= height){
             return -1;
         }
         if(y < 0){
             return -1;
         }
+
         pixelData[(y * width + x) * 4 + 0] = r; // R
         pixelData[(y * width + x) * 4 + 1] = g; // G
         pixelData[(y * width + x) * 4 + 2] = b; // B
         pixelData[(y * width + x) * 4 + 3] = a; // A
+
         return 0;
     }
 

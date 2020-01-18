@@ -21,7 +21,6 @@ namespace Eyer
 
         int DrawLine(int x1, int y1, int x2, int y2, unsigned char r, unsigned char g, unsigned char b);
 
-        
         int SetBufferPix(int x, int y, unsigned char r, unsigned char g, unsigned char b, unsigned char a = 255);
         
         int SetClearColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);

@@ -18,19 +18,17 @@ TEST(TGAFile, Canvas){
     Eyer::EyerCanvas canvas(width, height);
 
     for(int i=0;i<200;i++){
-    
         /*
         int x1 = Eyer::EyerRand::Rand(width);
         int y1 = Eyer::EyerRand::Rand(height);
         int x2 = Eyer::EyerRand::Rand(width);
         int y2 = Eyer::EyerRand::Rand(height);
         */
-        
-        int x1 = Eyer::EyerRand::Rand(width * 10);
-        int y1 = Eyer::EyerRand::Rand(height * 10);
-        int x2 = Eyer::EyerRand::Rand(width * 10);
-        int y2 = Eyer::EyerRand::Rand(height * 10);
-        
+
+        int x1 = Eyer::EyerRand::Rand(width * 2);
+        int y1 = Eyer::EyerRand::Rand(height * 2);
+        int x2 = Eyer::EyerRand::Rand(width * 2);
+        int y2 = Eyer::EyerRand::Rand(height * 2);
 
         unsigned char r = Eyer::EyerRand::Rand(255);
         unsigned char g = Eyer::EyerRand::Rand(255);
