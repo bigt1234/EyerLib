@@ -4,5 +4,6 @@
 #include "Red.hpp"
 #include "EyerString.hpp"
 #include "EyerLog.hpp"
+#include "EyerMath.hpp"
 
 #endif

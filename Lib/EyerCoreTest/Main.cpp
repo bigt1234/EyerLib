@@ -2,6 +2,8 @@
 
 #include "EyerCore/EyerCore.hpp"
 
+#include "MathTest.hpp"
+
 TEST(EyerString, string){
     for(int i=0;i<100;i++){
         Eyer::EyerString str = (Eyer::EyerString)"/Users/lichi/Downloads/size.flv";

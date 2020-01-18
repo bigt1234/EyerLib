@@ -25,6 +25,13 @@ add_library(
 
     EyerLog.hpp
     EyerLog.cpp
+
+    EyerMath.hpp
+    EyerMat.cpp
+    EyerMat4x4.cpp
+    EyerMat4x1.cpp
+    EyerMat3x1.cpp
+    EyerMat2x1.cpp
 )
 
 target_link_libraries (EyerCore pthread)
@@ -46,6 +53,7 @@ set(head_files
     EyerString.hpp
     EyerCore.hpp
     EyerLog.hpp
+    EyerMath.hpp
 )
 
 INSTALL(FILES ${head_files} DESTINATION include/EyerCore)
