@@ -17,7 +17,7 @@ TEST(TGAFile, Canvas){
 
     Eyer::EyerCanvas canvas(width, height);
 
-    for(int i=0;i<1;i++) {
+    for(int i=0;i<5;i++) {
         int x1 = Eyer::EyerRand::Rand(width);
         int y1 = Eyer::EyerRand::Rand(height);
         int x2 = Eyer::EyerRand::Rand(width);
@@ -30,7 +30,7 @@ TEST(TGAFile, Canvas){
         canvas.DrawLine(x1, y1, x2, y2, r, g, b);
     }
 
-    for(int i=0;i<1;i++) {
+    for(int i=0;i<5;i++) {
         int x0 = Eyer::EyerRand::Rand(width);
         int y0 = Eyer::EyerRand::Rand(height);
         Eyer::EyerVec2 p0(x0, y0);

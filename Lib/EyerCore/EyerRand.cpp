@@ -7,6 +7,6 @@
 namespace Eyer {
     int EyerRand::Rand(int x)
     {
-        return rand() % x;
+        return (rand() * 1.0f / RAND_MAX) * x;
     }
 }
