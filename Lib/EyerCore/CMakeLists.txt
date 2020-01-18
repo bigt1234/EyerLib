@@ -32,6 +32,8 @@ add_library(
     EyerMat4x1.cpp
     EyerMat3x1.cpp
     EyerMat2x1.cpp
+
+    EyerRand.cpp
 )
 
 target_link_libraries (EyerCore pthread)
