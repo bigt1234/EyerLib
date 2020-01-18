@@ -29,7 +29,58 @@ namespace Eyer
         }
     }
 
-    int EyerCanvas::DrawLine(int x1, int y1, int x2, int y2, unsigned char r, unsigned char g, unsigned char b)
+    int EyerCanvas::DrawTriangle(EyerVec2 p0, EyerVec2 p1, EyerVec2 p2)
+    {
+        DrawLine(p0, p1, 0, 0, 0);
+        DrawLine(p1, p2, 0, 0, 0);
+        DrawLine(p2, p0, 0, 0, 0);
+
+        return 0;
+    }
+
+    int EyerCanvas::DrawLine(EyerVec2 p0, EyerVec2 p1, unsigned char r, unsigned char g, unsigned char b)
+    {
+        int x0 = (int)p0.x();
+        int y0 = (int)p0.y();
+        int x1 = (int)p1.x();
+        int y1 = (int)p1.y();
+        return DrawLine(x0, y0, x1, y1, r, g, b);
+    }
+
+    int EyerCanvas::DrawLine(int x0, int y0, int x1, int y1, unsigned char r, unsigned char g, unsigned char b)
+    {
+        bool steep = false;
+        if (std::abs(x0-x1)<std::abs(y0-y1)) {
+            std::swap(x0, y0);
+            std::swap(x1, y1);
+            steep = true;
+        }
+        if (x0>x1) {
+            std::swap(x0, x1);
+            std::swap(y0, y1);
+        }
+        int dx = x1-x0;
+        int dy = y1-y0;
+        int derror2 = std::abs(dy)*2;
+        int error2 = 0;
+        int y = y0;
+        for (int x=x0; x<=x1; x++) {
+            if (steep) {
+                SetBufferPix(y, x, r, g, b);
+            } else {
+                SetBufferPix(x, y, r, g, b);
+            }
+            error2 += derror2;
+            if (error2 > dx) {
+                y += (y1>y0?1:-1);
+                error2 -= dx*2;
+            }
+        }
+
+        return 0;
+    }
+
+    int EyerCanvas::DrawLine2(int x1, int y1, int x2, int y2, unsigned char r, unsigned char g, unsigned char b)
     {
         int x, y, rem = 0;
         //line is a pixel

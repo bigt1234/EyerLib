@@ -120,6 +120,7 @@ namespace Eyer {
     class EyerMat2x1 : public EyerMat
     {
     public:
+        EyerMat2x1(float x, float y);
         EyerMat2x1();
         ~EyerMat2x1();
 

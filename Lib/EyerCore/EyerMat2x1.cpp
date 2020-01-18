@@ -6,6 +6,12 @@ namespace Eyer {
 
     }
 
+    EyerMat2x1::EyerMat2x1(float x, float y) : EyerMat(2, 1)
+    {
+        SetX(x);
+        SetY(y);
+    }
+
     EyerMat2x1::~EyerMat2x1()
     {
 

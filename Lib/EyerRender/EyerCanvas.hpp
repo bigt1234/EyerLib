@@ -19,7 +19,14 @@ namespace Eyer
         EyerCanvas(int _width, int _height);
         ~EyerCanvas();
 
-        int DrawLine(int x1, int y1, int x2, int y2, unsigned char r, unsigned char g, unsigned char b);
+        int DrawLine(EyerVec2 p0, EyerVec2 p1, unsigned char r, unsigned char g, unsigned char b);
+        int DrawLine(int x0, int y0, int x1, int y1, unsigned char r, unsigned char g, unsigned char b);
+
+        int DrawTriangle(EyerVec2 p0, EyerVec2 p1, EyerVec2 p2);
+
+
+
+        int DrawLine2(int x1, int y1, int x2, int y2, unsigned char r, unsigned char g, unsigned char b);
 
         int SetBufferPix(int x, int y, unsigned char r, unsigned char g, unsigned char b, unsigned char a = 255);
         
