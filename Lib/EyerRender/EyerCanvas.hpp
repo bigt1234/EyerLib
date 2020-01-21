@@ -4,6 +4,8 @@
 #include "EyerCore/EyerCore.hpp"
 #include "EyerLine.hpp"
 
+#include <vector>
+
 namespace Eyer
 {
     class EyerCanvas;
@@ -33,6 +35,24 @@ namespace Eyer
         int SetClearColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 
         int RenderToTGA(EyerString path);
+    };
+
+
+    class EyerObjModel
+    {
+    private:
+        EyerString path;
+
+        std::vector<EyerVec3> verts_;
+	    std::vector<std::vector<int> > faces_;
+    public:
+        EyerObjModel(EyerString _path);
+        ~EyerObjModel();
+
+        int nverts();
+        int nfaces();
+        EyerVec3 vert(int i);
+        std::vector<int> face(int idx);
     };
 }
 

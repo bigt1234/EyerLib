@@ -11,6 +11,8 @@ add_library(
 
         EyerCanvas.hpp
         EyerCanvas.cpp
+
+        EyerObjModel.cpp
         )
 
 target_link_libraries (EyerRender gtest)

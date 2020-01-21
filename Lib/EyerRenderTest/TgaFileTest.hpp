@@ -48,3 +48,28 @@ TEST(TGAFile, Canvas){
     
     canvas.RenderToTGA("TGAFile_CanvasTest.tga");
 }
+
+
+TEST(TGAFile, ReadModel){
+    int width = 1920;
+    int height = 1080;
+
+    Eyer::EyerCanvas canvas(width, height);
+
+    Eyer::EyerObjModel model("african_head.obj");
+    for (int i=0; i<model.nfaces(); i++) {
+        std::vector<int> face = model.face(i);
+        for (int j=0; j<3; j++) {
+            Eyer::EyerVec3 v0 = model.vert(face[j]);
+            Eyer::EyerVec3 v1 = model.vert(face[(j+1)%3]);
+            int x0 = (v0.x()+1.)*width/2.;
+            int y0 = (v0.y()+1.)*height/2.;
+            int x1 = (v1.x()+1.)*width/2.;
+            int y1 = (v1.y()+1.)*height/2.;
+
+            canvas.DrawLine(x0, y0, x1, y1, 0, 0, 0);
+        }
+    }
+
+    canvas.RenderToTGA("TGAFile_ReadObjModel.tga");
+}
