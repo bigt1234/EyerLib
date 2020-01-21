@@ -51,8 +51,8 @@ TEST(TGAFile, Canvas){
 
 
 TEST(TGAFile, ReadModel){
-    int width = 1920;
-    int height = 1080;
+    int width = 800;
+    int height = 800;
 
     Eyer::EyerCanvas canvas(width, height);
 
