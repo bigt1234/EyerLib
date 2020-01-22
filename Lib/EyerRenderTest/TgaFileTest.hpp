@@ -50,7 +50,7 @@ TEST(TGAFile, Canvas){
 }
 
 
-TEST(TGAFile, ReadModel){
+TEST(TGAFile, ReadModel_FrawLine){
     int width = 800;
     int height = 800;
 
@@ -72,4 +72,35 @@ TEST(TGAFile, ReadModel){
     }
 
     canvas.RenderToTGA("TGAFile_ReadObjModel.tga");
+}
+
+
+
+TEST(TGAFile, Filling_triangles){
+    int width = 200;
+    int height = 200;
+
+    Eyer::EyerCanvas canvas(width, height);
+
+    {
+        Eyer::EyerVec2 triang0_p0(10, 70);
+        Eyer::EyerVec2 triang0_p1(50, 160);
+        Eyer::EyerVec2 triang0_p2(70, 80);
+        canvas.DrawTriangle(triang0_p0, triang0_p1, triang0_p2);
+    }
+    {
+        Eyer::EyerVec2 triang0_p0(180, 50);
+        Eyer::EyerVec2 triang0_p1(150, 1);
+        Eyer::EyerVec2 triang0_p2(70, 180);
+        canvas.DrawTriangle(triang0_p0, triang0_p1, triang0_p2);
+    }
+    {
+        Eyer::EyerVec2 triang0_p0(180, 150);
+        Eyer::EyerVec2 triang0_p1(120, 160);
+        Eyer::EyerVec2 triang0_p2(130, 180);
+        canvas.DrawTriangle(triang0_p0, triang0_p1, triang0_p2);
+    }
+    
+
+    canvas.RenderToTGA("TGAFile_Filling_triangles.tga");
 }

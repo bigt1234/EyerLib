@@ -38,7 +38,9 @@ namespace Eyer {
 
         EyerMat & operator = (const EyerMat &m);
         EyerMat operator * (const EyerMat &m);
+        EyerMat operator * (const float a);
         EyerMat operator + (const EyerMat &m);
+        EyerMat operator - (const EyerMat &m);
 
         /**
          * 矩阵转置
@@ -122,6 +124,9 @@ namespace Eyer {
     public:
         EyerMat2x1(float x, float y);
         EyerMat2x1();
+
+        EyerMat2x1(const EyerMat & m);
+
         ~EyerMat2x1();
 
         float x();

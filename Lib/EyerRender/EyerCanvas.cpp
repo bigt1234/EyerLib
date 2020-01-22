@@ -31,9 +31,44 @@ namespace Eyer
 
     int EyerCanvas::DrawTriangle(EyerVec2 p0, EyerVec2 p1, EyerVec2 p2)
     {
-        DrawLine(p0, p1, 0, 0, 0);
-        DrawLine(p1, p2, 0, 0, 0);
-        DrawLine(p2, p0, 0, 0, 0);
+        if (p0.y()>p1.y()) std::swap(p0, p1); 
+        if (p0.y()>p2.y()) std::swap(p0, p2); 
+        if (p1.y()>p2.y()) std::swap(p1, p2); 
+
+        int total_height = p2.y()-p0.y(); 
+        for (int y=p0.y(); y<=p1.y(); y++) { 
+            int segment_height = p1.y() - p0.y() + 1; 
+            float alpha = (float)(y - p0.y()) / total_height; 
+            float beta  = (float)(y - p0.y()) / segment_height; // be careful with divisions by zero 
+            EyerVec2 A = p0 + (p2 - p0) * alpha; 
+            EyerVec2 B = p0 + (p1 - p0) * beta;
+
+            // printf("A-x:%f, A-y:%f\n", A.x(), A.y());
+
+            if (A.x() > B.x()) std::swap(A, B); 
+            for (int j=A.x(); j<=B.x(); j++) {
+                SetBufferPix(j, y, 255, 0, 0);
+            }
+
+            // image.set(A.x, y, red); 
+            // image.set(B.x, y, green); 
+        } 
+
+        for (int y=p1.y(); y<=p2.y(); y++) { 
+            int segment_height = p2.y() - p1.y() + 1; 
+            float alpha = (float)(y - p0.y()) / total_height; 
+            float beta  = (float)(y - p1.y()) / segment_height; // be careful with divisions by zero 
+            EyerVec2 A = p0 + (p2-p0) * alpha; 
+            EyerVec2 B = p1 + (p2-p1) * beta; 
+            if (A.x() > B.x()) std::swap(A, B); 
+            for (int j=A.x(); j<=B.x(); j++) { 
+                SetBufferPix(j, y, 255, 0, 0);
+            } 
+        } 
+
+        // DrawLine(p0, p1, 0, 255, 0);
+        // DrawLine(p1, p2, 0, 255, 0);
+        // DrawLine(p2, p0, 255, 0, 0);
 
         return 0;
     }
