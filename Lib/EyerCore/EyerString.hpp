@@ -10,7 +10,7 @@ namespace Eyer {
 
     public:
         EyerString();
-        EyerString(char str[]);
+        EyerString(const char str[]);
         EyerString(const EyerString & str);
         ~EyerString();
 

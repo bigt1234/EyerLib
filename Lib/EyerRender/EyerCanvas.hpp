@@ -24,8 +24,8 @@ namespace Eyer
         int DrawLine(EyerVec2 p0, EyerVec2 p1, unsigned char r, unsigned char g, unsigned char b);
         int DrawLine(int x0, int y0, int x1, int y1, unsigned char r, unsigned char g, unsigned char b);
 
-        int DrawTriangle(EyerVec2 p0, EyerVec2 p1, EyerVec2 p2);
-
+        int DrawTriangle2(EyerVec2 p0, EyerVec2 p1, EyerVec2 p2, unsigned char r = 255, unsigned char g = 0, unsigned char b = 0);
+        int DrawTriangle(EyerVec2 p0, EyerVec2 p1, EyerVec2 p2, unsigned char r = 255, unsigned char g = 0, unsigned char b = 0);
 
 
         int DrawLine2(int x1, int y1, int x2, int y2, unsigned char r, unsigned char g, unsigned char b);

@@ -8,6 +8,12 @@ namespace Eyer {
 
     EyerMat2x1::EyerMat2x1(const EyerMat & m) : EyerMat(2, 1)
     {
+        for (int i = 0; i < row; i++){
+            for (int j = 0; j < col; j++){
+                mat[i][j] = 0.0f;
+            }
+        }
+        
         if(this->row != m.row){
             return;
         }

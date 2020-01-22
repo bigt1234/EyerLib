@@ -29,13 +29,23 @@ namespace Eyer
         }
     }
 
-    int EyerCanvas::DrawTriangle(EyerVec2 p0, EyerVec2 p1, EyerVec2 p2)
+    int EyerCanvas::DrawTriangle(EyerVec2 p0, EyerVec2 p1, EyerVec2 p2, unsigned char r, unsigned char g, unsigned char b)
+    {
+
+        return 0;
+    }
+
+
+    int EyerCanvas::DrawTriangle2(EyerVec2 p0, EyerVec2 p1, EyerVec2 p2, unsigned char r, unsigned char g, unsigned char b)
     {
         if (p0.y()>p1.y()) std::swap(p0, p1); 
         if (p0.y()>p2.y()) std::swap(p0, p2); 
         if (p1.y()>p2.y()) std::swap(p1, p2); 
 
-        int total_height = p2.y()-p0.y(); 
+        int total_height = p2.y() - p0.y(); 
+        if(total_height <= 0){
+            return -1;
+        }
         for (int y=p0.y(); y<=p1.y(); y++) { 
             int segment_height = p1.y() - p0.y() + 1; 
             float alpha = (float)(y - p0.y()) / total_height; 
@@ -47,7 +57,7 @@ namespace Eyer
 
             if (A.x() > B.x()) std::swap(A, B); 
             for (int j=A.x(); j<=B.x(); j++) {
-                SetBufferPix(j, y, 255, 0, 0);
+                SetBufferPix(j, y, r, g, b);
             }
 
             // image.set(A.x, y, red); 
@@ -62,7 +72,7 @@ namespace Eyer
             EyerVec2 B = p1 + (p2-p1) * beta; 
             if (A.x() > B.x()) std::swap(A, B); 
             for (int j=A.x(); j<=B.x(); j++) { 
-                SetBufferPix(j, y, 255, 0, 0);
+                SetBufferPix(j, y, r, g, b);
             } 
         } 
 

@@ -20,7 +20,7 @@ namespace Eyer {
         ClearStr();
     }
 
-    EyerString::EyerString(char _str[])
+    EyerString::EyerString(const char _str[])
     {
         ClearStr();
 
