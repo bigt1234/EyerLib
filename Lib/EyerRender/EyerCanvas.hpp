@@ -3,6 +3,7 @@
 
 #include "EyerCore/EyerCore.hpp"
 #include "EyerLine.hpp"
+#include "EyerVertex.hpp"
 
 #include <vector>
 
@@ -17,6 +18,9 @@ namespace Eyer
         int height = 0;
 
         unsigned char * pixelData = nullptr;
+
+
+        int FindYPoint(EyerVec2 & p0, EyerVec2 & p1, EyerVec2 & p2, int x, int y,int & top, int & bottom);
     public:
         EyerCanvas(int _width, int _height);
         ~EyerCanvas();
@@ -26,6 +30,8 @@ namespace Eyer
 
         int DrawTriangle2(EyerVec2 p0, EyerVec2 p1, EyerVec2 p2, unsigned char r = 255, unsigned char g = 0, unsigned char b = 0);
         int DrawTriangle(EyerVec2 p0, EyerVec2 p1, EyerVec2 p2, unsigned char r = 255, unsigned char g = 0, unsigned char b = 0);
+        int DrawTriangle(EyerVertex & v0, EyerVertex & v1, EyerVertex & v2);
+        int DrawTriangleNormail(EyerVertex v0, EyerVertex v1, EyerVertex v2);
 
 
         int DrawLine2(int x1, int y1, int x2, int y2, unsigned char r, unsigned char g, unsigned char b);

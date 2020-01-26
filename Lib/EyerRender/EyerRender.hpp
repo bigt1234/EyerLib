@@ -4,5 +4,6 @@
 #include "EyerTGA.hpp"
 #include "EyerLine.hpp"
 #include "EyerCanvas.hpp"
+#include "EyerVertex.hpp"
 
 #endif

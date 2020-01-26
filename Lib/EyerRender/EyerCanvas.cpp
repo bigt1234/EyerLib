@@ -29,6 +29,45 @@ namespace Eyer
         }
     }
 
+
+    int EyerCanvas::DrawTriangleNormail(EyerVertex v0, EyerVertex v1, EyerVertex v2)
+    {
+        EyerVec2 p0((v0.GetPosX() + 1.0f) / 2.0 * width, (v0.GetPosY() + 1.0f) / 2.0 * height);
+        EyerVec2 p1((v1.GetPosX() + 1.0f) / 2.0 * width, (v1.GetPosY() + 1.0f) / 2.0 * height);
+        EyerVec2 p2((v2.GetPosX() + 1.0f) / 2.0 * width, (v2.GetPosY() + 1.0f) / 2.0 * height);
+
+        if (p0.y() == p1.y() && p0.y() == p2.y()) return -1;
+        if (p0.y()>p1.y()) std::swap(p0, p1); 
+        if (p0.y()>p2.y()) std::swap(p0, p2); 
+        if (p1.y()>p2.y()) std::swap(p1, p2); 
+        int total_height = p2.y()-p0.y(); 
+        for (int i=0; i<total_height; i++) { 
+            bool second_half = i>p1.y()-p0.y() || p1.y() == p0.y(); 
+            int segment_height = second_half ? p2.y()-p1.y() : p1.y()-p0.y(); 
+            float alpha = (float)i/total_height; 
+            float beta  = (float)(i-(second_half ? p1.y()-p0.y() : 0)) / segment_height; // be careful: with above conditions no division by zero here 
+            EyerVec2 A =               p0 + (p2 - p0) * alpha; 
+            EyerVec2 B = second_half ? p1 + (p2 - p1) * beta : p0 + (p1 - p0) * beta;
+
+            if (A.x()>B.x()){
+                std::swap(A, B);
+            }
+            for (int j=A.x(); j<=B.x(); j++) {
+                // image.set(j, t0.y+i, color); // attention, due to int casts t0.y+i != A.y 
+                SetBufferPix(j, p0.y() + i, 255, 0, 0);
+            } 
+        }
+        return 0;
+    }
+
+    
+
+    int EyerCanvas::FindYPoint(EyerVec2 & p0, EyerVec2 & p1, EyerVec2 & p2,int x, int y, int & top, int & bottom)
+    {
+        
+        return 0;
+    }
+
     int EyerCanvas::DrawTriangle(EyerVec2 p0, EyerVec2 p1, EyerVec2 p2, unsigned char r, unsigned char g, unsigned char b)
     {
         if (p0.y() == p1.y() && p0.y() == p2.y()) return -1;
@@ -49,6 +88,14 @@ namespace Eyer
                 SetBufferPix(j, p0.y() + i, r, g, b);
             } 
         }
+        return 0;
+    }
+
+
+    int EyerCanvas::DrawTriangle(EyerVertex & v0, EyerVertex & v1, EyerVertex & v2)
+    {
+        DrawTriangleNormail(v0, v1, v2);
+
         return 0;
     }
 

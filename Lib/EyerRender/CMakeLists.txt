@@ -13,6 +13,9 @@ add_library(
         EyerCanvas.cpp
 
         EyerObjModel.cpp
+
+        EyerVertex.hpp
+        EyerVertex.cpp
         )
 
 target_link_libraries (EyerRender gtest)
@@ -22,6 +25,7 @@ set(head_files
         EyerRender.hpp
         EyerTGA.hpp
         EyerLine.hpp
+        EyerVertex.hpp
         )
 
 INSTALL(FILES ${head_files} DESTINATION include/EyerRender)
