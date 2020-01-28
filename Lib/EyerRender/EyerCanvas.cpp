@@ -54,13 +54,15 @@ namespace Eyer
             }
             for (int j=A.x(); j<=B.x(); j++) {
                 // image.set(j, t0.y+i, color); // attention, due to int casts t0.y+i != A.y 
+
+                
                 SetBufferPix(j, p0.y() + i, 255, 0, 0);
             } 
         }
         return 0;
     }
 
-    
+
 
     int EyerCanvas::FindYPoint(EyerVec2 & p0, EyerVec2 & p1, EyerVec2 & p2,int x, int y, int & top, int & bottom)
     {
