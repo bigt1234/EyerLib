@@ -5,9 +5,12 @@
 
 namespace Eyer
 {
-    EyerGLWindow::EyerGLWindow()
-    {
 
+    EyerGLWindow::EyerGLWindow(EyerString _title, int _width, int _height)
+    {
+        title = _title;
+        width = _width;
+        height = _height;
     }
 
     EyerGLWindow::~EyerGLWindow()
