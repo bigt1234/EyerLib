@@ -5,7 +5,10 @@
 
 TEST(GLWindows, GLWindows){
     Eyer::EyerGLWindow windows("miaowu", 800, 640);
-    
+    windows.Open();
+    while (!windows.ShouldClose()){
+        windows.Loop();
+    }
 }
 
 int main(int argc,char **argv)

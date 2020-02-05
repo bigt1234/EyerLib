@@ -5,6 +5,8 @@
 
 namespace Eyer
 {
+    class EyerGLWindowPrivate;
+
     class EyerGLWindow
     {
     private:
@@ -12,9 +14,15 @@ namespace Eyer
 
         int width = 0;
         int height = 0;
+
+        EyerGLWindowPrivate * window = nullptr;
     public:
         EyerGLWindow(EyerString title, int width, int height);
         ~EyerGLWindow();
+
+        int Open();
+        int ShouldClose();
+        int Loop();
     };
 }
 
