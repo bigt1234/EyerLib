@@ -18,10 +18,16 @@ namespace Eyer
         height = _height;
 
         window = new EyerGLWindowPrivate();
+
+        glfwInit();
     }
 
     EyerGLWindow::~EyerGLWindow()
     {
+        Close();
+
+        glfwTerminate();
+
         if(window != nullptr) {
             delete window;
             window = nullptr;
@@ -31,10 +37,9 @@ namespace Eyer
     int EyerGLWindow::Open()
     {
         if(window->window != NULL){
-            glfwTerminate();
+            Close();
         }
 
-        glfwInit();
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -50,6 +55,18 @@ namespace Eyer
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
             return -1;
         }
+
+        return 0;
+    }
+
+    int EyerGLWindow::Close()
+    {
+        if(window->window == NULL){
+            return -1;
+        }
+
+        glfwDestroyWindow(window->window);
+        window->window = NULL;
 
         return 0;
     }

@@ -8,9 +8,13 @@ add_library(
         EyerGL
         EyerGL.hpp
         EyerGLWindow.cpp
+        EyerGLShader.cpp
+        EyerGLProgram.cpp
+        GLHeader.h
+        EyerGLVAO.cpp
 
         glad/src/glad.c
-)
+        )
 
 target_link_libraries (EyerGL EyerCore)
 target_link_libraries (EyerGL pthread)
