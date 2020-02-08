@@ -21,6 +21,9 @@ namespace Eyer
         EyerGLWindow(EyerString title, int width, int height);
         ~EyerGLWindow();
 
+        int SetBGColor(float r, float g, float b, float a);
+        int Clear();
+
         int Open();
         int Close();
         int ShouldClose();
@@ -42,8 +45,9 @@ namespace Eyer
     class EyerGLShader;
     class EyerGLProgram;
     class EyerGLVAO;
+    class EyerGLTexture;
 
-    class EyerGLShader : EyerGLCMD
+    class EyerGLShader : public EyerGLCMD
     {
     private:
         EyerGLShaderType type = EyerGLShaderType::VERTEX_SHADER;
@@ -58,7 +62,7 @@ namespace Eyer
         unsigned int GL_GetShaderId();
     };
 
-    class EyerGLProgram : EyerGLCMD
+    class EyerGLProgram : public EyerGLCMD
     {
     private:
         EyerString vertexShaderSrc;
@@ -69,29 +73,35 @@ namespace Eyer
         EyerGLProgram(EyerString vertexShaderSrc, EyerString fragmentShaderSrc);
         ~EyerGLProgram();
         int LinkProgram();
+        int UseProgram();
     };
 
-    class EyerGLVAO : EyerGLCMD
+    class EyerGLVAO : public EyerGLCMD
     {
     private:
         unsigned int VAOId = 0;
         unsigned int EBOId = 0;
         std::vector<unsigned int> vboList;
+
+        int DrawTime = 0;
     public:
         EyerGLVAO();
         ~EyerGLVAO();
 
         int SetEBO(unsigned int * EBOdata, int bufferSize);
         int AddVBO(float * VBOdata, int bufferSize, int layout, int size = 3, unsigned int stride = 0);
+
+        int DrawVAO();
     };
 
-    class EyerGLDraw : EyerGLCMD
+    class EyerGLDraw : public EyerGLCMD
     {
     private:
         EyerString vertexShaderSrc;
         EyerString fragmentShaderSrc;
 
         EyerGLProgram * program = nullptr;
+        EyerGLVAO * vao = nullptr;
     public:
         EyerGLDraw(EyerString vertexShaderSrc, EyerString fragmentShaderSrc);
         ~EyerGLDraw();
@@ -101,6 +111,16 @@ namespace Eyer
         int SetVAO(EyerGLVAO * vao);
 
         int Draw();
+    };
+
+
+    class EyerGLTexture : public EyerGLCMD
+    {
+    private:
+        unsigned int textureId = 0;
+    public:
+        EyerGLTexture();
+        ~EyerGLTexture();
     };
 }
 

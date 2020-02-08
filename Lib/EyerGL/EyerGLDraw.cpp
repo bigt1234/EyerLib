@@ -29,13 +29,23 @@ namespace Eyer
         return 0;
     }
 
-    int EyerGLDraw::SetVAO(EyerGLVAO * vao)
+    int EyerGLDraw::SetVAO(EyerGLVAO * _vao)
     {
+        vao = _vao;
         return 0;
     }
 
     int EyerGLDraw::Draw()
     {
+        if(program == nullptr){
+            return -1;
+        }
+
+        program->UseProgram();
+        if(vao != nullptr){
+            vao->DrawVAO();
+        }
+
         return 0;
     }
 }

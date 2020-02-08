@@ -46,4 +46,10 @@ namespace Eyer
 
         return 0;
     }
+
+    int EyerGLProgram::UseProgram()
+    {
+        glUseProgram(programId);
+        return 0;
+    }
 }

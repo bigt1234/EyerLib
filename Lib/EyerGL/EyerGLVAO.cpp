@@ -23,11 +23,26 @@ namespace Eyer
         }
     }
 
+    int EyerGLVAO::DrawVAO()
+    {
+        if(VAOId == 0){
+            return -1;
+        }
+
+        glBindVertexArray(VAOId);
+        glDrawElements(GL_TRIANGLES, DrawTime, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+
+        return 0;
+    }
+
     int EyerGLVAO::SetEBO(unsigned int * EBOdata, int bufferSize)
     {
         if(VAOId == 0){
             return -1;
         }
+
+        DrawTime = bufferSize / (sizeof(int));
 
         glBindVertexArray(VAOId);
 
