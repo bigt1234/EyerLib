@@ -2,6 +2,7 @@
 #define	EYER_LIB_GL_AV_H
 
 #include "EyerCore/EyerCore.hpp"
+#include <vector>
 
 namespace Eyer
 {
@@ -75,11 +76,31 @@ namespace Eyer
     private:
         unsigned int VAOId = 0;
         unsigned int EBOId = 0;
+        std::vector<unsigned int> vboList;
     public:
         EyerGLVAO();
         ~EyerGLVAO();
 
         int SetEBO(unsigned int * EBOdata, int bufferSize);
+        int AddVBO(float * VBOdata, int bufferSize, int layout, int size = 3, unsigned int stride = 0);
+    };
+
+    class EyerGLDraw : EyerGLCMD
+    {
+    private:
+        EyerString vertexShaderSrc;
+        EyerString fragmentShaderSrc;
+
+        EyerGLProgram * program = nullptr;
+    public:
+        EyerGLDraw(EyerString vertexShaderSrc, EyerString fragmentShaderSrc);
+        ~EyerGLDraw();
+
+        int Init();
+
+        int SetVAO(EyerGLVAO * vao);
+
+        int Draw();
     };
 }
 

@@ -14,7 +14,7 @@ add_library(
         EyerGLVAO.cpp
 
         glad/src/glad.c
-        )
+        EyerGLDraw.cpp)
 
 target_link_libraries (EyerGL EyerCore)
 target_link_libraries (EyerGL pthread)

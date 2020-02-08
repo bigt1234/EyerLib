@@ -13,6 +13,12 @@ TEST(GLWindows, GLWindows){
     Eyer::EyerGLProgram program(Eyer::GL_SHADER::TEST_VERTEX_SHADER, Eyer::GL_SHADER::TEST_FRAGMENT_SHADER);
     program.LinkProgram();
 
+    float vertex[] = {
+            
+    };
+    Eyer::EyerGLVAO vao;
+    vao.AddVBO(vertex, sizeof(vertex), 0);
+
     while (!windows.ShouldClose()){
         windows.Loop();
     }
