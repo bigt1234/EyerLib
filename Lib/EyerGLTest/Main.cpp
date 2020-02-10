@@ -7,7 +7,7 @@
 
 TEST(GLWindows, GLWindows){
 
-    Eyer::EyerGLWindow windows("miaowu", 800, 640);
+    Eyer::EyerGLWindow windows("miaowu", 1280, 720);
     windows.Open();
     windows.SetBGColor(1.0, 1.0, 1.0, 1.0);
 
