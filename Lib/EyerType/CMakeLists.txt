@@ -14,9 +14,9 @@ target_link_libraries (EyerType ${CMAKE_SOURCE_DIR}/../../Lib/freetype_install/l
 
 IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
     MESSAGE(STATUS "current platform: Linux ")
-    target_link_libraries (EyerType png)
     target_link_libraries (EyerType z)
     target_link_libraries (EyerType harfbuzz)
+    target_link_libraries (EyerType ${CMAKE_SOURCE_DIR}/../../Lib/libpng_install/lib/libpng.a)
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Windows")
     MESSAGE(STATUS "current platform: Windows")
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Android")
