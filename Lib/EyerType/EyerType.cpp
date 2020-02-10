@@ -11,6 +11,13 @@ namespace Eyer
 
     EyerType::~EyerType()
     {
+        std::map<int, EyerTypeBitmap *>::iterator it;
+        for(it=bitmapCache.begin();it!=bitmapCache.end();++it){
+            EyerTypeBitmap * bitmap = it->second;
+            delete bitmap;
+        }
+        bitmapCache.clear();
+
         if(impl->init){
             FT_Done_FreeType(impl->ft);
             impl->init = 0;
@@ -31,7 +38,7 @@ namespace Eyer
         return 0;
     }
 
-    int EyerType::GenChar(char c, int pixel_height, int * width, int * height)
+    int EyerType::GenChar(char c, int pixel_height)
     {
         FT_Face face;
         if (FT_New_Face(impl->ft, typeFile.str, 0, &face))
@@ -43,10 +50,30 @@ namespace Eyer
 
         if (FT_Load_Char(face, c, FT_LOAD_RENDER));
 
-        *width = face->glyph->bitmap.width;
-        *height = face->glyph->bitmap.rows;
+
+        unsigned int bitmapDataLen = face->glyph->bitmap.width * face->glyph->bitmap.rows;
+
+        EyerTypeBitmap * b = new EyerTypeBitmap(face->glyph->bitmap.width, face->glyph->bitmap.rows, face->glyph->bitmap.buffer, bitmapDataLen);
+
+        bitmapCache.insert(std::pair<int, EyerTypeBitmap *>(indexIndex, b));
 
         FT_Done_Face(face);
+
+        return indexIndex;
+    }
+
+    int EyerType::GetCharBitmap(int index, EyerTypeBitmap * _bitmap)
+    {
+        std::map<int, EyerTypeBitmap *>::iterator it = bitmapCache.find(index);
+        if(it == bitmapCache.end()) {
+            return -1;
+        }
+        else {
+            EyerTypeBitmap * bitmap = it->second;
+            *_bitmap = *bitmap;
+            delete bitmap;
+            bitmapCache.erase(index);
+        }
 
         return 0;
     }

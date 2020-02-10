@@ -74,6 +74,8 @@ namespace Eyer
         ~EyerGLProgram();
         int LinkProgram();
         int UseProgram();
+
+        int PutUniform1i(EyerString key, int value);
     };
 
     class EyerGLVAO : public EyerGLCMD
@@ -94,6 +96,13 @@ namespace Eyer
         int DrawVAO();
     };
 
+    class EyerGLDrawTexture
+    {
+    public:
+        EyerString uniformName;
+        EyerGLTexture * texture = nullptr;
+    };
+
     class EyerGLDraw : public EyerGLCMD
     {
     private:
@@ -102,6 +111,8 @@ namespace Eyer
 
         EyerGLProgram * program = nullptr;
         EyerGLVAO * vao = nullptr;
+
+        std::vector<EyerGLDrawTexture *> textureList;
     public:
         EyerGLDraw(EyerString vertexShaderSrc, EyerString fragmentShaderSrc);
         ~EyerGLDraw();
@@ -109,10 +120,10 @@ namespace Eyer
         int Init();
 
         int SetVAO(EyerGLVAO * vao);
+        int PutTexture(EyerString uniform, EyerGLTexture * texture);
 
         int Draw();
     };
-
 
     class EyerGLTexture : public EyerGLCMD
     {
@@ -121,6 +132,25 @@ namespace Eyer
     public:
         EyerGLTexture();
         ~EyerGLTexture();
+
+        unsigned int GL_GetTextureId();
+
+        int SetDataRedChannel(unsigned char * data,int width,int height);
+    };
+
+    class EyerGLFrameBuffer : public EyerGLCMD
+    {
+    private:
+        std::vector<EyerGLDraw *> drawList;
+    public:
+        EyerGLFrameBuffer();
+        ~EyerGLFrameBuffer();
+
+        int AddDraw(EyerGLDraw * draw);
+
+        int Draw();
+
+        int ReadPixel(int x, int y, int width, int height, unsigned char * data);
     };
 }
 

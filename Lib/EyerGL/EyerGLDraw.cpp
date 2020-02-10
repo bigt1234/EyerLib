@@ -1,5 +1,7 @@
 #include "EyerGL.hpp"
 
+#include "GLHeader.h"
+
 namespace Eyer
 {
     EyerGLDraw::EyerGLDraw(EyerString _vertexShaderSrc, EyerString _fragmentShaderSrc)
@@ -16,6 +18,10 @@ namespace Eyer
             delete program;
             program = nullptr;
         }
+        for(int i=0;i<textureList.size();i++){
+            delete textureList[i];
+        }
+        textureList.clear();
     }
 
     int EyerGLDraw::Init()
@@ -26,6 +32,15 @@ namespace Eyer
 
         program->LinkProgram();
 
+        return 0;
+    }
+
+    int EyerGLDraw::PutTexture(EyerString uniform, EyerGLTexture * texture)
+    {
+        EyerGLDrawTexture * tex = new EyerGLDrawTexture();
+        tex->uniformName = uniform;
+        tex->texture = texture;
+        textureList.push_back(tex);
         return 0;
     }
 
@@ -41,10 +56,22 @@ namespace Eyer
             return -1;
         }
 
-        program->UseProgram();
-        if(vao != nullptr){
-            vao->DrawVAO();
+        if(vao == nullptr){
+            return -2;
         }
+
+        program->UseProgram();
+        
+        for(int i=0;i<textureList.size();i++){
+            EyerGLDrawTexture * tex = textureList[i];
+
+            glActiveTexture(GL_TEXTURE0 + i);
+            glBindTexture(GL_TEXTURE_2D, tex->texture->GL_GetTextureId());
+            program->PutUniform1i(tex->uniformName, GL_TEXTURE0 + i);
+        }
+
+        vao->DrawVAO();
+        
 
         return 0;
     }

@@ -5,6 +5,7 @@ include_directories (${CMAKE_SOURCE_DIR}/../../Lib/freetype_install/include/free
 add_library(
         EyerType
         EyerType.cpp
+        EyerTypeBitmap.cpp
         EyerTypePrivate.hpp
 )
 

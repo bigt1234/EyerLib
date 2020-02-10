@@ -11,9 +11,11 @@ add_library(
         EyerGLShader.cpp
         EyerGLProgram.cpp
         GLHeader.h
+        Shader.hpp
         EyerGLVAO.cpp
         EyerGLDraw.cpp
         EyerGLTexture.cpp
+        EyerGLFrameBuffer.cpp
 
         glad/src/glad.c
         )

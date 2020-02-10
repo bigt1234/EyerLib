@@ -52,4 +52,13 @@ namespace Eyer
         glUseProgram(programId);
         return 0;
     }
+
+    int EyerGLProgram::PutUniform1i(EyerString key, int value)
+    {
+        GLuint location = glGetUniformLocation(programId, key.str);
+
+        glUniform1i(location, value);
+
+        return 0;
+    }
 }

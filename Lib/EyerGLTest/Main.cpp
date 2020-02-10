@@ -3,14 +3,13 @@
 
 #include "EyerGL/EyerGL.hpp"
 #include "EyerGL/Shader.hpp"
-
+#include "EyerType/EyerType.hpp"
 
 TEST(GLWindows, GLWindows){
 
     Eyer::EyerGLWindow windows("miaowu", 1280, 720);
     windows.Open();
     windows.SetBGColor(1.0, 1.0, 1.0, 1.0);
-
 
     float vertex[] = {
             1.0, 1.0, 0.0,
@@ -36,6 +35,21 @@ TEST(GLWindows, GLWindows){
     Eyer::EyerGLDraw draw(Eyer::GL_SHADER::YUV_VIDEO_VERTEX_SHADER, Eyer::GL_SHADER::YUV_VIDEO_FRAGMENT_SHADER);
     draw.Init();
     draw.SetVAO(&vao);
+
+    Eyer::EyerType type("/home/redknot/Manjari-Bold.otf");
+    int ret = type.Init();
+    int indexI = type.GenChar('4', 720);
+
+    Eyer::EyerTypeBitmap b;
+    ret = type.GetCharBitmap(indexI, &b);
+    if(ret){
+        EyerLog("GetCharBitmap Error\n");
+    }
+
+    Eyer::EyerGLTexture zeroTexture;
+    zeroTexture.SetDataRedChannel(b.data, b.width, b.height);
+
+    draw.PutTexture("numberTex", &zeroTexture);
 
     while (!windows.ShouldClose()){
         windows.Clear();

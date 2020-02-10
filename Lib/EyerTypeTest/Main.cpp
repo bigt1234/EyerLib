@@ -7,13 +7,17 @@ TEST(EyerType, EyerType){
     int ret = type.Init();
     ASSERT_EQ(ret, 0) << "Init Ret Error";
 
-    int width = 0;
-    int height = 0;
-    ret = type.GenChar('1', 1000, &width, &height);
-    ASSERT_EQ(ret, 0) << "GenChar Ret Error";
+    int index = type.GenChar('0', 200);
+    ASSERT_GT(index, 0) << "GenChar Error";
+    
+    EyerLog("GenChar Index: %d\n", index);
 
-    EyerLog("Width: %d\n", width);
-    EyerLog("Height: %d\n", height);
+    Eyer::EyerTypeBitmap bitmap;
+    ret = type.GetCharBitmap(index, &bitmap);
+    ASSERT_EQ(ret, 0) << "GetCharBitmap Ret Error";
+
+    EyerLog("Width: %d\n",bitmap.width);
+    EyerLog("Height: %d\n", bitmap.height);
 }
 
 int main(int argc,char **argv)
