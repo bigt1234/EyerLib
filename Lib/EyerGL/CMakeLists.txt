@@ -10,12 +10,13 @@ add_library(
         EyerGLWindow.cpp
         EyerGLShader.cpp
         EyerGLProgram.cpp
-        GLHeader.h
-        Shader.hpp
         EyerGLVAO.cpp
         EyerGLDraw.cpp
         EyerGLTexture.cpp
         EyerGLFrameBuffer.cpp
+        EyerGLTextDraw.cpp
+
+        Shader.cpp
 
         glad/src/glad.c
         )
@@ -23,6 +24,7 @@ add_library(
 target_link_libraries (EyerGL EyerCore)
 target_link_libraries (EyerGL pthread)
 target_link_libraries (EyerGL gtest)
+target_link_libraries (EyerGL EyerType)
 target_link_libraries (EyerGL ${CMAKE_SOURCE_DIR}/../../Lib/glfw_install/lib/libglfw3.a)
 
 IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
@@ -41,6 +43,8 @@ ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux")
 
 set(head_files
         EyerGL.hpp
+        ShaderH.hpp
+        Shader.hpp
         )
 
 INSTALL(FILES ${head_files} DESTINATION include/EyerGL)

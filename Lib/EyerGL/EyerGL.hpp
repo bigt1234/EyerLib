@@ -6,7 +6,17 @@
 
 namespace Eyer
 {
+    class EyerGLWindow;
     class EyerGLWindowPrivate;
+    class EyerGLCMD;
+
+    class EyerGLComponent;
+    class EyerGLTextDraw;
+
+    class EyerGLShader;
+    class EyerGLProgram;
+    class EyerGLVAO;
+    class EyerGLTexture;
 
     class EyerGLWindow
     {
@@ -41,11 +51,6 @@ namespace Eyer
         VERTEX_SHADER,
         FRAGMENT_SHADER
     };
-
-    class EyerGLShader;
-    class EyerGLProgram;
-    class EyerGLVAO;
-    class EyerGLTexture;
 
     class EyerGLShader : public EyerGLCMD
     {
@@ -142,15 +147,41 @@ namespace Eyer
     {
     private:
         std::vector<EyerGLDraw *> drawList;
+        std::vector<EyerGLComponent *> componentList;
     public:
         EyerGLFrameBuffer();
         ~EyerGLFrameBuffer();
 
         int AddDraw(EyerGLDraw * draw);
+        int AddComponent(EyerGLComponent * component);
 
         int Draw();
 
         int ReadPixel(int x, int y, int width, int height, unsigned char * data);
+    };
+
+
+    class EyerGLComponent
+    {
+    public:
+        virtual int Draw() = 0;
+    };
+
+    class EyerGLTextDraw : public EyerGLComponent
+    {
+    public:
+        EyerGLTextDraw();
+        ~EyerGLTextDraw();
+
+        int SetText(EyerString text);
+
+        int SetSize(float size);
+        int SetPos(EyerVec2 pos);
+        int SetPos(float x, float y);
+
+        virtual int Draw();
+    private:
+        EyerString text;
     };
 }
 

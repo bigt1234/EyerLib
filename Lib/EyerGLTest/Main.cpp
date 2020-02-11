@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include "EyerGL/EyerGL.hpp"
+#include "EyerGL/EyerGLComponent.hpp"
 #include "EyerGL/Shader.hpp"
 #include "EyerType/EyerType.hpp"
 
@@ -38,7 +39,7 @@ TEST(GLWindows, GLWindows){
 
     Eyer::EyerType type("/home/redknot/Manjari-Bold.otf");
     int ret = type.Init();
-    int indexI = type.GenChar('4', 720);
+    int indexI = type.GenChar('q', 720);
 
     Eyer::EyerTypeBitmap b;
     ret = type.GetCharBitmap(indexI, &b);
@@ -55,6 +56,29 @@ TEST(GLWindows, GLWindows){
         windows.Clear();
 
         draw.Draw();
+
+        windows.Loop();
+    }
+
+    windows.Close();
+}
+
+TEST(GLWindows, GLWindowsText){
+    Eyer::EyerGLWindow windows("miaowu", 1280, 720);
+    windows.Open();
+    windows.SetBGColor(1.0, 1.0, 1.0, 1.0);
+
+    Eyer::EyerGLFrameBuffer frameBuffer;
+
+    Eyer::EyerGLTextDraw textDraw;
+    textDraw.SetText("Hello My GL");
+
+    frameBuffer.AddComponent(&textDraw);
+
+    while (!windows.ShouldClose()){
+        windows.Clear();
+
+        frameBuffer.Draw();
 
         windows.Loop();
     }

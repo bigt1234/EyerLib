@@ -1,5 +1,5 @@
-#ifndef	EYER_LIB_GL_SHADER_TEMP_H
-#define	EYER_LIB_GL_SHADER_TEMP_H
+#ifndef	EYER_LIB_GL_SHADER_TEMP_SHOW_H
+#define	EYER_LIB_GL_SHADER_TEMP_SHOW_H
 
 #include "ShaderH.hpp"
 
@@ -12,52 +12,10 @@ namespace Eyer {
 
         static char * YUV_VIDEO_VERTEX_SHADER;
         static char * YUV_VIDEO_FRAGMENT_SHADER;
+
+        static char * TEXT_VERTEX_SHADER;
+        static char * TEXT_FRAGMENT_SHADER;
     };
-
-
-    char * GL_SHADER::TEST_VERTEX_SHADER = SHADER(
-            layout (location = 0) in vec3 pos;
-            void main(){
-                gl_Position = vec4(pos * 1.0, 1.0);
-            }
-    );
-
-    char * GL_SHADER::TEST_FRAGMENT_SHADER = SHADER(
-             out vec4 color;
-
-             void main()
-             {
-                 color = vec4(1.0f, 0.0f, 0.0f, 1.0f);
-             }
-    );
-
-
-
-
-    char * GL_SHADER::YUV_VIDEO_VERTEX_SHADER = SHADER(
-            layout (location = 0) in vec3 pos;
-            layout (location = 1) in vec3 coor;
-
-            out vec3 outCoor;
-
-            void main(){
-                outCoor = coor;
-                gl_Position = vec4(pos * 1.0, 1.0);
-            }
-    );
-
-    char * GL_SHADER::YUV_VIDEO_FRAGMENT_SHADER = SHADER(
-             out vec4 color;
-             in vec3 outCoor;
-
-             uniform sampler2D numberTex;
-
-             void main()
-             {
-                 vec2 TexCoords = vec2(outCoor.x, 1.0 - outCoor.y);
-                 color = texture(numberTex, TexCoords);
-             }
-    );
 }
 
 #endif

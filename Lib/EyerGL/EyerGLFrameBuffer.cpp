@@ -1,6 +1,7 @@
 #include "EyerGL.hpp"
 
 #include "GLHeader.h"
+#include "EyerGLComponent.hpp"
 
 namespace Eyer {
     EyerGLFrameBuffer::EyerGLFrameBuffer()
@@ -11,6 +12,7 @@ namespace Eyer {
     EyerGLFrameBuffer::~EyerGLFrameBuffer()
     {
         drawList.clear();
+        componentList.clear();
     }
 
     int EyerGLFrameBuffer::AddDraw(EyerGLDraw * draw)
@@ -19,10 +21,20 @@ namespace Eyer {
         return 0;
     }
 
+    int EyerGLFrameBuffer::AddComponent(EyerGLComponent * component)
+    {
+        componentList.push_back(component);
+        return 0;
+    }
+
     int EyerGLFrameBuffer::Draw()
     {
         for(int i=0;i<drawList.size();i++){
             drawList[i]->Draw();
+        }
+
+        for(int i=0;i<componentList.size();i++){
+            componentList[i]->Draw();
         }
         return 0;
     }
