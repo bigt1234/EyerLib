@@ -6,7 +6,7 @@
 #include "EyerGL/Shader.hpp"
 #include "EyerType/EyerType.hpp"
 
-/*
+
 TEST(GLWindows, GLWindows){
 
     Eyer::EyerGLWindow windows("miaowu", 1280, 720);
@@ -63,7 +63,6 @@ TEST(GLWindows, GLWindows){
 
     windows.Close();
 }
- */
 
 TEST(GLWindows, GLWindowsText){
     int width = 1280;
@@ -88,6 +87,8 @@ TEST(GLWindows, GLWindowsText){
     while (!windows.ShouldClose()){
         windows.Clear();
 
+        Eyer::EyerString timeStr =  Eyer::EyerTime::TimeFormat();
+        textDraw.SetText(timeStr);
         textDraw.SetColor(1.0, 0.0, 0.0);
         textDraw.Viewport(width, height);
         frameBuffer.Draw();
