@@ -12,6 +12,7 @@ add_library(
 target_link_libraries (EyerType EyerCore)
 target_link_libraries (EyerType pthread)
 target_link_libraries (EyerType ${CMAKE_SOURCE_DIR}/../../Lib/freetype_install/lib/libfreetype.a)
+target_link_libraries (EyerType ${CMAKE_SOURCE_DIR}/../../Lib/libpng_install/lib/libpng.a)
 
 IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
     MESSAGE(STATUS "current platform: Linux ")

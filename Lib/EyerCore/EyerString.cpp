@@ -114,4 +114,32 @@ namespace Eyer {
 
         return 0;
     }
+
+
+    EyerString EyerString::Number(int num)
+    {
+        char str[1024];
+
+        sprintf(str, "%d", num);
+
+        return str;
+    }
+
+    EyerString Number(long num)
+    {
+        char str[1024];
+
+        sprintf(str, "%ld", num);
+
+        return str;
+    }
+
+    EyerString Number(long long num)
+    {
+        char str[1024];
+
+        sprintf(str, "%lld", num);
+
+        return str;
+    }
 }

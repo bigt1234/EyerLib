@@ -20,6 +20,10 @@ namespace Eyer {
         bool operator == (const EyerString & s);
 
         EyerString operator + (const EyerString & s);
+
+        static EyerString Number(int num);
+        static EyerString Number(long num);
+        static EyerString Number(long long num);
     };
 }
 
