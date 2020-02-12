@@ -15,6 +15,9 @@ namespace Eyer {
 
         static char * TEXT_VERTEX_SHADER;
         static char * TEXT_FRAGMENT_SHADER;
+
+        static char * POINT_VERTEX_SHADER;
+        static char * POINT_FRAGMENT_SHADER;
     };
 }
 

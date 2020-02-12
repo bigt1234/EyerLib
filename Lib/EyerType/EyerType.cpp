@@ -53,7 +53,7 @@ namespace Eyer
 
         unsigned int bitmapDataLen = face->glyph->bitmap.width * face->glyph->bitmap.rows;
 
-        EyerTypeBitmap * b = new EyerTypeBitmap(face->glyph->bitmap.width, face->glyph->bitmap.rows, face->glyph->bitmap.buffer, bitmapDataLen);
+        EyerTypeBitmap * b = new EyerTypeBitmap(face->glyph->bitmap.width, face->glyph->bitmap.rows, face->glyph->bitmap_left, face->glyph->bitmap_top, face->glyph->advance.x, face->glyph->bitmap.buffer, bitmapDataLen);
 
         bitmapCache.insert(std::pair<int, EyerTypeBitmap *>(indexIndex, b));
 

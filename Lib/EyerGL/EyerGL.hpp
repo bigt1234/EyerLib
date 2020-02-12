@@ -2,6 +2,7 @@
 #define	EYER_LIB_GL_AV_H
 
 #include "EyerCore/EyerCore.hpp"
+#include "EyerType/EyerType.hpp"
 #include <vector>
 
 namespace Eyer
@@ -81,6 +82,8 @@ namespace Eyer
         int UseProgram();
 
         int PutUniform1i(EyerString key, int value);
+        int PutMatrix4fv(EyerString key, EyerMat4x4 & mat);
+        int PutUniform1f(EyerString key, float value);
     };
 
     class EyerGLVAO : public EyerGLCMD
@@ -126,6 +129,8 @@ namespace Eyer
 
         int SetVAO(EyerGLVAO * vao);
         int PutTexture(EyerString uniform, EyerGLTexture * texture);
+        int PutMatrix4fv(EyerString uniform, EyerMat4x4 & mat);
+        int PutUniform1f(EyerString uniform, float val);
 
         int Draw();
     };
@@ -164,7 +169,12 @@ namespace Eyer
     class EyerGLComponent
     {
     public:
+        int width = 0;
+        int height = 0;
+    public:
         virtual int Draw() = 0;
+
+        int Viewport(int w, int h);
     };
 
     class EyerGLTextDraw : public EyerGLComponent
@@ -176,12 +186,28 @@ namespace Eyer
         int SetText(EyerString text);
 
         int SetSize(float size);
-        int SetPos(EyerVec2 pos);
+        int SetPos(EyerVec2 & pos);
         int SetPos(float x, float y);
 
+        int SetColor(float r, float g, float b);
+
         virtual int Draw();
+
     private:
         EyerString text;
+        EyerGLDraw * pointDraw = nullptr;
+        EyerGLVAO * pointVao = nullptr;
+        EyerType * typeCreator = nullptr;
+        EyerGLDraw * textDraw = nullptr;
+        EyerGLVAO * vao = nullptr;
+
+        EyerVec2 pos;
+
+        int size = 100;
+
+        float r = 0.0f;
+        float g = 0.0f;
+        float b = 0.0f;
     };
 }
 

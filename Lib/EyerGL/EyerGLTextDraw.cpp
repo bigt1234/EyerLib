@@ -6,67 +6,123 @@ namespace Eyer
 {
     EyerGLTextDraw::EyerGLTextDraw()
     {
+        float vertex[] = {
+                1.0, 1.0, 0.0,
+                1.0, -1.0, 0.0,
+                -1.0, -1.0, 0.0,
+                -1.0, 1.0, 0.0
+        };
+        float coor[] = {
+                1.0, 1.0, 0.0,
+                1.0, 0.0, 0.0,
+                0.0, 0.0, 0.0,
+                0.0, 1.0, 0.0
+        };
+        unsigned int vertexIndex[] = {
+                0, 1, 2,
+                0, 2, 3
+        };
 
+        {
+            typeCreator = new EyerType("/home/redknot/Manjari-Bold.otf");
+            typeCreator->Init();
+        }
+        {
+            pointDraw = new EyerGLDraw(GL_SHADER::POINT_VERTEX_SHADER, GL_SHADER::POINT_FRAGMENT_SHADER);
+            pointDraw->Init();
+
+            pointVao = new EyerGLVAO();
+            pointVao->AddVBO(vertex, sizeof(vertex), 0);
+            pointVao->AddVBO(coor, sizeof(coor), 1);
+            pointVao->SetEBO(vertexIndex, sizeof(vertexIndex));
+
+            pointDraw->SetVAO(pointVao);
+        }
+
+        {
+            textDraw = new EyerGLDraw(GL_SHADER::TEXT_VERTEX_SHADER, GL_SHADER::TEXT_FRAGMENT_SHADER);
+            textDraw->Init();
+
+            vao = new EyerGLVAO();
+
+            vao->AddVBO(vertex, sizeof(vertex), 0);
+            vao->AddVBO(coor, sizeof(coor), 1);
+            vao->SetEBO(vertexIndex, sizeof(vertexIndex));
+
+            textDraw->SetVAO(vao);
+        }
     }
 
     EyerGLTextDraw::~EyerGLTextDraw()
     {
-
+        if(pointVao != nullptr){
+            delete pointVao;
+            pointVao = nullptr;
+        }
+        if(pointDraw != nullptr){
+            delete pointDraw;
+            pointDraw = nullptr;
+        }
+        if(typeCreator != nullptr){
+            delete typeCreator;
+            typeCreator = nullptr;
+        }
+        if(textDraw != nullptr){
+            delete textDraw;
+            textDraw = nullptr;
+        }
+        if(vao != nullptr){
+            delete vao;
+            vao = nullptr;
+        }
     }
 
     int EyerGLTextDraw::Draw()
     {
-        int width = 1280;
-        int height = 720;
-
-        EyerType typeCreator("/home/redknot/Manjari-Bold.otf");
-        typeCreator.Init();
-
         char * str = text.str;
         int strLen = strlen(str);
+
+        int x = 0;
         for(int i=0;i<strLen;i++){
-            // EyerLog(" %c \n", str[i]);
-            int index = typeCreator.GenChar(str[i], 1000);
+            int index = typeCreator->GenChar(str[i], size);
             if(index <= 0){
                 continue;
             }
 
             EyerTypeBitmap bitmap;
-            typeCreator.GetCharBitmap(index, &bitmap);
+            typeCreator->GetCharBitmap(index, &bitmap);
 
-            EyerGLDraw textDraw(GL_SHADER::TEXT_VERTEX_SHADER, GL_SHADER::TEXT_FRAGMENT_SHADER);
-            textDraw.Init();
+            Eyer::EyerGLTexture texture;
+            texture.SetDataRedChannel(bitmap.data, bitmap.width, bitmap.height);
 
-            float vertex[] = {
-                    1.0, 1.0, 0.0,
-                    1.0, -1.0, 0.0,
-                    -1.0, -1.0, 0.0,
-                    -1.0, 1.0, 0.0
-            };
-            float coor[] = {
-                    1.0, 1.0, 0.0,
-                    1.0, 0.0, 0.0,
-                    0.0, 0.0, 0.0,
-                    0.0, 1.0, 0.0
-            };
-            unsigned int vertexIndex[] = {
-                    0, 1, 2,
-                    0, 2, 3
-            };
+            // 缩放高度到 1.0
+            float heightScale = bitmap.height * 1.0f / height;
+            float widthScale = bitmap.width * 1.0 / width;
 
-            Eyer::EyerGLVAO vao;
-            vao.AddVBO(vertex, sizeof(vertex), 0);
-            vao.AddVBO(coor, sizeof(coor), 1);
-            vao.SetEBO(vertexIndex, sizeof(vertexIndex));
+            float bearingYScale = bitmap.bearingY * 1.0 / height * 2.0;
 
-            textDraw.SetVAO(&vao);
+            Eyer::EyerMat4x4 matScale;
+            matScale.SetScale(widthScale, heightScale, 1.0);
 
-            Eyer::EyerGLTexture zeroTexture;
-            zeroTexture.SetDataRedChannel(bitmap.data, bitmap.width, bitmap.height);
+            float posX = pos.x() / width * 2.0 - 1.0;
+            float posY = -(pos.y() / height * 2.0 - 1.0);
 
-            textDraw.PutTexture("charTex", &zeroTexture);
+            Eyer::EyerMat4x4 matTrans;
+            matTrans.SetTrans(posX + widthScale + (x * 1.0 / width * 2.0), posY - heightScale + bearingYScale, 0.0);
 
-            textDraw.Draw();
+            x += bitmap.width;
+            x += bitmap.advance / 64 - bitmap.width - bitmap.bearingX;
+
+            Eyer::EyerMat4x4 mat = (matTrans * matScale);
+
+            textDraw->PutTexture("charTex", &texture);
+            textDraw->PutMatrix4fv("mat", mat);
+
+            textDraw->PutUniform1f("color_r", r);
+            textDraw->PutUniform1f("color_g", g);
+            textDraw->PutUniform1f("color_b", b);
+
+            textDraw->Draw();
         }
 
         return 0;
@@ -78,18 +134,30 @@ namespace Eyer
         return 0;
     }
 
-    int EyerGLTextDraw::SetSize(float size)
+    int EyerGLTextDraw::SetSize(float _size)
     {
+        size = _size;
         return 0;
     }
 
-    int EyerGLTextDraw::SetPos(EyerVec2 pos)
+    int EyerGLTextDraw::SetPos(EyerVec2 & _pos)
     {
+        pos = _pos;
         return 0;
     }
 
     int EyerGLTextDraw::SetPos(float x, float y)
     {
+        pos.SetX(x);
+        pos.SetY(y);
+        return 0;
+    }
+
+    int EyerGLTextDraw::SetColor(float _r, float _g, float _b)
+    {
+        r = _r;
+        g = _g;
+        b = _b;
         return 0;
     }
 

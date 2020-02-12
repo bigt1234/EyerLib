@@ -6,6 +6,7 @@
 #include "EyerGL/Shader.hpp"
 #include "EyerType/EyerType.hpp"
 
+/*
 TEST(GLWindows, GLWindows){
 
     Eyer::EyerGLWindow windows("miaowu", 1280, 720);
@@ -62,22 +63,33 @@ TEST(GLWindows, GLWindows){
 
     windows.Close();
 }
+ */
 
 TEST(GLWindows, GLWindowsText){
-    Eyer::EyerGLWindow windows("miaowu", 1280, 720);
+    int width = 1280;
+    int height = 720;
+
+    Eyer::EyerGLWindow windows("miaowu", width, height);
     windows.Open();
     windows.SetBGColor(1.0, 1.0, 1.0, 1.0);
 
     Eyer::EyerGLFrameBuffer frameBuffer;
 
     Eyer::EyerGLTextDraw textDraw;
-    textDraw.SetText("Hello My GL");
+    // textDraw.SetText("abcdefghijklmnopqrstuvwxyz");
+    textDraw.SetText("Redknot Miaomiao ABC GL gg");
+    textDraw.SetColor(0.0, 1.0, 0.0);
+    textDraw.SetSize(100);
+
+    textDraw.SetPos(0, 0 + 100);
 
     frameBuffer.AddComponent(&textDraw);
 
     while (!windows.ShouldClose()){
         windows.Clear();
 
+        textDraw.SetColor(1.0, 0.0, 0.0);
+        textDraw.Viewport(width, height);
         frameBuffer.Draw();
 
         windows.Loop();

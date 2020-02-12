@@ -35,11 +35,15 @@ namespace Eyer
     public:
         int width = 0;
         int height = 0;
+        int bearingX = 0;
+        int bearingY = 0;
+        int advance = 0;
+
         unsigned char * data = nullptr;
         unsigned int dataLen = 0;
     public:
         EyerTypeBitmap();
-        EyerTypeBitmap(int width, int height, unsigned char * data, unsigned int dataLen);
+        EyerTypeBitmap(int width, int height, int bearingX, int bearingY, int advance, unsigned char * data, unsigned int dataLen);
 
         EyerTypeBitmap(const EyerTypeBitmap & _bitmap);
 

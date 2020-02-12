@@ -44,6 +44,22 @@ namespace Eyer
         return 0;
     }
 
+    int EyerGLDraw::PutMatrix4fv(EyerString uniform, EyerMat4x4 & mat)
+    {
+        program->UseProgram();
+
+        program->PutMatrix4fv(uniform, mat);
+
+        return 0;
+    }
+
+    int EyerGLDraw::PutUniform1f(EyerString uniform, float val)
+    {
+        program->UseProgram();
+        program->PutUniform1f(uniform, val);
+        return 0;
+    }
+
     int EyerGLDraw::SetVAO(EyerGLVAO * _vao)
     {
         vao = _vao;

@@ -50,10 +50,11 @@ namespace Eyer
         layout (location = 1) in vec3 coor;
 
         out vec3 outCoor;
+        uniform mat4 mat;
 
         void main(){
             outCoor = coor;
-            gl_Position = vec4(pos * 1.0, 1.0);
+            gl_Position = mat * vec4(pos * 1.0, 1.0);
         }
     );
 
@@ -61,11 +62,36 @@ namespace Eyer
         out vec4 color;
         in vec3 outCoor;
         uniform sampler2D charTex;
+
+        uniform float color_r;
+        uniform float color_g;
+        uniform float color_b;
+
         void main(){
             vec2 TexCoords = vec2(outCoor.x, 1.0 - outCoor.y);
-            color = texture(charTex, TexCoords);
+            float r = texture(charTex, TexCoords).r;
 
-            // color = vec4(outCoor, 1.0);
+            color = vec4(color_r, color_g, color_b, r);
         }
+    );
+
+    char * GL_SHADER::POINT_VERTEX_SHADER = SHADER(
+                                                layout (location = 0) in vec3 pos;
+                                                layout (location = 1) in vec3 coor;
+
+                                                out vec3 outCoor;
+                                                uniform mat4 mat;
+
+                                                void main(){
+                                                    outCoor = coor;
+                                                    gl_Position = mat * vec4(pos * 1.0, 1.0);
+                                                }
+    );
+    char * GL_SHADER::POINT_FRAGMENT_SHADER = SHADER(
+                                                  out vec4 color;
+                                                  in vec3 outCoor;
+                                                  void main(){
+                                                      color = vec4(0.0, 1.0, 0.0, 1.0);
+                                                  }
     );
 }

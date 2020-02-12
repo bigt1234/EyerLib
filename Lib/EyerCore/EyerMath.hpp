@@ -75,6 +75,10 @@ namespace Eyer {
         EyerMat4x4();
         ~EyerMat4x4();
 
+        EyerMat4x4(const EyerMat & mat);
+
+        EyerMat4x4 & operator = (const EyerMat &m);
+
         int SetScale(float x, float y, float z);
         int SetTrans(float x, float y, float z);
         int SetPerspective(float fov, float aspect, float near, float far);

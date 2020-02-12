@@ -61,4 +61,27 @@ namespace Eyer
 
         return 0;
     }
+
+    int EyerGLProgram::PutUniform1f(EyerString key, float value)
+    {
+        GLuint location = glGetUniformLocation(programId, key.str);
+
+        glUniform1f(location, value);
+
+        return 0;
+    }
+
+    int EyerGLProgram::PutMatrix4fv(EyerString key, EyerMat4x4 & _mat)
+    {
+        GLuint location = glGetUniformLocation(programId, key.str);
+
+        EyerMat4x4 mat = ~_mat;
+        int matLen = mat.GetMatLen();
+        float * m = (float *)malloc(matLen);
+        mat.GetMat(m);
+        glUniformMatrix4fv(location, 1, GL_FALSE, m);
+        free(m);
+
+        return 0;
+    }
 }
