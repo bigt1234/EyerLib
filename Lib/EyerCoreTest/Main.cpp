@@ -57,6 +57,12 @@ TEST(RedBtte_Test, byte){
     RedByte byte;
 }
 
+TEST(EyerTime, time){
+    long long time = Eyer::EyerTime::GetTime();
+    EyerLog("Time:%lld\n", time);
+    EyerLog("Time:%s\n", Eyer::EyerTime::TimeFormat().str);
+}
+
 int main(int argc,char **argv){
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
