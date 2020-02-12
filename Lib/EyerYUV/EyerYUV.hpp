@@ -9,7 +9,7 @@ namespace Eyer
         EyerYUV();
         ~EyerYUV();
 
-        int RGB2YUV420(int width, int height, unsigned char * rgbData, unsigned char * yuvData);
+        int RGB2YUV420(int width, int height, unsigned char * rgbData, unsigned char * y, unsigned char * u, unsigned char * v);
     };
 }
 

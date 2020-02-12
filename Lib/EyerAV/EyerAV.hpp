@@ -67,6 +67,8 @@ namespace Eyer
 
         int GetLineSize(int channel);
 
+        int SetVideoData420P(unsigned char * y, unsigned char * u, unsigned char * v, int width, int height);
+
         int GetWidth();
         int GetHeight();
 

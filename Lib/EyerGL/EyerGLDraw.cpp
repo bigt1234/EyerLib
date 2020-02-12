@@ -87,7 +87,8 @@ namespace Eyer
         }
 
         vao->DrawVAO();
-        
+
+        glFinish();
 
         return 0;
     }

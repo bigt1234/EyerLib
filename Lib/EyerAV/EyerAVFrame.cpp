@@ -2,6 +2,7 @@
 
 extern "C"{
 #include <libavformat/avformat.h>
+#include <libavutil/imgutils.h>
 }
 
 #include "EyerAVEncoderPrivate.hpp"
@@ -57,6 +58,34 @@ namespace Eyer {
         printf("Channels:%d\n", piml->frame->channels);
         printf("nb_samples:%d\n", piml->frame->nb_samples);
         printf("nb_samples:%lld\n", piml->frame->channel_layout);
+
+        return 0;
+    }
+
+    int EyerAVFrame::SetVideoData420P(unsigned char * _y, unsigned char * _u, unsigned char * _v, int _width, int _height)
+    {
+        unsigned char * y = (unsigned char *)malloc(_width * _height);
+        memcpy(y, _y, _width * _height);
+
+        unsigned char * u = (unsigned char *)malloc(_width * _height / 4);
+        memcpy(u, _u, _width * _height / 4);
+
+        unsigned char * v = (unsigned char *)malloc(_width * _height / 4);
+        memcpy(v, _v, _width * _height / 4);
+
+        dataManager.push_back(y);
+        dataManager.push_back(u);
+        dataManager.push_back(v);
+
+        piml->frame->format = AV_PIX_FMT_YUV420P;
+        piml->frame->width = _width;
+        piml->frame->height = _height;
+
+        int ret = av_image_alloc(piml->frame->data, piml->frame->linesize, _width, _height, AV_PIX_FMT_YUV420P, 16);
+
+        memcpy(piml->frame->data[0], _y, _width * _height);
+        memcpy(piml->frame->data[1], _u, _width * _height / 4);
+        memcpy(piml->frame->data[2], _v, _width * _height / 4);
 
         return 0;
     }
