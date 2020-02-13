@@ -31,13 +31,13 @@ namespace Eyer
         return 0;
     }
 
-    int EyerGLDraw::PutTexture(EyerString uniform, EyerGLTexture * texture)
+    int EyerGLDraw::PutTexture(EyerString uniform, EyerGLTexture * texture, int textureIndex)
     {
         program->UseProgram();
 
-        glActiveTexture(GL_TEXTURE0);
+        glActiveTexture(GL_TEXTURE0 + textureIndex);
         glBindTexture(GL_TEXTURE_2D, texture->GL_GetTextureId());
-        program->PutUniform1i(uniform.str, GL_TEXTURE0);
+        program->PutUniform1i(uniform.str, GL_TEXTURE0 + textureIndex);
 
         return 0;
     }
@@ -45,9 +45,7 @@ namespace Eyer
     int EyerGLDraw::PutMatrix4fv(EyerString uniform, EyerMat4x4 & mat)
     {
         program->UseProgram();
-
         program->PutMatrix4fv(uniform, mat);
-
         return 0;
     }
 
