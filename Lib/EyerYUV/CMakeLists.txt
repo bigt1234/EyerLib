@@ -8,6 +8,7 @@ add_library(
 )
 
 target_link_libraries (EyerYUV EyerCore)
+target_link_libraries (EyerYUV ${CMAKE_SOURCE_DIR}/../../Lib/libyuv_install/lib/libyuv.a)
 
 set(head_files
         EyerYUV.hpp

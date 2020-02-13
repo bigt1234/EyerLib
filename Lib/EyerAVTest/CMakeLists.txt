@@ -14,6 +14,8 @@ include_directories (../)
 
 target_link_libraries (EyerAVTest EyerCore)
 target_link_libraries (EyerAVTest EyerAV)
+target_link_libraries (EyerAVTest EyerGL)
+target_link_libraries (EyerAVTest EyerYUV)
 
 INSTALL(
         TARGETS EyerAVTest

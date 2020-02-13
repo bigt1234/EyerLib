@@ -81,11 +81,26 @@ namespace Eyer {
         piml->frame->width = _width;
         piml->frame->height = _height;
 
+        piml->frame->linesize[0] = _width;
+        piml->frame->linesize[1] = _width / 2;
+        piml->frame->linesize[2] = _width / 2;
+
+        piml->frame->data[0] = y;
+        piml->frame->data[1] = u;
+        piml->frame->data[2] = v;
+
+        /*
         int ret = av_image_alloc(piml->frame->data, piml->frame->linesize, _width, _height, AV_PIX_FMT_YUV420P, 16);
+
+        EyerLog("=====================================\n");
+        EyerLog("linesize[0]:%d\n", piml->frame->linesize[0]);
+        EyerLog("linesize[1]:%d\n", piml->frame->linesize[1]);
+        EyerLog("linesize[2]:%d\n", piml->frame->linesize[2]);
 
         memcpy(piml->frame->data[0], _y, _width * _height);
         memcpy(piml->frame->data[1], _u, _width * _height / 4);
         memcpy(piml->frame->data[2], _v, _width * _height / 4);
+        */
 
         return 0;
     }

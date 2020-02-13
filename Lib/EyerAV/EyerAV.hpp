@@ -20,6 +20,8 @@ namespace Eyer
     class EyerAVEncoderPrivate;
     class EyerAVWriterPrivate;
 
+    class EyerAVRational;
+
     enum EyerAVStreamType{
         STREAM_TYPE_UNKNOW = 0,
         STREAM_TYPE_AUDIO = 1,
@@ -43,6 +45,8 @@ namespace Eyer
 
         uint64_t GetPTS();
         uint64_t GetDTS();
+
+        int RescaleTs(Eyer::EyerAVRational & codecTimebase, Eyer::EyerAVRational & streamTimebase);
 
         int SetPTS(uint64_t pts);
         int SetDTS(uint64_t dts);
@@ -104,6 +108,8 @@ namespace Eyer
         int Close();
 
         int AddStream(EyerAVEncoder * encoder);
+
+        int GetStreamTimeBase(EyerAVRational & rational, int streamIndex);
 
         int GetStreamTimeBaseDen(int streamIndex);
         int GetStreamTimeBaseNum(int streamIndex);
@@ -169,7 +175,9 @@ namespace Eyer
         EyerAVEncoder();
         ~EyerAVEncoder();
 
-        int Init(EyerAVStream * stream);
+        int GetTimeBase(EyerAVRational & rational);
+
+        int _Init(EyerAVStream * stream);
         int Init(EncoderParam * param);
 
         int Flush();
@@ -209,6 +217,19 @@ namespace Eyer
         int SetH(int h);
 
         EyerAVBitmapFormat GetFormat();
+    };
+
+    class EyerAVRational
+    {
+    public:
+        int num = 0;
+        int den = 0;
+
+        EyerAVRational();
+        EyerAVRational(const EyerAVRational & avRational);
+        ~EyerAVRational();
+
+        EyerAVRational & operator = (const EyerAVRational & avRational);
     };
 }
 

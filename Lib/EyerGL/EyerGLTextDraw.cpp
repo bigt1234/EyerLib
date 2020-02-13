@@ -75,6 +75,15 @@ namespace Eyer
             delete vao;
             vao = nullptr;
         }
+
+        std::map<char, EyerGLCacheTexture *>::iterator iter;
+        for (iter=textureCache.begin(); iter!=textureCache.end(); iter++){
+            Eyer::EyerGLCacheTexture * texture = iter->second;
+            delete texture->texture;
+            texture->texture = nullptr;
+            delete texture;
+        }
+        textureCache.clear();
     }
 
     int EyerGLTextDraw::Draw()
@@ -84,22 +93,43 @@ namespace Eyer
 
         int x = 0;
         for(int i=0;i<strLen;i++){
-            int index = typeCreator->GenChar(str[i], size);
-            if(index <= 0){
-                continue;
+            Eyer::EyerGLCacheTexture * texture = nullptr;
+            char c = str[i];
+
+            std::map<char, EyerGLCacheTexture *>::iterator iter = textureCache.find(c);
+            if(iter != textureCache.end()) {
+                texture = iter->second;
+            }
+            else{
+                int index = typeCreator->GenChar(c, size);
+                if(index <= 0){
+                    continue;
+                }
+
+                EyerTypeBitmap bitmap;
+                typeCreator->GetCharBitmap(index, &bitmap);
+
+                Eyer::EyerGLTexture * ttt = new Eyer::EyerGLTexture();
+                ttt->SetDataRedChannel(bitmap.data, bitmap.width, bitmap.height);
+
+                EyerGLCacheTexture * t = new EyerGLCacheTexture();
+                t->texture = ttt;
+                t->width = bitmap.width;
+                t->height = bitmap.height;
+                t->bearingY = bitmap.bearingY;
+                t->bearingX = bitmap.bearingX;
+                t->advance = bitmap.advance;
+
+                textureCache.insert(std::pair<char, EyerGLCacheTexture *>(c, t));
+
+                texture = t;
             }
 
-            EyerTypeBitmap bitmap;
-            typeCreator->GetCharBitmap(index, &bitmap);
-
-            Eyer::EyerGLTexture texture;
-            texture.SetDataRedChannel(bitmap.data, bitmap.width, bitmap.height);
-
             // 缩放高度到 1.0
-            float heightScale = bitmap.height * 1.0f / height;
-            float widthScale = bitmap.width * 1.0 / width;
+            float heightScale = texture->height * 1.0f / height;
+            float widthScale = texture->width * 1.0 / width;
 
-            float bearingYScale = bitmap.bearingY * 1.0 / height * 2.0;
+            float bearingYScale = texture->bearingY * 1.0 / height * 2.0;
 
             Eyer::EyerMat4x4 matScale;
             matScale.SetScale(widthScale, heightScale, 1.0);
@@ -110,12 +140,12 @@ namespace Eyer
             Eyer::EyerMat4x4 matTrans;
             matTrans.SetTrans(posX + widthScale + (x * 1.0 / width * 2.0), posY - heightScale + bearingYScale, 0.0);
 
-            x += bitmap.width;
-            x += bitmap.advance / 64 - bitmap.width - bitmap.bearingX;
+            x += texture->width;
+            x += texture->advance / 64 - texture->width - texture->bearingX;
 
             Eyer::EyerMat4x4 mat = (matTrans * matScale);
 
-            textDraw->PutTexture("charTex", &texture);
+            textDraw->PutTexture("charTex", texture->texture);
             textDraw->PutMatrix4fv("mat", mat);
 
             textDraw->PutUniform1f("color_r", r);

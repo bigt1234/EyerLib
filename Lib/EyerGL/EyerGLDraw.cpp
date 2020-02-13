@@ -18,10 +18,6 @@ namespace Eyer
             delete program;
             program = nullptr;
         }
-        for(int i=0;i<textureList.size();i++){
-            delete textureList[i];
-        }
-        textureList.clear();
     }
 
     int EyerGLDraw::Init()
@@ -37,10 +33,12 @@ namespace Eyer
 
     int EyerGLDraw::PutTexture(EyerString uniform, EyerGLTexture * texture)
     {
-        EyerGLDrawTexture * tex = new EyerGLDrawTexture();
-        tex->uniformName = uniform;
-        tex->texture = texture;
-        textureList.push_back(tex);
+        program->UseProgram();
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture->GL_GetTextureId());
+        program->PutUniform1i(uniform.str, GL_TEXTURE0);
+
         return 0;
     }
 
@@ -77,14 +75,6 @@ namespace Eyer
         }
 
         program->UseProgram();
-        
-        for(int i=0;i<textureList.size();i++){
-            EyerGLDrawTexture * tex = textureList[i];
-
-            glActiveTexture(GL_TEXTURE0 + i);
-            glBindTexture(GL_TEXTURE_2D, tex->texture->GL_GetTextureId());
-            program->PutUniform1i(tex->uniformName, GL_TEXTURE0 + i);
-        }
 
         vao->DrawVAO();
 

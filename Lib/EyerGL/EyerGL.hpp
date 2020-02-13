@@ -120,7 +120,6 @@ namespace Eyer
         EyerGLProgram * program = nullptr;
         EyerGLVAO * vao = nullptr;
 
-        std::vector<EyerGLDrawTexture *> textureList;
     public:
         EyerGLDraw(EyerString vertexShaderSrc, EyerString fragmentShaderSrc);
         ~EyerGLDraw();
@@ -177,6 +176,8 @@ namespace Eyer
         int Viewport(int w, int h);
     };
 
+    class EyerGLCacheTexture;
+
     class EyerGLTextDraw : public EyerGLComponent
     {
     public:
@@ -201,6 +202,8 @@ namespace Eyer
         EyerGLDraw * textDraw = nullptr;
         EyerGLVAO * vao = nullptr;
 
+        std::map<char, EyerGLCacheTexture *> textureCache;
+
         EyerVec2 pos;
 
         int size = 100;
@@ -208,6 +211,17 @@ namespace Eyer
         float r = 0.0f;
         float g = 0.0f;
         float b = 0.0f;
+    };
+
+    class EyerGLCacheTexture
+    {
+    public:
+        Eyer::EyerGLTexture * texture = nullptr;
+        int width = 0;
+        int height = 0;
+        int bearingY = 0;
+        int bearingX = 0;
+        int advance = 0;
     };
 }
 

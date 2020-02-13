@@ -29,6 +29,20 @@ namespace Eyer
         }
     }
 
+    int EyerAVPacket::RescaleTs( Eyer::EyerAVRational & _codecTimebase, Eyer::EyerAVRational & _streamTimebase)
+    {
+        AVRational codecTimebase;
+        codecTimebase.num = _codecTimebase.num;
+        codecTimebase.den = _codecTimebase.den;
+
+        AVRational streamTimebase;
+        streamTimebase.num = _streamTimebase.num;
+        streamTimebase.den = _streamTimebase.den;
+
+        av_packet_rescale_ts(piml->packet, codecTimebase, streamTimebase);
+        return 0;
+    }
+
     int EyerAVPacket::GetStreamId()
     {
         return piml->packet->stream_index;
@@ -43,7 +57,6 @@ namespace Eyer
     {
         return piml->packet->dts;
     }
-
 
     int EyerAVPacket::SetPTS(uint64_t pts)
     {
