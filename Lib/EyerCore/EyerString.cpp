@@ -115,12 +115,11 @@ namespace Eyer {
         return 0;
     }
 
-
-    EyerString EyerString::Number(int num)
+    EyerString EyerString::Number(int num, EyerString format)
     {
         char str[1024];
 
-        sprintf(str, "%d", num);
+        sprintf(str, format.str, num);
 
         return str;
     }

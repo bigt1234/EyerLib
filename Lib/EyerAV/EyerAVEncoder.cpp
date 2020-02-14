@@ -54,7 +54,7 @@ namespace Eyer
 
             piml->codecContext = avcodec_alloc_context3(codec);
 
-            piml->codecContext->time_base.den = 25;
+            piml->codecContext->time_base.den = param->fps;
             piml->codecContext->time_base.num = 1;
 
             piml->codecContext->codec_type = AVMEDIA_TYPE_VIDEO;
@@ -232,5 +232,10 @@ namespace Eyer
     {
         avcodec_flush_buffers(piml->codecContext);
         return 0;
+    }
+
+    int EyerAVEncoder::GetFPS()
+    {
+        return piml->codecContext->time_base.den;
     }
 }

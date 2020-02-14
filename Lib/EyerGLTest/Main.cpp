@@ -72,7 +72,7 @@ TEST(GLWindows, GLWindowsText){
     windows.Open();
     windows.SetBGColor(1.0, 1.0, 1.0, 1.0);
 
-    Eyer::EyerGLFrameBuffer frameBuffer;
+    Eyer::EyerGLFrameBuffer frameBuffer(width, height);
 
     Eyer::EyerGLTextDraw textDraw;
     // textDraw.SetText("abcdefghijklmnopqrstuvwxyz");

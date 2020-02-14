@@ -165,6 +165,7 @@ namespace Eyer
         CodecId codecId = CodecId::CODEC_ID_UNKNOW;
         int width = 0;
         int height = 0;
+        int fps = 25;
     };
 
     class EyerAVEncoder
@@ -181,6 +182,8 @@ namespace Eyer
         int Init(EncoderParam * param);
 
         int Flush();
+
+        int GetFPS();
 
         int GetBufferSize();
         int GetFrameSize();

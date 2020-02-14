@@ -152,12 +152,19 @@ namespace Eyer
     private:
         std::vector<EyerGLDraw *> drawList;
         std::vector<EyerGLComponent *> componentList;
+
+        unsigned int fbo = 0;
+
+        int width = 0;
+        int height = 0;
     public:
-        EyerGLFrameBuffer();
+        EyerGLFrameBuffer(int w, int h);
         ~EyerGLFrameBuffer();
 
         int AddDraw(EyerGLDraw * draw);
         int AddComponent(EyerGLComponent * component);
+
+        int Clear();
 
         int Draw();
 
