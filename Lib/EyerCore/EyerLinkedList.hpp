@@ -14,7 +14,7 @@ namespace Eyer {
         int circleElement();
         int insertEle(YaoLinkedEle<T> * ele, int pos);
         int deleteEle(int pos);
-        int find(int pos, T * data);
+        int find(int pos, T & data);
 
     public:
         int length;
@@ -134,7 +134,7 @@ namespace Eyer {
         YaoLinkedEle<T> * temp = head;
         while (temp->next != nullptr)
         {
-            printf("circle data: %f\n", temp->data);
+            //printf("circle data: %f\n", temp->data);
             temp = temp->next;
 
         }
@@ -142,7 +142,7 @@ namespace Eyer {
     }
 
     template <class T>
-    int YaoLinkedList<T>::find(int pos, T * data)
+    int YaoLinkedList<T>::find(int pos, T & data)
     {
         if (pos < 0 || pos > length - 1) {
             printf("pos is out of range\n");
@@ -155,8 +155,8 @@ namespace Eyer {
                 //printf("before delete ele:%d\n", temp->data);
         }
 
-        printf("find data: %f\n", temp->data);
-        *data = temp->data;        
+        //printf("find data: %f\n", temp->data);
+        data = temp->data;        
         return 0;
     }
 }
