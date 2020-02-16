@@ -20,6 +20,7 @@ add_library(
     EyerAVStreamPrivate.hpp
     EyerAVWriterPrivate.hpp
     EyerAVBitmap.cpp
+    EyerAVRational.cpp
 )
 
 target_link_libraries (EyerAV pthread)
@@ -44,6 +45,23 @@ IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
 
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Windows")
     MESSAGE(STATUS "current platform: Windows")
+
+    target_link_libraries (EyerAV ${CMAKE_SOURCE_DIR}/../../Lib/ffmpeg_install/lib/libavformat.a)
+    target_link_libraries (EyerAV ${CMAKE_SOURCE_DIR}/../../Lib/ffmpeg_install/lib/libavdevice.a)
+    target_link_libraries (EyerAV ${CMAKE_SOURCE_DIR}/../../Lib/ffmpeg_install/lib/libavcodec.a)
+    target_link_libraries (EyerAV ${CMAKE_SOURCE_DIR}/../../Lib/ffmpeg_install/lib/libavutil.a)
+    target_link_libraries (EyerAV ${CMAKE_SOURCE_DIR}/../../Lib/ffmpeg_install/lib/libavfilter.a)
+    target_link_libraries (EyerAV ${CMAKE_SOURCE_DIR}/../../Lib/ffmpeg_install/lib/libswresample.a)
+    target_link_libraries (EyerAV ${CMAKE_SOURCE_DIR}/../../Lib/ffmpeg_install/lib/libswscale.a)
+    target_link_libraries (EyerAV ${CMAKE_SOURCE_DIR}/../../Lib/x264_install/lib/libx264.a)
+
+    target_link_libraries (EyerAV z)
+    target_link_libraries (EyerAV bz2)
+    target_link_libraries (EyerAV ws2_32)
+    target_link_libraries (EyerAV Secur32)
+    target_link_libraries (EyerAV lzma)
+    target_link_libraries (EyerAV iconv)
+
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Android")
     MESSAGE(STATUS "current platform: Android")
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Darwin")

@@ -13,7 +13,6 @@ namespace Eyer
         av_register_all();
         avformat_network_init();
         piml = new EyerAVEncoderPrivate();
-        // piml->codecContext = avcodec_alloc_context3(nullptr);
     }
 
     EyerAVEncoder::~EyerAVEncoder()
@@ -29,6 +28,13 @@ namespace Eyer
             delete piml;
             piml = nullptr;
         }
+    }
+
+    int EyerAVEncoder::GetTimeBase(EyerAVRational & rational)
+    {
+        rational.num = piml->codecContext->time_base.num;
+        rational.den = piml->codecContext->time_base.den;
+        return 0;
     }
 
     int EyerAVEncoder::Init(EncoderParam * param)
@@ -48,10 +54,11 @@ namespace Eyer
 
             piml->codecContext = avcodec_alloc_context3(codec);
 
-            piml->codecContext->time_base.den = 90000;
+            piml->codecContext->time_base.den = param->fps;
             piml->codecContext->time_base.num = 1;
 
-            piml->codecContext->pix_fmt = AV_PIX_FMT_YUV420P;
+            piml->codecContext->codec_type = AVMEDIA_TYPE_VIDEO;
+            piml->codecContext->pix_fmt = AV_PIX_FMT_YUVJ420P;
             piml->codecContext->width = param->width;
             piml->codecContext->height = param->height;
 
@@ -116,7 +123,7 @@ namespace Eyer
         return size;
     }
 
-    int EyerAVEncoder::Init(EyerAVStream * stream)
+    int EyerAVEncoder::_Init(EyerAVStream * stream)
     {
         AVCodec * codec = nullptr;
 
@@ -225,5 +232,10 @@ namespace Eyer
     {
         avcodec_flush_buffers(piml->codecContext);
         return 0;
+    }
+
+    int EyerAVEncoder::GetFPS()
+    {
+        return piml->codecContext->time_base.den;
     }
 }

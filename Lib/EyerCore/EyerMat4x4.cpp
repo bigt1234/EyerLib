@@ -12,9 +12,30 @@ namespace Eyer {
 
     }
 
+    EyerMat4x4::EyerMat4x4(const EyerMat & _mat) : EyerMat(4, 4)
+    {
+        *this = _mat;
+    }
+
+    EyerMat4x4 & EyerMat4x4::operator = (const EyerMat &_mat)
+    {
+        if(row != _mat.row){
+            return *this;
+        }
+        if(col != _mat.col){
+            return *this;
+        }
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                mat[i][j] = _mat.mat[i][j];
+            }
+        }
+        return *this;
+    }
+
     EyerMat4x4::~EyerMat4x4()
     {
-
     }
 
     int EyerMat4x4::SetScale(float x, float y, float z)

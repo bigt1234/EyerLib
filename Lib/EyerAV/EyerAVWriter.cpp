@@ -22,7 +22,6 @@ namespace Eyer
     EyerAVWriter::~EyerAVWriter()
     {
         if(piml->formatCtx != NULL){
-            // Close();
             avformat_free_context(piml->formatCtx);
             piml->formatCtx = NULL;
         }
@@ -39,8 +38,6 @@ namespace Eyer
         if(ret){
             return -1;
         }
-
-        avformat_write_header(piml->formatCtx, nullptr);
 
         return 0;
     }
@@ -68,6 +65,21 @@ namespace Eyer
         encoder->piml->codecContext->codec_tag = 0;
         
         return avStream->index;
+    }
+
+    int EyerAVWriter::GetStreamTimeBase(EyerAVRational & rational, int streamIndex)
+    {
+        if(streamIndex < 0){
+            return -1;
+        }
+        if(streamIndex >= piml->formatCtx->nb_streams){
+            return -1;
+        }
+
+        rational.num = piml->formatCtx->streams[streamIndex]->time_base.num;
+        rational.den = piml->formatCtx->streams[streamIndex]->time_base.den;
+
+        return 0;
     }
 
     int EyerAVWriter::GetStreamTimeBaseDen(int streamIndex)
@@ -102,6 +114,7 @@ namespace Eyer
 
     int EyerAVWriter::WriteHand()
     {
+        avformat_write_header(piml->formatCtx, nullptr);
         return 0;
     }
 }

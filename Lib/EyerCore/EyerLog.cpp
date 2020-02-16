@@ -61,6 +61,10 @@ void EyerPrintf(const char * file, const char * function, int line, int level, c
                 ival=va_arg(ap,int);
                 BaseEyerLog("%d",ival);
                 break;
+            case 'c':
+                ival=va_arg(ap,int);
+                BaseEyerLog("%c",ival);
+                break;
             case 'f':
                 dval=va_arg(ap,double);
                 BaseEyerLog("%f",dval);
