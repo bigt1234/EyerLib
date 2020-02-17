@@ -1,35 +1,39 @@
-#ifndef	Yao_LINKEDLIST_H
-#define	Yao_LINKEDLIST_H
+#ifndef	EYER_LINKEDLIST_H
+#define	EYER_LINKEDLIST_H
 
 #include <stdio.h>
 #include "EyerLinkedEle.hpp"
 
 namespace Eyer {
-    template <class T>
-    class YaoLinkedList
+    template <typename T>
+    class EyerLinkedList
     {
     public:
-        YaoLinkedList();
-        ~YaoLinkedList();
+        EyerLinkedList();
+        ~EyerLinkedList();
         int circleElement();
-        int insertEle(YaoLinkedEle<T> * ele, int pos);
+        int insertEle(T & data, int pos);
         int deleteEle(int pos);
         int find(int pos, T & data);
+        int getLength();
 
     public:
+        EyerLinkedEle<T> * head;
+
+    private:
         int length;
-        YaoLinkedEle<T> * head;
+
     };
 
-    template <class T>
-    YaoLinkedList<T>::YaoLinkedList()
+    template <typename T>
+    EyerLinkedList<T>::EyerLinkedList()
     {
-        head = new YaoLinkedEle<T>(0);
+        head = new EyerLinkedEle<T>(0);
         length = 0;
     }
 
-    template <class T>
-    YaoLinkedList<T>::~YaoLinkedList()
+    template <typename T>
+    EyerLinkedList<T>::~EyerLinkedList()
     {
         if (length == 0) {
             delete head;
@@ -39,7 +43,7 @@ namespace Eyer {
 
         while (head->next != nullptr)
         {
-            YaoLinkedEle<T> * temp = head;
+            EyerLinkedEle<T> * temp = head;
             head = head->next;
             //printf("delete temp:%d", temp->data);
             delete temp;
@@ -48,33 +52,29 @@ namespace Eyer {
         head = nullptr;
     }
 
-    template <class T>
-    int YaoLinkedList<T>::insertEle(YaoLinkedEle<T> * ele, int pos)
+    template <typename T>
+    int EyerLinkedList<T>::insertEle(T & data, int pos)
     {
-        if (ele == nullptr) {
-            printf("element is null\n");
-            return -1;
-        }
         if (head == nullptr) {
             printf("linkList is null \n");
             return -2;
         }
 
         if (pos < 1) {
-            YaoLinkedEle<T> * temp = new YaoLinkedEle<T>(0);
+            EyerLinkedEle<T> * temp = new EyerLinkedEle<T>(0);
             head->next = temp;
-            head->data = ele->data;
+            head->data = data;
             length++;
 
             return 0;
         }
         else if (pos > length) {
-            YaoLinkedEle<T> * temp = head;
+            EyerLinkedEle<T> * temp = head;
             while (temp->next != nullptr)
             {
                 temp = temp->next;
             }
-            YaoLinkedEle<T> * tail = new YaoLinkedEle<T>(ele->data);
+            EyerLinkedEle<T> * tail = new EyerLinkedEle<T>(data);
             temp->next = tail;
             length++;
             
@@ -82,12 +82,12 @@ namespace Eyer {
             return 0;
         }
         else {
-            YaoLinkedEle<T> * temp = head;
+            EyerLinkedEle<T> * temp = head;
             for (int i = 1; i < pos; i++) {
                 temp = temp->next;
             }
 
-            YaoLinkedEle<T> * newEle = new YaoLinkedEle<T>(ele->data, temp->next);
+            EyerLinkedEle<T> * newEle = new EyerLinkedEle<T>(data, temp->next);
 
             temp->next = newEle;
 
@@ -97,8 +97,8 @@ namespace Eyer {
         }
     }
 
-    template <class T>
-    int YaoLinkedList<T>::deleteEle(int pos)
+    template <typename T>
+    int EyerLinkedList<T>::deleteEle(int pos)
     {
         if (pos < 0 || pos > length - 1) {
             printf("pos is out of range\n");
@@ -106,19 +106,19 @@ namespace Eyer {
         }
 
         if (pos < 1) {
-            YaoLinkedEle<T> * temp = head;
+            EyerLinkedEle<T> * temp = head;
             head = temp->next;
             delete temp;
             length--;
             return 0;
         }else {
-            YaoLinkedEle<T> * temp = head;
+            EyerLinkedEle<T> * temp = head;
             for (int i = 1; i < pos ; i++) {
                 temp = temp->next;
                 //printf("before delete ele:%d\n", temp->data);
             }
 
-            YaoLinkedEle<T> * deletedEle = temp->next;
+            EyerLinkedEle<T> * deletedEle = temp->next;
             temp->next = deletedEle->next;
             
             delete deletedEle;
@@ -127,11 +127,11 @@ namespace Eyer {
         }
     }
 
-    template <class T>
-    int YaoLinkedList<T>::circleElement()
+    template <typename T>
+    int EyerLinkedList<T>::circleElement()
     {
         //printf("in circleElement\n");
-        YaoLinkedEle<T> * temp = head;
+        EyerLinkedEle<T> * temp = head;
         while (temp->next != nullptr)
         {
             //printf("circle data: %f\n", temp->data);
@@ -141,15 +141,15 @@ namespace Eyer {
         return 0;
     }
 
-    template <class T>
-    int YaoLinkedList<T>::find(int pos, T & data)
+    template <typename T>
+    int EyerLinkedList<T>::find(int pos, T & data)
     {
         if (pos < 0 || pos > length - 1) {
             printf("pos is out of range\n");
             return -1;
         }
 
-        YaoLinkedEle<T> * temp = head;
+        EyerLinkedEle<T> * temp = head;
         for (int i = 0; i < pos ; i++) {
                 temp = temp->next;
                 //printf("before delete ele:%d\n", temp->data);
@@ -159,6 +159,13 @@ namespace Eyer {
         data = temp->data;        
         return 0;
     }
+
+    template <typename T>
+    int EyerLinkedList<T>::getLength()
+    {
+        return length;
+    }
+
 }
 #endif
 
