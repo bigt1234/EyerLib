@@ -40,19 +40,19 @@ namespace Eyer {
             glDeleteFramebuffers(1, &fbo);
             fbo = 0;
         }
-        // TODO drawList.clear();
-        // TODO componentList.clear();
+        drawList.clear();
+        componentList.clear();
     }
 
     int EyerGLFrameBuffer::AddDraw(EyerGLDraw * draw)
     {
-        drawList.insertEle(draw, drawList.getLength() - 1);
+        drawList.insertBack(draw);
         return 0;
     }
 
     int EyerGLFrameBuffer::AddComponent(EyerGLComponent * component)
     {
-        componentList.insertEle(component, componentList.getLength() - 1);
+        componentList.insertBack(component);
         return 0;
     }
 
