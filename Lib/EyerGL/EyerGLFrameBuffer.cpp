@@ -60,6 +60,8 @@ namespace Eyer {
     {
         glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
+        glViewport(0, 0, width, height);
+
         for(int i=0;i<drawList.getLength();i++){
             EyerGLDraw * drawP = nullptr;
             drawList.find(i, drawP);
@@ -72,6 +74,7 @@ namespace Eyer {
             EyerGLComponent * componentP = nullptr;
             componentList.find(i, componentP);
             if(componentP != nullptr){
+                componentP->Viewport(width, height);
                 componentP->Draw();
             }
         }

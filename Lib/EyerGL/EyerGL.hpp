@@ -13,6 +13,7 @@ namespace Eyer
 
     class EyerGLComponent;
     class EyerGLTextDraw;
+    class EyerGLSingleTextureDraw;
 
     class EyerGLShader;
     class EyerGLProgram;
@@ -221,6 +222,23 @@ namespace Eyer
         float r = 0.0f;
         float g = 0.0f;
         float b = 0.0f;
+    };
+
+    class EyerGLSingleTextureDraw : public EyerGLComponent
+    {
+    public:
+        EyerGLSingleTextureDraw();
+        ~EyerGLSingleTextureDraw();
+
+        int SetTexture(EyerGLTexture * texture);
+
+        virtual int Draw();
+
+    private:
+        EyerGLTexture * texture = nullptr;
+
+        EyerGLVAO * vao = nullptr;
+        EyerGLDraw * textureDraw = nullptr;
     };
 
     class EyerGLCacheTexture
