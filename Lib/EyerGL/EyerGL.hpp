@@ -150,6 +150,7 @@ namespace Eyer
     class EyerGLFrameBuffer : public EyerGLCMD
     {
     private:
+
         std::vector<EyerGLDraw *> drawList;
         std::vector<EyerGLComponent *> componentList;
 

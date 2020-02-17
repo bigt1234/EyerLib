@@ -82,7 +82,7 @@ TEST(EyerLinkedList_Test, insert_delete){
    
     list.find(5, data1);
     EXPECT_EQ(data1, 5);
-    EyerLog("data5:%d\n", data1);		
+    EyerLog("data5:%d\n", data1);
 
 	list.deleteEle(0);
     EXPECT_TRUE(list.length == 99);

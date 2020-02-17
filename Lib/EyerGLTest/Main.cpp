@@ -75,7 +75,6 @@ TEST(GLWindows, GLWindowsText){
     Eyer::EyerGLFrameBuffer frameBuffer(width, height);
 
     Eyer::EyerGLTextDraw textDraw;
-    // textDraw.SetText("abcdefghijklmnopqrstuvwxyz");
     textDraw.SetText("Redknot Miaomiao ABC GL gg");
     textDraw.SetColor(0.0, 1.0, 0.0);
     textDraw.SetSize(100);
@@ -89,6 +88,7 @@ TEST(GLWindows, GLWindowsText){
 
         Eyer::EyerString timeStr =  Eyer::EyerTime::TimeFormat();
         textDraw.SetText(timeStr);
+        textDraw.SetPos(0, 0 + 100);
         textDraw.SetColor(1.0, 0.0, 0.0);
         textDraw.Viewport(width, height);
         frameBuffer.Draw();
