@@ -13,9 +13,11 @@ namespace Eyer {
         ~EyerLinkedList();
         int circleElement();
         int insertEle(T & data, int pos);
+        int insertBack(T & data);
         int deleteEle(int pos);
         int find(int pos, T & data);
         int getLength();
+        int clear();
 
     public:
         EyerLinkedEle<T> * head;
@@ -56,7 +58,7 @@ namespace Eyer {
     int EyerLinkedList<T>::insertEle(T & data, int pos)
     {
         if (head == nullptr) {
-            printf("linkList is null \n");
+            //printf("linkList is null \n");
             return -2;
         }
 
@@ -98,10 +100,37 @@ namespace Eyer {
     }
 
     template <typename T>
+    int EyerLinkedList<T>::insertBack(T & data)
+    {
+        if (head == nullptr) {
+            //printf("linkList is null \n");
+            return -1;
+        }
+
+        if (length == 0) {
+            head->data = data;
+            length++;
+
+            return 0;
+        }
+
+        EyerLinkedEle<T> * temp = head;
+        while(temp->next != nullptr){
+            //printf("int while: temp-data:%d \n", temp->data);
+            temp = temp->next;
+        }
+
+        EyerLinkedEle<T> * newEle = new EyerLinkedEle<T>(data);
+        temp->next = newEle;
+        length++;
+        return 0;
+    }
+
+    template <typename T>
     int EyerLinkedList<T>::deleteEle(int pos)
     {
         if (pos < 0 || pos > length - 1) {
-            printf("pos is out of range\n");
+            //printf("pos is out of range\n");
             return -1;
         }
 
@@ -134,7 +163,7 @@ namespace Eyer {
         EyerLinkedEle<T> * temp = head;
         while (temp->next != nullptr)
         {
-            //printf("circle data: %f\n", temp->data);
+            //printf("circle data: %d\n", temp->data);
             temp = temp->next;
 
         }
@@ -145,7 +174,7 @@ namespace Eyer {
     int EyerLinkedList<T>::find(int pos, T & data)
     {
         if (pos < 0 || pos > length - 1) {
-            printf("pos is out of range\n");
+            //printf("pos is out of range\n");
             return -1;
         }
 
@@ -164,6 +193,15 @@ namespace Eyer {
     int EyerLinkedList<T>::getLength()
     {
         return length;
+    }
+
+    template <typename T>
+    int EyerLinkedList<T>::clear()
+    {
+        while(length > 0){
+            deleteEle(length - 1);
+        }
+        return 0;
     }
 
 }
