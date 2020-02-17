@@ -1,22 +1,22 @@
-#ifndef	Yao_LINKEDElE_H
-#define	Yao_LINKEDElE_H
+#ifndef	EYER_LINKEDElE_H
+#define	EYER_LINKEDElE_H
 
 #include <stdio.h>
 
 namespace Eyer {
     
-    template <class T>
-    class YaoLinkedEle
+    template <typename T>
+    class EyerLinkedEle
     {
     public:
         T data;
-        YaoLinkedEle<T> * next;
+        EyerLinkedEle<T> * next;
     public:
-        YaoLinkedEle<T>(T _data, YaoLinkedEle<T> * _next = nullptr){
+        EyerLinkedEle<T>(T _data, EyerLinkedEle<T> * _next = nullptr){
             data = _data;
             next = _next;
         }
-        ~YaoLinkedEle<T>(){
+        ~EyerLinkedEle<T>(){
             
         }
     };  

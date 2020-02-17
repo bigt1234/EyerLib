@@ -64,17 +64,16 @@ TEST(EyerTime, time){
 }
 
 TEST(EyerLinkedList_Test, insert_delete){
-    Eyer::YaoLinkedList<int> list;
+    Eyer::EyerLinkedList<int> list;
     for (int i = 0; i < 100; i++) {
-		Eyer::YaoLinkedEle<int> ele(i);
-		if (list.insertEle(&ele, i)) {
+		if (list.insertEle(i, i)) {
 			EyerLog("EyerLinkedList insert fail \n");
 		}	
 	}
     EyerLog("circleElement \n");
     list.circleElement();
-    EyerLog("list Length :%d\n", list.length);	
-    EXPECT_TRUE(list.length == 100);
+    EyerLog("list Length :%d\n", list.getLength());	
+    EXPECT_TRUE(list.getLength() == 100);
 
     int data1 = 0.0;
     list.find(0, data1);
@@ -85,12 +84,12 @@ TEST(EyerLinkedList_Test, insert_delete){
     EyerLog("data5:%d\n", data1);		
 
 	list.deleteEle(0);
-    EXPECT_TRUE(list.length == 99);
+    EXPECT_TRUE(list.getLength() == 99);
 
     list.deleteEle(50);
-    EXPECT_TRUE(list.length == 98);
+    EXPECT_TRUE(list.getLength() == 98);
     
-    EyerLog("list Length:%d\n", list.length);	
+    EyerLog("list Length:%d\n", list.getLength());	
 
 }
 
