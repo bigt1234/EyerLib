@@ -63,6 +63,37 @@ TEST(EyerTime, time){
     EyerLog("Time:%s\n", Eyer::EyerTime::TimeFormat().str);
 }
 
+TEST(EyerLinkedList_Test, insert_delete){
+    Eyer::YaoLinkedList<int> list;
+    for (int i = 0; i < 100; i++) {
+		Eyer::YaoLinkedEle<int> ele(i);
+		if (list.insertEle(&ele, i)) {
+			EyerLog("EyerLinkedList insert fail \n");
+		}	
+	}
+    EyerLog("circleElement \n");
+    list.circleElement();
+    EyerLog("list Length :%d\n", list.length);	
+    EXPECT_TRUE(list.length == 100);
+
+    int data1 = 0.0;
+    list.find(0, data1);
+    EXPECT_EQ(data1, 0);
+   
+    list.find(5, data1);
+    EXPECT_EQ(data1, 5);
+    EyerLog("data5:%d\n", data1);		
+
+	list.deleteEle(0);
+    EXPECT_TRUE(list.length == 99);
+
+    list.deleteEle(50);
+    EXPECT_TRUE(list.length == 98);
+    
+    EyerLog("list Length:%d\n", list.length);	
+
+}
+
 int main(int argc,char **argv){
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

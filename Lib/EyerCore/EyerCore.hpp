@@ -6,5 +6,6 @@
 #include "EyerLog.hpp"
 #include "EyerMath.hpp"
 #include "EyerTime.hpp"
+#include "EyerLinkedList.hpp"
 
 #endif
