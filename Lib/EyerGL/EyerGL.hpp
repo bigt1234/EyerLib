@@ -145,21 +145,23 @@ namespace Eyer
         unsigned int GL_GetTextureId();
 
         int SetDataRedChannel(unsigned char * data,int width,int height);
+        int SetDataRGBAChannel(unsigned char * data,int width,int height);
     };
 
     class EyerGLFrameBuffer : public EyerGLCMD
     {
     private:
-
-        std::vector<EyerGLDraw *> drawList;
-        std::vector<EyerGLComponent *> componentList;
+        EyerLinkedList<EyerGLDraw *> drawList;
+        EyerLinkedList<EyerGLComponent *> componentList;
 
         unsigned int fbo = 0;
 
         int width = 0;
         int height = 0;
+
+        EyerGLTexture * texture = nullptr;
     public:
-        EyerGLFrameBuffer(int w, int h);
+        EyerGLFrameBuffer(int w, int h, EyerGLTexture * texture = nullptr);
         ~EyerGLFrameBuffer();
 
         int AddDraw(EyerGLDraw * draw);

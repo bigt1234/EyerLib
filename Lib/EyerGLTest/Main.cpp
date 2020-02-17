@@ -83,6 +83,16 @@ TEST(GLWindows, GLWindowsText){
 
     frameBuffer.AddComponent(&textDraw);
 
+
+    Eyer::EyerGLTextDraw textDraw2;
+    textDraw2.SetText("Redknot Miaomiao ABC GL gg");
+    textDraw2.SetColor(0.0, 1.0, 0.0);
+    textDraw2.SetSize(100);
+
+    textDraw2.SetPos(0, 0 + 300);
+
+    frameBuffer.AddComponent(&textDraw2);
+
     while (!windows.ShouldClose()){
         windows.Clear();
 
@@ -91,6 +101,7 @@ TEST(GLWindows, GLWindowsText){
         textDraw.SetPos(0, 0 + 100);
         textDraw.SetColor(1.0, 0.0, 0.0);
         textDraw.Viewport(width, height);
+        textDraw2.Viewport(width, height);
         frameBuffer.Draw();
 
         windows.Loop();

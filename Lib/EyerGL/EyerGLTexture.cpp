@@ -39,4 +39,13 @@ namespace Eyer
         
         return 0;
     }
+
+    int EyerGLTexture::SetDataRGBAChannel(unsigned char * data,int width,int height)
+    {
+        glBindTexture(GL_TEXTURE_2D, textureId);
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glBindTexture(GL_TEXTURE_2D, 0);
+        return 0;
+    }
 }
