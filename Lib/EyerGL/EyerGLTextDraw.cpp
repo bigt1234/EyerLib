@@ -4,8 +4,10 @@
 
 namespace Eyer
 {
-    EyerGLTextDraw::EyerGLTextDraw()
+    EyerGLTextDraw::EyerGLTextDraw(EyerString _typeFilePath)
     {
+        typeFilePath = _typeFilePath;
+
         float vertex[] = {
                 1.0, 1.0, 0.0,
                 1.0, -1.0, 0.0,
@@ -24,7 +26,7 @@ namespace Eyer
         };
 
         {
-            typeCreator = new EyerType("/home/redknot/Manjari-Bold.otf");
+            typeCreator = new EyerType(typeFilePath.str);
             typeCreator->Init();
         }
         {

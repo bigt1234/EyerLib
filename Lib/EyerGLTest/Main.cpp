@@ -38,7 +38,7 @@ TEST(GLWindows, GLWindows){
     draw.Init();
     draw.SetVAO(&vao);
 
-    Eyer::EyerType type("/home/redknot/Manjari-Bold.otf");
+    Eyer::EyerType type("./Manjari-Bold.otf");
     int ret = type.Init();
     int indexI = type.GenChar('q', 720);
 
@@ -74,7 +74,7 @@ TEST(GLWindows, GLWindowsText){
 
     Eyer::EyerGLFrameBuffer frameBuffer(width, height);
 
-    Eyer::EyerGLTextDraw textDraw;
+    Eyer::EyerGLTextDraw textDraw("./Manjari-Bold.otf");
     textDraw.SetText("Redknot Miaomiao ABC GL gg");
     textDraw.SetColor(0.0, 1.0, 0.0);
     textDraw.SetSize(100);
@@ -84,7 +84,7 @@ TEST(GLWindows, GLWindowsText){
     frameBuffer.AddComponent(&textDraw);
 
 
-    Eyer::EyerGLTextDraw textDraw2;
+    Eyer::EyerGLTextDraw textDraw2("./Manjari-Bold.otf");
     textDraw2.SetText("Redknot Miaomiao ABC GL gg");
     textDraw2.SetColor(0.0, 1.0, 0.0);
     textDraw2.SetSize(100);

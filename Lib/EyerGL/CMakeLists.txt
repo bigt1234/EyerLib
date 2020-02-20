@@ -17,6 +17,7 @@ add_library(
         EyerGLTextDraw.cpp
         EyerGLComponent.cpp
         EyerGLSingleTextureDraw.cpp
+        EyerGLFrameDraw.cpp
 
         Shader.cpp
 

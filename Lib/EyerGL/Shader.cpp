@@ -117,4 +117,29 @@ namespace Eyer
                 color = vec4(rgb, 1.0);
             }
             );
+
+
+    char * GL_SHADER::FRAME_VERTEX_SHADER = SHADER(
+            layout (location = 0) in vec3 pos;
+            layout (location = 1) in vec3 coor;
+
+            out vec3 outCoor;
+
+            void main()
+            {
+                outCoor = coor;
+                gl_Position = vec4(pos, 1.0);
+            }
+            );
+
+    char * GL_SHADER::FRAME_FRAGMENT_SHADER = SHADER(
+            out vec4 color;
+            uniform sampler2D y;
+            in vec3 outCoor;
+            void main(){
+                vec2 TexCoords = vec2(outCoor.x, 1.0 - outCoor.y);
+                vec3 rgb = texture(y, TexCoords).rgb;
+                color = vec4(rgb, 1.0);
+            }
+            );
 }

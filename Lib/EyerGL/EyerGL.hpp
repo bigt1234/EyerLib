@@ -14,6 +14,7 @@ namespace Eyer
     class EyerGLComponent;
     class EyerGLTextDraw;
     class EyerGLSingleTextureDraw;
+    class EyerGLFrameDraw;
 
     class EyerGLShader;
     class EyerGLProgram;
@@ -192,7 +193,7 @@ namespace Eyer
     class EyerGLTextDraw : public EyerGLComponent
     {
     public:
-        EyerGLTextDraw();
+        EyerGLTextDraw(EyerString _typeFilePath);
         ~EyerGLTextDraw();
 
         int SetText(EyerString text);
@@ -206,6 +207,8 @@ namespace Eyer
         virtual int Draw();
 
     private:
+        EyerString typeFilePath;
+
         EyerString text;
         EyerGLDraw * pointDraw = nullptr;
         EyerGLVAO * pointVao = nullptr;
@@ -239,6 +242,24 @@ namespace Eyer
 
         EyerGLVAO * vao = nullptr;
         EyerGLDraw * textureDraw = nullptr;
+    };
+
+    class EyerGLFrameDraw : public EyerGLComponent
+    {
+    public:
+        EyerGLFrameDraw();
+        ~EyerGLFrameDraw();
+
+        int SetVideoWH(int w, int h);
+
+        virtual int Draw();
+
+    private:
+        EyerGLVAO * vao = nullptr;
+        EyerGLDraw * textureDraw = nullptr;
+
+        int videoW = 0;
+        int videoH = 0;
     };
 
     class EyerGLCacheTexture
