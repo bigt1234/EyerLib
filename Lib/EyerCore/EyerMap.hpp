@@ -1,6 +1,7 @@
 #ifndef	EYER_MAP_H
 #define	EYER_MAP_H
 #include "EyerMapEle.hpp"
+
 namespace Eyer {
 
 	template<typename K, typename V>
@@ -10,6 +11,7 @@ namespace Eyer {
 		EyerMap();
 		~EyerMap();
 		int insert(K & key, V & value, EyerMapEle<K,V> * ele = nullptr);
+		int circleEle(EyerMapEle<K, V>* ele);
 		int getSize();
 		EyerMapEle<K, V>* head;
 
@@ -30,6 +32,7 @@ namespace Eyer {
 
 		if (nullptr == ele) {
 			ele = new EyerMapEle<K, V>(key, value);
+			size++;
 		}else if (key > ele->key) {
 			insert(key, value, ele->leftMapEle);
 		}else if (key < ele->key) {
@@ -47,12 +50,26 @@ namespace Eyer {
 	template<typename K, typename V>
 	EyerMap<K, V>::~EyerMap()
 	{
+		
 	}
 
 	template<typename K, typename V>
 	int EyerMap<K, V>::getSize()
 	{
 		return size;
+	}
+
+	template<typename K, typename V>
+	int EyerMap<K, V>::circleEle(EyerMapEle<K, V>* ele)
+	{
+		printf("in circleEle \n");
+		if (nullptr != ele) {
+			printf("key:%d,vaule:%d \n", ele->key, ele->value);
+			printf("ele->leftMapEle: key,%d; key");
+			circleEle(ele->leftMapEle);
+			circleEle(ele->rightMapEle);
+		}
+		return 0;
 	}
 }
 
