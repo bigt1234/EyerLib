@@ -35,6 +35,25 @@ namespace Eyer
         }
     }
 
+    int EyerAVReader::SeekFrame(int streamIndex, double timestamp)
+    {
+        int64_t t = timestamp / av_q2d(piml->formatCtx->streams[streamIndex]->time_base);
+        return SeekFrame(streamIndex, t);
+    }
+
+    int EyerAVReader::SeekFrame(int streamIndex, int64_t timestamp)
+    {
+        if(piml->formatCtx == nullptr){
+            return -1;
+        }
+
+        // TODO 判断文件是否打开成功
+
+        int ret = av_seek_frame(piml->formatCtx, streamIndex, timestamp, AVSEEK_FLAG_BACKWARD);
+
+        return ret;
+    }
+
     int EyerAVReader::Open()
     {
         int ret = avformat_open_input(&piml->formatCtx, piml->path.str, NULL, NULL);
@@ -91,6 +110,21 @@ namespace Eyer
         stream.streamIndex = piml->formatCtx->streams[index]->index;
         stream.piml->type = EyerAVStreamType::STREAM_TYPE_UNKNOW;
         avcodec_copy_context(stream.piml->codecContext, piml->formatCtx->streams[index]->codec);
+
+        return 0;
+    }
+
+    int EyerAVReader::GetStreamTimeBase(EyerAVRational & rational, int streamIndex)
+    {
+        if(streamIndex < 0){
+            return -1;
+        }
+        if(streamIndex >= piml->formatCtx->nb_streams){
+            return -1;
+        }
+
+        rational.num = piml->formatCtx->streams[streamIndex]->time_base.num;
+        rational.den = piml->formatCtx->streams[streamIndex]->time_base.den;
 
         return 0;
     }

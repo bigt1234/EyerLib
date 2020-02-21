@@ -96,13 +96,18 @@ TEST(GLWindows, GLWindowsText){
     while (!windows.ShouldClose()){
         windows.Clear();
 
+        frameBuffer.AddComponent(&textDraw);
+        frameBuffer.AddComponent(&textDraw2);
+
         Eyer::EyerString timeStr =  Eyer::EyerTime::TimeFormat();
         textDraw.SetText(timeStr);
         textDraw.SetPos(0, 0 + 100);
         textDraw.SetColor(1.0, 0.0, 0.0);
         textDraw.Viewport(width, height);
         textDraw2.Viewport(width, height);
+
         frameBuffer.Draw();
+        frameBuffer.ClearAllComponent();
 
         windows.Loop();
     }

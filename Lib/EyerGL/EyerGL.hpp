@@ -168,6 +168,7 @@ namespace Eyer
 
         int AddDraw(EyerGLDraw * draw);
         int AddComponent(EyerGLComponent * component);
+        int ClearAllComponent();
 
         int Clear();
 

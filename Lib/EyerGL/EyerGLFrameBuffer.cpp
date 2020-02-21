@@ -56,6 +56,12 @@ namespace Eyer {
         return 0;
     }
 
+    int EyerGLFrameBuffer::ClearAllComponent()
+    {
+        componentList.clear();
+        return 0;
+    }
+
     int EyerGLFrameBuffer::Draw()
     {
         glBindFramebuffer(GL_FRAMEBUFFER, fbo);

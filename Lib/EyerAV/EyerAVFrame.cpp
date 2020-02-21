@@ -28,6 +28,58 @@ namespace Eyer {
         dataManager.clear();
     }
 
+    EyerAVFrame::EyerAVFrame(const EyerAVFrame & frame)
+    {
+        piml = new EyerAVFramePrivate();
+        piml->frame = av_frame_alloc();
+        *this = frame;
+    }
+    EyerAVFrame & EyerAVFrame::operator = (const EyerAVFrame & frame)
+    {
+        /*
+        av_frame_copy_props(piml->frame, frame.piml->frame);
+        av_frame_copy(piml->frame, frame.piml->frame);
+        piml->frame->width = frame.piml->frame->width;
+        piml->frame->height = frame.piml->frame->height;
+        */
+
+        // Copy data
+
+        // Copy linesize
+        for(int i=0;i<AV_NUM_DATA_POINTERS;i++){
+            piml->frame->linesize[i] = frame.piml->frame->linesize[i];
+        }
+
+        // Copy extended_data
+
+        // Copy width ,height
+        piml->frame->width = frame.piml->frame->width;
+        piml->frame->height = frame.piml->frame->height;
+
+        piml->frame->nb_samples = frame.piml->frame->nb_samples;
+
+        piml->frame->format = frame.piml->frame->format;
+
+        piml->frame->key_frame = frame.piml->frame->key_frame;
+
+        piml->frame->pict_type = frame.piml->frame->pict_type;
+
+        piml->frame->sample_aspect_ratio = frame.piml->frame->sample_aspect_ratio;
+
+        piml->frame->pts = frame.piml->frame->pts;
+
+        piml->frame->pkt_dts = frame.piml->frame->pkt_dts;
+
+        piml->frame->coded_picture_number = frame.piml->frame->coded_picture_number;
+
+        piml->frame->display_picture_number = frame.piml->frame->display_picture_number;
+
+        piml->frame->quality = frame.piml->frame->quality;
+
+
+        return *this;
+    }
+
     int EyerAVFrame::SetPTS(int64_t pts)
     {
         piml->frame->pts = pts;
@@ -46,15 +98,24 @@ namespace Eyer {
         return piml->frame->height;
     }
 
+    int64_t EyerAVFrame::GetPTS()
+    {
+        return piml->frame->pts;
+    }
+
     int EyerAVFrame::GetInfo() {
         if (piml->frame->format == AV_SAMPLE_FMT_FLTP) {
-            printf("AV_SAMPLE_FMT_FLTP\n");
+            // printf("AV_SAMPLE_FMT_FLTP\n");
         } else {
-            printf("NOT AV_SAMPLE_FMT_FLTP\n");
+            // printf("NOT AV_SAMPLE_FMT_FLTP\n");
         }
 
-        printf("Linesize 0:%d\n", piml->frame->linesize[0]);
-        printf("Linesize 1:%d\n", piml->frame->linesize[1]);
+        for(int i=0;i<AV_NUM_DATA_POINTERS;i++) {
+            printf("Linesize %d: %d\n", i, piml->frame->linesize[i]);
+        }
+
+        printf("Width:%d\n", piml->frame->width);
+        printf("Height:%d\n", piml->frame->height);
         printf("Channels:%d\n", piml->frame->channels);
         printf("nb_samples:%d\n", piml->frame->nb_samples);
         printf("nb_samples:%lld\n", piml->frame->channel_layout);

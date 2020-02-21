@@ -43,6 +43,7 @@ namespace Eyer
         FT_Face face;
         if (FT_New_Face(impl->ft, typeFile.str, 0, &face))
         {
+            EyerLog("FT_New_Face Fail\n");
             return -2;
         }
 

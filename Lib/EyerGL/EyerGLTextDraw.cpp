@@ -147,6 +147,8 @@ namespace Eyer
 
             Eyer::EyerMat4x4 mat = (matTrans * matScale);
 
+            // EyerLog("Render: %c %d %d\n", c, texture->width, texture->height);
+
             textDraw->PutTexture("charTex", texture->texture);
             textDraw->PutMatrix4fv("mat", mat);
 
