@@ -90,6 +90,18 @@ TEST(EyerLinkedList_Test, insert_delete){
 
     list.clear();
     EXPECT_TRUE(list.getLength() == 0);
+
+    for (int i = 0; i < 100; i++) {
+		if (list.insertEle(i, i)) {
+			EyerLog("EyerLinkedList insert fail \n");
+		}	
+	}
+    EyerLog("2. list Length :%d\n", list.getLength());	
+    EXPECT_TRUE(list.getLength() == 100);
+
+    list.find(0, data1);
+    EXPECT_EQ(data1, 0);
+    EyerLog("2. data1:%d\n", data1);	
 }
 
 
@@ -124,6 +136,18 @@ TEST(EyerLinkedList_Test, insertBack){
 
     list.clear();
     EXPECT_TRUE(list.getLength() == 0);
+
+    for (int i = 0; i < 100; i++) {
+		if (list.insertBack(i)) {
+			EyerLog("EyerLinkedList insert fail \n");
+		}	
+	}
+    EyerLog("2. list Length :%d\n", list.getLength());	
+    EXPECT_TRUE(list.getLength() == 100);
+
+    list.find(0, data1);
+    EXPECT_EQ(data1, 0);
+    EyerLog("2. data1:%d\n", data1);	
 
 }
 
