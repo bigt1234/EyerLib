@@ -12,14 +12,14 @@ namespace Eyer {
         EyerLinkedList();
         ~EyerLinkedList();
         int circleElement();
-        int insertEle(T & data, int pos);
-        int insertBack(T & data);
+        int insertEle(const T & data, int pos);
+        int insertBack(const T & data);
         int deleteEle(int pos);
-        int find(int pos, T & data);
-        int getLength();
+        int find(int pos, T & data) const;
+        int getLength() const;
         int clear();
 
-    public:
+    private:
         EyerLinkedEle<T> * head;
 
     private:
@@ -55,7 +55,7 @@ namespace Eyer {
     }
 
     template <typename T>
-    int EyerLinkedList<T>::insertEle(T & data, int pos)
+    int EyerLinkedList<T>::insertEle(const T & data, int pos)
     {
         if (head == nullptr) {
             //printf("linkList is null \n");
@@ -100,7 +100,7 @@ namespace Eyer {
     }
 
     template <typename T>
-    int EyerLinkedList<T>::insertBack(T & data)
+    int EyerLinkedList<T>::insertBack(const T & data)
     {
         if (head == nullptr) {
             //printf("linkList is null \n");
@@ -171,7 +171,7 @@ namespace Eyer {
     }
 
     template <typename T>
-    int EyerLinkedList<T>::find(int pos, T & data)
+    int EyerLinkedList<T>::find(int pos, T & data) const
     {
         if (pos < 0 || pos > length - 1) {
             //printf("pos is out of range\n");
@@ -190,7 +190,7 @@ namespace Eyer {
     }
 
     template <typename T>
-    int EyerLinkedList<T>::getLength()
+    int EyerLinkedList<T>::getLength() const
     {
         return length;
     }
