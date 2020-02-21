@@ -201,6 +201,7 @@ namespace Eyer {
         while(length > 0){
             deleteEle(length - 1);
         }
+        head = new EyerLinkedEle<T>(0);
         return 0;
     }
 
