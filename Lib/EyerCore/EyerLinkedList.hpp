@@ -63,8 +63,6 @@ namespace Eyer {
         }
 
         if (pos < 1) {
-            EyerLinkedEle<T> * temp = new EyerLinkedEle<T>(0);
-            head->next = temp;
             head->data = data;
             length++;
 
