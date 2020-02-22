@@ -2,7 +2,6 @@
 #define	EYER_MAPElE_H
 
 #include <stdio.h>
-//no
 
 namespace Eyer {
 
@@ -22,7 +21,6 @@ namespace Eyer {
             rightMapEle = _rightMapEle;
         }
         ~EyerMapEle<K, V>() {
-
 
         }
     };
