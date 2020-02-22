@@ -44,6 +44,10 @@ namespace Eyer {
         */
 
         // Copy data
+        unsigned char * data0 = (unsigned char *)malloc(frame.piml->frame->width *frame.piml->frame->height);
+        memcpy(data0, frame.piml->frame->data[0], frame.piml->frame->width *frame.piml->frame->height);
+        piml->frame->data[0] = data0;
+        dataManager.push_back(data0);
 
         // Copy linesize
         for(int i=0;i<AV_NUM_DATA_POINTERS;i++){
@@ -78,6 +82,12 @@ namespace Eyer {
 
 
         return *this;
+    }
+
+    int EyerAVFrame::GetYData(unsigned char * yData)
+    {
+        memcpy(yData, piml->frame->data[0], piml->frame->width * piml->frame->height);
+        return 0;
     }
 
     int EyerAVFrame::SetPTS(int64_t pts)

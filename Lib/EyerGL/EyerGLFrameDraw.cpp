@@ -46,6 +46,12 @@ namespace Eyer
         }
     }
 
+    int EyerGLFrameDraw::SetYTexture(EyerGLTexture * _yTex)
+    {
+        yTex = _yTex;
+        return 0;
+    }
+
     int EyerGLFrameDraw::SetVideoWH(int w, int h)
     {
         videoW = w;
@@ -55,6 +61,10 @@ namespace Eyer
 
     int EyerGLFrameDraw::Draw()
     {
+        if(yTex != nullptr){
+            textureDraw->PutTexture("y",yTex, 0);
+        }
+        textureDraw->Draw();
         return 0;
     }
 }

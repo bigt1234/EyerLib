@@ -253,11 +253,15 @@ namespace Eyer
 
         int SetVideoWH(int w, int h);
 
+        int SetYTexture(EyerGLTexture * yTex);
+
         virtual int Draw();
 
     private:
         EyerGLVAO * vao = nullptr;
         EyerGLDraw * textureDraw = nullptr;
+
+        EyerGLTexture * yTex = nullptr;
 
         int videoW = 0;
         int videoH = 0;
