@@ -25,6 +25,7 @@ namespace Eyer
         textureDraw = new EyerGLDraw(GL_SHADER::FRAME_VERTEX_SHADER, GL_SHADER::FRAME_FRAGMENT_SHADER);
         textureDraw->Init();
 
+
         vao = new EyerGLVAO();
 
         vao->AddVBO(vertex, sizeof(vertex), 0);
@@ -52,6 +53,18 @@ namespace Eyer
         return 0;
     }
 
+    int EyerGLFrameDraw::SetUTexture(EyerGLTexture * _uTex)
+    {
+        uTex = _uTex;
+        return 0;
+    }
+
+    int EyerGLFrameDraw::SetVTexture(EyerGLTexture * _vTex)
+    {
+        vTex = _vTex;
+        return 0;
+    }
+
     int EyerGLFrameDraw::SetVideoWH(int w, int h)
     {
         videoW = w;
@@ -63,6 +76,12 @@ namespace Eyer
     {
         if(yTex != nullptr){
             textureDraw->PutTexture("y",yTex, 0);
+        }
+        if(uTex != nullptr){
+            textureDraw->PutTexture("u",uTex, 1);
+        }
+        if(vTex != nullptr){
+            textureDraw->PutTexture("v",vTex, 2);
         }
         textureDraw->Draw();
         return 0;

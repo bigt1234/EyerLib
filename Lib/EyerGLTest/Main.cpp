@@ -65,6 +65,7 @@ TEST(GLWindows, GLWindows){
 }
 
 TEST(GLWindows, GLWindowsText){
+
     int width = 1280;
     int height = 720;
 
@@ -81,7 +82,7 @@ TEST(GLWindows, GLWindowsText){
 
     textDraw.SetPos(0, 0 + 100);
 
-    frameBuffer.AddComponent(&textDraw);
+    // frameBuffer.AddComponent(&textDraw);
 
 
     Eyer::EyerGLTextDraw textDraw2("./Manjari-Bold.otf");
@@ -91,13 +92,13 @@ TEST(GLWindows, GLWindowsText){
 
     textDraw2.SetPos(0, 0 + 300);
 
-    frameBuffer.AddComponent(&textDraw2);
+    // frameBuffer.AddComponent(&textDraw2);
 
     while (!windows.ShouldClose()){
         windows.Clear();
 
-        frameBuffer.AddComponent(&textDraw);
-        frameBuffer.AddComponent(&textDraw2);
+        // frameBuffer.AddComponent(&textDraw);
+        // frameBuffer.AddComponent(&textDraw2);
 
         Eyer::EyerString timeStr =  Eyer::EyerTime::TimeFormat();
         textDraw.SetText(timeStr);
@@ -107,12 +108,13 @@ TEST(GLWindows, GLWindowsText){
         textDraw2.Viewport(width, height);
 
         frameBuffer.Draw();
-        frameBuffer.ClearAllComponent();
+        // frameBuffer.ClearAllComponent();
 
         windows.Loop();
     }
 
     windows.Close();
+
 }
 
 int main(int argc,char **argv)

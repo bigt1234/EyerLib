@@ -135,10 +135,23 @@ namespace Eyer
     char * GL_SHADER::FRAME_FRAGMENT_SHADER = SHADER(
             out vec4 color;
             uniform sampler2D y;
+            uniform sampler2D u;
+            uniform sampler2D v;
             in vec3 outCoor;
             void main(){
-                vec2 TexCoords = vec2(outCoor.x, 1.0 - outCoor.y);
-                vec3 rgb = texture(y, TexCoords).rgb;
+                vec2 t = vec2(outCoor.x, 1.0 - outCoor.y);
+
+                vec3 yuv;
+                vec3 rgb;
+
+                yuv.x = texture(y, t).r;
+                yuv.y = texture(u, t).r - 0.5;
+                yuv.z = texture(v, t).r - 0.5;
+
+                rgb = mat3( 1,       1,         1,
+                            0,       -0.39465,  2.03211,
+                            1.13983, -0.58060,  0) * yuv;
+
                 color = vec4(rgb, 1.0);
             }
             );

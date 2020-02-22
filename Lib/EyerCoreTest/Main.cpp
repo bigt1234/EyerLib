@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "EyerCore/EyerCore.hpp"
+#include "EyerGL/EyerGL.hpp"
 
 #include "MathTest.hpp"
 
@@ -102,6 +103,39 @@ TEST(EyerLinkedList_Test, insert_delete){
     list.find(0, data1);
     EXPECT_EQ(data1, 0);
     EyerLog("2. data1:%d\n", data1);	
+}
+
+TEST(EyerLinkedList_Test, mem){
+    Eyer::EyerGLWindow windows("aaa", 100, 100);
+    windows.Open();
+
+    while(!windows.ShouldClose()){
+
+        Eyer::EyerLinkedList<Eyer::EyerGLComponent *> aList;
+
+        /*
+
+        for(int i=0;i<5;i++){
+            Eyer::EyerGLComponent * a = new Eyer::EyerGLFrameDraw();
+            aList.insertBack(a);
+        }
+
+        for(int i=0;i<aList.getLength();i++){
+            Eyer::EyerGLComponent * a = nullptr;
+            aList.find(i, a);
+            if(a != nullptr){
+                delete a;
+            }
+        }
+        */
+
+        aList.clear();
+
+        windows.Loop();
+    }
+
+
+    windows.Clear();
 }
 
 

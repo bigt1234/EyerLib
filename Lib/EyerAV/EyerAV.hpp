@@ -71,6 +71,8 @@ namespace Eyer
         int64_t GetPTS();
 
         int GetYData(unsigned char * yData);
+        int GetUData(unsigned char * uData);
+        int GetVData(unsigned char * vData);
 
         int GetAudioData(unsigned char * data);
         int SetAudioData(unsigned char * data, int dataLen, int nbSamples, int channel, EyerAVFormat format);

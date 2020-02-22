@@ -37,7 +37,7 @@ namespace Eyer
 
         glActiveTexture(GL_TEXTURE0 + textureIndex);
         glBindTexture(GL_TEXTURE_2D, texture->GL_GetTextureId());
-        program->PutUniform1i(uniform.str, GL_TEXTURE0 + textureIndex);
+        program->PutUniform1i(uniform.str, textureIndex);
 
         return 0;
     }

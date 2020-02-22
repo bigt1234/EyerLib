@@ -44,10 +44,30 @@ namespace Eyer {
         */
 
         // Copy data
-        unsigned char * data0 = (unsigned char *)malloc(frame.piml->frame->width *frame.piml->frame->height);
-        memcpy(data0, frame.piml->frame->data[0], frame.piml->frame->width *frame.piml->frame->height);
-        piml->frame->data[0] = data0;
-        dataManager.push_back(data0);
+        // YUV 420 Data
+        {
+            unsigned char * data0 = (unsigned char *)malloc(frame.piml->frame->width *frame.piml->frame->height);
+            memcpy(data0, frame.piml->frame->data[0], frame.piml->frame->width *frame.piml->frame->height);
+            piml->frame->data[0] = data0;
+            dataManager.push_back(data0);
+        }
+        {
+            int dataLen = frame.piml->frame->width / 2 * frame.piml->frame->height / 2;
+            unsigned char * data1 = (unsigned char *)malloc(dataLen);
+            memcpy(data1, frame.piml->frame->data[1], dataLen);
+            piml->frame->data[1] = data1;
+            dataManager.push_back(data1);
+        }
+        {
+            int dataLen = frame.piml->frame->width / 2 * frame.piml->frame->height / 2;
+            unsigned char * data2 = (unsigned char *)malloc(dataLen);
+            memcpy(data2, frame.piml->frame->data[2], dataLen);
+            piml->frame->data[2] = data2;
+            dataManager.push_back(data2);
+        }
+
+
+
 
         // Copy linesize
         for(int i=0;i<AV_NUM_DATA_POINTERS;i++){
@@ -87,6 +107,18 @@ namespace Eyer {
     int EyerAVFrame::GetYData(unsigned char * yData)
     {
         memcpy(yData, piml->frame->data[0], piml->frame->width * piml->frame->height);
+        return 0;
+    }
+
+    int EyerAVFrame::GetUData(unsigned char * uData)
+    {
+        memcpy(uData, piml->frame->data[1], piml->frame->width / 2 * piml->frame->height / 2);
+        return 0;
+    }
+
+    int EyerAVFrame::GetVData(unsigned char * vData)
+    {
+        memcpy(vData, piml->frame->data[2], piml->frame->width / 2 * piml->frame->height / 2);
         return 0;
     }
 

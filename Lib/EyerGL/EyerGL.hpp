@@ -47,6 +47,10 @@ namespace Eyer
     class EyerGLCMD
     {
     public:
+        virtual ~EyerGLCMD()
+        {
+
+        }
     };
 
     enum EyerGLShaderType
@@ -184,6 +188,8 @@ namespace Eyer
         int width = 0;
         int height = 0;
     public:
+        virtual ~EyerGLComponent();
+
         virtual int Draw() = 0;
 
         int Viewport(int w, int h);
@@ -254,6 +260,8 @@ namespace Eyer
         int SetVideoWH(int w, int h);
 
         int SetYTexture(EyerGLTexture * yTex);
+        int SetUTexture(EyerGLTexture * uTex);
+        int SetVTexture(EyerGLTexture * vTex);
 
         virtual int Draw();
 
@@ -262,6 +270,8 @@ namespace Eyer
         EyerGLDraw * textureDraw = nullptr;
 
         EyerGLTexture * yTex = nullptr;
+        EyerGLTexture * uTex = nullptr;
+        EyerGLTexture * vTex = nullptr;
 
         int videoW = 0;
         int videoH = 0;
