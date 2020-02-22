@@ -196,10 +196,13 @@ namespace Eyer {
     template <typename T>
     int EyerLinkedList<T>::clear()
     {
-        while(length > 0){
+        while(length > 1){
             deleteEle(length - 1);
         }
-        head = new EyerLinkedEle<T>(0);
+        if(length != 0){
+            head->next = nullptr;
+            length = 0;
+        }
         return 0;
     }
 

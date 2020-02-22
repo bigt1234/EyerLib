@@ -147,7 +147,10 @@ TEST(EyerLinkedList_Test, insertBack){
 
     list.find(0, data1);
     EXPECT_EQ(data1, 0);
-    EyerLog("2. data1:%d\n", data1);	
+    EyerLog("2. data1:%d\n", data1);
+
+    list.clear();
+    list.clear();	
 
 }
 
