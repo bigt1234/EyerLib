@@ -10,9 +10,14 @@ namespace Eyer {
 	public:
 		EyerMap();
 		~EyerMap();
-		int insert(K & key, V & value, EyerMapEle<K,V> * ele = nullptr);
-		int circleEle(EyerMapEle<K, V>* ele);
-		int getSize();
+		int insertInner(const K & key, const V & value, EyerMapEle<K,V> * & ele);
+		int insert(const K& key, const V& value);
+		int find(const K& key, V & value) const;
+		int circleEle(EyerMapEle<K, V>* ele, const K& key, V& value, int& flag) const;
+		int getSize() const;
+		int clear();
+		int clearInner(EyerMapEle<K, V> * & ele);
+
 		EyerMapEle<K, V>* head;
 
 	private:
@@ -21,7 +26,7 @@ namespace Eyer {
 	};
 
 	template<typename K, typename V>
-	int EyerMap<K, V>::insert(K& key, V& value, EyerMapEle<K, V> * ele)
+	int EyerMap<K, V>::insertInner(const K& key, const V& value, EyerMapEle<K, V> * & ele)
 	{
 		if (size == 0) {
 			head->key = key;
@@ -34,9 +39,9 @@ namespace Eyer {
 			ele = new EyerMapEle<K, V>(key, value);
 			size++;
 		}else if (key > ele->key) {
-			insert(key, value, ele->leftMapEle);
+			insertInner(key, value, ele->rightMapEle);
 		}else if (key < ele->key) {
-			insert(key, value, ele->rightMapEle);
+			insertInner(key, value, ele->leftMapEle);
 		}
 	}
 
@@ -50,24 +55,73 @@ namespace Eyer {
 	template<typename K, typename V>
 	EyerMap<K, V>::~EyerMap()
 	{
-		
+		clearInner(head);
 	}
 
 	template<typename K, typename V>
-	int EyerMap<K, V>::getSize()
+	int EyerMap<K, V>::getSize() const
 	{
 		return size;
 	}
 
 	template<typename K, typename V>
-	int EyerMap<K, V>::circleEle(EyerMapEle<K, V>* ele)
+	int EyerMap<K, V>::circleEle(EyerMapEle<K, V>* ele, const K& key, V& value, int & flag) const
 	{
-		printf("in circleEle \n");
 		if (nullptr != ele) {
 			printf("key:%d,vaule:%d \n", ele->key, ele->value);
-			printf("ele->leftMapEle: key,%d; key");
-			circleEle(ele->leftMapEle);
-			circleEle(ele->rightMapEle);
+			if (key == ele->key) {
+				value = ele->value;
+				flag = 1;
+				return 0;
+			}
+			circleEle(ele->leftMapEle, key, value, flag);
+			circleEle(ele->rightMapEle, key, value, flag);
+		}
+		return 0;
+	}
+
+	template<typename K, typename V>
+	int EyerMap<K, V>::insert(const K& key, const V& value)
+	{
+		return insertInner(key, value, head);
+	}
+
+	template<typename K, typename V>
+	int EyerMap<K, V>::find(const K& key, V& value) const
+	{
+		int flag = 0;
+		circleEle(head, key, value, flag);
+		if (flag) {
+			return 0;
+		}else{
+			return -1;
+		}
+	}
+
+	template<typename K, typename V>
+	int EyerMap<K, V>::clearInner(EyerMapEle<K, V> * & ele)
+	{
+		if (nullptr != ele) {
+			clearInner(ele->leftMapEle);
+			clearInner(ele->rightMapEle);
+			printf("clear-----key:%d,vaule:%d \n", ele->key, ele->value);
+			delete ele;
+			ele = nullptr;
+			size--;
+		}
+		return 0;
+	}
+
+	template<typename K, typename V>
+	int EyerMap<K, V>::clear()
+	{
+		printf("head key:%d, value:%d", head->key, head->value);
+		if(size == 0){
+			return 0;
+		}
+		clearInner(head);
+		if (nullptr == head) {
+			head = new EyerMapEle<K, V>(0, 0);
 		}
 		return 0;
 	}

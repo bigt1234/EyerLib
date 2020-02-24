@@ -49,6 +49,7 @@ namespace Eyer {
             head = head->next;
             //printf("delete temp:%d", temp->data);
             delete temp;
+            temp = nullptr;
         }
         delete head;
         head = nullptr;
@@ -136,6 +137,7 @@ namespace Eyer {
             EyerLinkedEle<T> * temp = head;
             head = temp->next;
             delete temp;
+            temp = nullptr;
             length--;
             return 0;
         }else {
@@ -149,6 +151,7 @@ namespace Eyer {
             temp->next = deletedEle->next;
             
             delete deletedEle;
+            deletedEle = nullptr;
             length--;
             return 0;
         }
