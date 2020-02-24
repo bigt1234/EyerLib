@@ -154,6 +154,33 @@ TEST(EyerLinkedList_Test, insertBack){
 
 }
 
+TEST(EyerQueue_Test, enQueue_deQueue){
+    Eyer::EyerQueue<int> queue;
+	int num = 0;
+	for (int i = 0; i < 10; i++) {
+		queue.enQueue(i);
+		queue.deQueue(num);
+	}
+    EXPECT_EQ(queue.getSize(),0);
+
+	queue.clear();
+	EXPECT_EQ(queue.getSize(),0);
+
+	int res = queue.deQueue(num);
+    EXPECT_EQ(res, -1);
+
+	for (int i = 0; i < 100; i++) {
+		queue.enQueue(i);
+	}
+    EXPECT_EQ(queue.getSize(), 100);
+
+	for (int i = 0; i < 10; i++) {
+		queue.deQueue(num);
+	}
+    EXPECT_EQ(queue.getSize(), 90);
+
+}
+
 int main(int argc,char **argv){
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
