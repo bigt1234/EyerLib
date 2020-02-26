@@ -5,6 +5,7 @@ add_executable(
 
 include_directories (../)
 
+target_link_libraries (EyerCoreTest EyerGL)
 target_link_libraries (EyerCoreTest EyerCore)
 
 INSTALL(

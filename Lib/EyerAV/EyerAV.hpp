@@ -64,7 +64,15 @@ namespace Eyer
         EyerAVFrame();
         ~EyerAVFrame();
 
+        EyerAVFrame(const EyerAVFrame & frame);
+        EyerAVFrame & operator = (const EyerAVFrame & frame);
+
         int SetPTS(int64_t pts);
+        int64_t GetPTS();
+
+        int GetYData(unsigned char * yData);
+        int GetUData(unsigned char * uData);
+        int GetVData(unsigned char * vData);
 
         int GetAudioData(unsigned char * data);
         int SetAudioData(unsigned char * data, int dataLen, int nbSamples, int channel, EyerAVFormat format);
@@ -90,10 +98,15 @@ namespace Eyer
         int Open();
         int Close();
 
+        int SeekFrame(int streamIndex, int64_t timestamp);
+        int SeekFrame(int streamIndex, double timestamp);
+
         int Read(EyerAVPacket * packet);
 
         int GetStreamCount();
         int GetStream(EyerAVStream & stream, int index);
+
+        int GetStreamTimeBase(EyerAVRational & rational, int streamIndex);
     };
 
     class EyerAVWriter

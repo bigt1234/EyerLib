@@ -24,6 +24,10 @@ namespace Eyer {
     {
         ClearStr();
 
+        if(_str == nullptr){
+            return;
+        }
+
         int _strLen = strlen(_str) + 1;
         str = (char *)malloc(_strLen);
         memcpy(str, _str, _strLen);
@@ -32,6 +36,11 @@ namespace Eyer {
     EyerString & EyerString::operator = (const EyerString & s)
     {
         ClearStr();
+
+        if(s.str == nullptr){
+            return *this;
+        }
+
         int _strLen = strlen(s.str) + 1;
         str = (char *)malloc(_strLen);
         memcpy(str, s.str, _strLen);

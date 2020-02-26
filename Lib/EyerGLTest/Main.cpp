@@ -38,7 +38,7 @@ TEST(GLWindows, GLWindows){
     draw.Init();
     draw.SetVAO(&vao);
 
-    Eyer::EyerType type("/home/redknot/Manjari-Bold.otf");
+    Eyer::EyerType type("./Manjari-Bold.otf");
     int ret = type.Init();
     int indexI = type.GenChar('q', 720);
 
@@ -65,6 +65,7 @@ TEST(GLWindows, GLWindows){
 }
 
 TEST(GLWindows, GLWindowsText){
+
     int width = 1280;
     int height = 720;
 
@@ -74,29 +75,46 @@ TEST(GLWindows, GLWindowsText){
 
     Eyer::EyerGLFrameBuffer frameBuffer(width, height);
 
-    Eyer::EyerGLTextDraw textDraw;
-    // textDraw.SetText("abcdefghijklmnopqrstuvwxyz");
+    Eyer::EyerGLTextDraw textDraw("./Manjari-Bold.otf");
     textDraw.SetText("Redknot Miaomiao ABC GL gg");
     textDraw.SetColor(0.0, 1.0, 0.0);
     textDraw.SetSize(100);
 
     textDraw.SetPos(0, 0 + 100);
 
-    frameBuffer.AddComponent(&textDraw);
+    // frameBuffer.AddComponent(&textDraw);
+
+
+    Eyer::EyerGLTextDraw textDraw2("./Manjari-Bold.otf");
+    textDraw2.SetText("Redknot Miaomiao ABC GL gg");
+    textDraw2.SetColor(0.0, 1.0, 0.0);
+    textDraw2.SetSize(100);
+
+    textDraw2.SetPos(0, 0 + 300);
+
+    // frameBuffer.AddComponent(&textDraw2);
 
     while (!windows.ShouldClose()){
         windows.Clear();
 
+        // frameBuffer.AddComponent(&textDraw);
+        // frameBuffer.AddComponent(&textDraw2);
+
         Eyer::EyerString timeStr =  Eyer::EyerTime::TimeFormat();
         textDraw.SetText(timeStr);
+        textDraw.SetPos(0, 0 + 100);
         textDraw.SetColor(1.0, 0.0, 0.0);
         textDraw.Viewport(width, height);
+        textDraw2.Viewport(width, height);
+
         frameBuffer.Draw();
+        // frameBuffer.ClearAllComponent();
 
         windows.Loop();
     }
 
     windows.Close();
+
 }
 
 int main(int argc,char **argv)

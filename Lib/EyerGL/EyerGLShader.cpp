@@ -33,7 +33,7 @@ namespace Eyer{
             return -1;
         }
 
-        EyerLog("Shader Src:\n %s\n", src.str);
+        // EyerLog("Shader Src:\n %s\n", src.str);
         glShaderSource(shaderId, 1, &src.str , NULL);
         glCompileShader(shaderId);
 

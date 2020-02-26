@@ -60,6 +60,7 @@ namespace Eyer
         if(packet != nullptr){
             avpkt = packet->piml->packet;
         }
+
         int ret = avcodec_send_packet(piml->codecContext, avpkt);
         return ret;
     }

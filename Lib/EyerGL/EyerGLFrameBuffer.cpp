@@ -4,28 +4,33 @@
 #include "EyerGLComponent.hpp"
 
 namespace Eyer {
-    EyerGLFrameBuffer::EyerGLFrameBuffer(int w, int h)
+    EyerGLFrameBuffer::EyerGLFrameBuffer(int w, int h, EyerGLTexture * _texture)
     {
-        glGenFramebuffers(1, &fbo);
-        glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-
         width = w;
         height = h;
 
-        unsigned int framebufferColorTexture;
+        texture = _texture;
+        if(texture == nullptr){
+            // 使用默认 Framebuffer
+            fbo = 0;
+        }
+        else{
+            glGenFramebuffers(1, &fbo);
+            glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
-        glGenTextures(1, &framebufferColorTexture);
-        glBindTexture(GL_TEXTURE_2D, framebufferColorTexture);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, framebufferColorTexture, 0);
+            texture->SetDataRGBAChannel(nullptr, width, height);
 
-        GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-        if (status != GL_FRAMEBUFFER_COMPLETE) {
-            EyerLog("GL_FRAMEBUFFER_COMPLETE Error!!!!\n");
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture->GL_GetTextureId(), 0);
+
+            GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+            if (status != GL_FRAMEBUFFER_COMPLETE) {
+                EyerLog("GL_FRAMEBUFFER_COMPLETE Error!!!!\n");
+
+                if(fbo != 0){
+                    glDeleteFramebuffers(1, &fbo);
+                    fbo = 0;
+                }
+            }
         }
     }
 
@@ -41,26 +46,45 @@ namespace Eyer {
 
     int EyerGLFrameBuffer::AddDraw(EyerGLDraw * draw)
     {
-        drawList.push_back(draw);
+        drawList.insertBack(draw);
         return 0;
     }
 
     int EyerGLFrameBuffer::AddComponent(EyerGLComponent * component)
     {
-        componentList.push_back(component);
+        componentList.insertBack(component);
+        return 0;
+    }
+
+    int EyerGLFrameBuffer::ClearAllComponent()
+    {
+        componentList.clear();
         return 0;
     }
 
     int EyerGLFrameBuffer::Draw()
     {
         glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-        for(int i=0;i<drawList.size();i++){
-            drawList[i]->Draw();
+
+        glViewport(0, 0, width, height);
+
+        for(int i=0;i<drawList.getLength();i++){
+            EyerGLDraw * drawP = nullptr;
+            drawList.find(i, drawP);
+            if(drawP != nullptr){
+                drawP->Draw();
+            }
         }
 
-        for(int i=0;i<componentList.size();i++){
-            componentList[i]->Draw();
+        for(int i=0;i<componentList.getLength();i++){
+            EyerGLComponent * componentP = nullptr;
+            componentList.find(i, componentP);
+            if(componentP != nullptr){
+                componentP->Viewport(width, height);
+                componentP->Draw();
+            }
         }
+
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         return 0;
     }

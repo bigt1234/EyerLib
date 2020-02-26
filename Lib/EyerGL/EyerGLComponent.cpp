@@ -9,4 +9,9 @@ namespace Eyer
 
         return 0;
     }
+
+    EyerGLComponent::~EyerGLComponent()
+    {
+
+    }
 }
