@@ -62,6 +62,9 @@ set(head_files
     EyerTime.hpp
     EyerLinkedList.hpp
     EyerLinkedEle.hpp
+    EyerQueue.hpp
+    EyerMap.hpp
+    EyerMapEle.hpp
 )
 
 INSTALL(FILES ${head_files} DESTINATION include/EyerCore)
