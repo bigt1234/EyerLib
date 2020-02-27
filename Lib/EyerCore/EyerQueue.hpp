@@ -18,6 +18,7 @@ namespace Eyer {
         int enQueue(const T& data);
         int deQueue(T& data);
         int getSize();
+        int getHead(T& data);
     };
 
     template <typename T>
@@ -88,6 +89,13 @@ namespace Eyer {
     {
         clear();
     }
+
+    template <typename T>
+    int EyerQueue<T>::getHead(T& data)
+    {
+        
+    }
+
 }
 
 #endif
