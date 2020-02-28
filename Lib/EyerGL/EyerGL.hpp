@@ -216,6 +216,8 @@ namespace Eyer
         virtual int Draw();
 
     private:
+
+
         EyerString typeFilePath;
 
         EyerString text;

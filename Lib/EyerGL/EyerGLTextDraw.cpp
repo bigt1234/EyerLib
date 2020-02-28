@@ -110,17 +110,43 @@ namespace Eyer
         for(int i=0;i<strLen;i++){
             wchar_t c = str[i];
 
-            int index = typeCreator->GenChar(c, size);
-            if(index <= 0){
+            Eyer::EyerGLCacheTexture * texture = nullptr;
+            std::map<wchar_t, EyerGLCacheTexture *>::iterator iter = textureCache.find(c);
+            if(iter != textureCache.end()) {
+                texture = iter->second;
+            }
+            else{
+                int index = typeCreator->GenChar(c, size);
+                if(index <= 0){
+                    continue;
+                }
+
+                EyerTypeBitmap bitmap;
+                typeCreator->GetCharBitmap(index, &bitmap);
+
+                Eyer::EyerGLTexture * ttt = new Eyer::EyerGLTexture();
+                ttt->SetDataRedChannel(bitmap.data, bitmap.width, bitmap.height);
+
+                EyerGLCacheTexture * t = new EyerGLCacheTexture();
+                t->texture = ttt;
+                t->width = bitmap.width;
+                t->height = bitmap.height;
+                t->bearingY = bitmap.bearingY;
+                t->bearingX = bitmap.bearingX;
+                t->advance = bitmap.advance;
+
+                textureCache.insert(std::pair<wchar_t, EyerGLCacheTexture *>(c, t));
+
+                texture = t;
+            }
+
+            if(texture == nullptr){
                 continue;
             }
 
-            EyerTypeBitmap bitmap;
-            typeCreator->GetCharBitmap(index, &bitmap);
-
-            x += bitmap.width;
+            x += texture->width;
             if(i < strLen - 1) {
-                x += bitmap.advance / 64 - bitmap.width - bitmap.bearingX;
+                x += texture->advance / 64 - texture->width - texture->bearingX;
             }
         }
 
