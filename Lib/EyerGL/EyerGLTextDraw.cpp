@@ -78,7 +78,7 @@ namespace Eyer
             vao = nullptr;
         }
 
-        std::map<char, EyerGLCacheTexture *>::iterator iter;
+        std::map<wchar_t, EyerGLCacheTexture *>::iterator iter;
         for (iter=textureCache.begin(); iter!=textureCache.end(); iter++){
             Eyer::EyerGLCacheTexture * texture = iter->second;
             delete texture->texture;
@@ -88,17 +88,69 @@ namespace Eyer
         textureCache.clear();
     }
 
+    int EyerGLTextDraw::GetTextWidth()
+    {
+        if(text.IsEmpty()){
+            return 0;
+        }
+
+        char * char_str = text.str;
+        int char_strLen = strlen(char_str);
+
+        setlocale(LC_CTYPE, "zh_CN.utf8");
+
+        wchar_t * str = nullptr;
+
+
+        int strLen = mbstowcs(NULL, char_str, 0) + 1;
+        str = new wchar_t[strLen];
+        int ret = mbstowcs(str, char_str, char_strLen + 1);
+
+        int x = 0;
+        for(int i=0;i<strLen;i++){
+            wchar_t c = str[i];
+
+            int index = typeCreator->GenChar(c, size);
+            if(index <= 0){
+                continue;
+            }
+
+            EyerTypeBitmap bitmap;
+            typeCreator->GetCharBitmap(index, &bitmap);
+
+            x += bitmap.width;
+            if(i < strLen - 1) {
+                x += bitmap.advance / 64 - bitmap.width - bitmap.bearingX;
+            }
+        }
+
+        return x;
+    }
+
     int EyerGLTextDraw::Draw()
     {
-        char * str = text.str;
-        int strLen = strlen(str);
+        if(text.IsEmpty()){
+            return -1;
+        }
+        char * char_str = text.str;
+        int char_strLen = strlen(char_str);
+
+        setlocale(LC_CTYPE, "zh_CN.utf8");
+
+        wchar_t * str = nullptr;
+
+
+        int strLen = mbstowcs(NULL, char_str, 0) + 1;
+        str = new wchar_t[strLen];
+        int ret = mbstowcs(str, char_str, char_strLen + 1);
+
 
         int x = 0;
         for(int i=0;i<strLen;i++){
             Eyer::EyerGLCacheTexture * texture = nullptr;
-            char c = str[i];
+            wchar_t c = str[i];
 
-            std::map<char, EyerGLCacheTexture *>::iterator iter = textureCache.find(c);
+            std::map<wchar_t, EyerGLCacheTexture *>::iterator iter = textureCache.find(c);
             if(iter != textureCache.end()) {
                 texture = iter->second;
             }
@@ -122,7 +174,7 @@ namespace Eyer
                 t->bearingX = bitmap.bearingX;
                 t->advance = bitmap.advance;
 
-                textureCache.insert(std::pair<char, EyerGLCacheTexture *>(c, t));
+                textureCache.insert(std::pair<wchar_t, EyerGLCacheTexture *>(c, t));
 
                 texture = t;
             }
@@ -158,6 +210,8 @@ namespace Eyer
 
             textDraw->Draw();
         }
+
+        delete[] str;
 
         return 0;
     }

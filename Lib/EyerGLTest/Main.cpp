@@ -38,7 +38,7 @@ TEST(GLWindows, GLWindows){
     draw.Init();
     draw.SetVAO(&vao);
 
-    Eyer::EyerType type("./Manjari-Bold.otf");
+    Eyer::EyerType type("./han_yi_xing_kai_jian.ttf");
     int ret = type.Init();
     int indexI = type.GenChar('q', 720);
 
@@ -75,7 +75,7 @@ TEST(GLWindows, GLWindowsText){
 
     Eyer::EyerGLFrameBuffer frameBuffer(width, height);
 
-    Eyer::EyerGLTextDraw textDraw("./Manjari-Bold.otf");
+    Eyer::EyerGLTextDraw textDraw("./xiao_xiao_yuan_pin_ying.ttf");
     textDraw.SetText("Redknot Miaomiao ABC GL gg");
     textDraw.SetColor(0.0, 1.0, 0.0);
     textDraw.SetSize(100);
@@ -85,9 +85,9 @@ TEST(GLWindows, GLWindowsText){
     // frameBuffer.AddComponent(&textDraw);
 
 
-    Eyer::EyerGLTextDraw textDraw2("./Manjari-Bold.otf");
-    textDraw2.SetText("Redknot Miaomiao ABC GL gg");
-    textDraw2.SetColor(0.0, 1.0, 0.0);
+    Eyer::EyerGLTextDraw textDraw2("./han_yi_xing_kai_jian.ttf");
+    textDraw2.SetText("大学之道，在明明德。");
+    textDraw2.SetColor(0.0, 0.0, 0.0);
     textDraw2.SetSize(100);
 
     textDraw2.SetPos(0, 0 + 300);
@@ -97,8 +97,11 @@ TEST(GLWindows, GLWindowsText){
     while (!windows.ShouldClose()){
         windows.Clear();
 
-        // frameBuffer.AddComponent(&textDraw);
-        // frameBuffer.AddComponent(&textDraw2);
+        frameBuffer.AddComponent(&textDraw);
+        frameBuffer.AddComponent(&textDraw2);
+
+        int textWidth = textDraw2.GetTextWidth();
+        textDraw2.SetPos((width - textWidth) / 2 , 0 + 300);
 
         Eyer::EyerString timeStr =  Eyer::EyerTime::TimeFormat();
         textDraw.SetText(timeStr);
@@ -108,7 +111,7 @@ TEST(GLWindows, GLWindowsText){
         textDraw2.Viewport(width, height);
 
         frameBuffer.Draw();
-        // frameBuffer.ClearAllComponent();
+        frameBuffer.ClearAllComponent();
 
         windows.Loop();
     }

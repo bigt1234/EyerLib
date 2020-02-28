@@ -26,7 +26,7 @@ namespace Eyer
 
         int Init();
 
-        int GenChar(char c, int pixel_height);
+        int GenChar(wchar_t c, int pixel_height);
         int GetCharBitmap(int index, EyerTypeBitmap * bitmap);
     };
 

@@ -203,6 +203,8 @@ namespace Eyer
         EyerGLTextDraw(EyerString _typeFilePath);
         ~EyerGLTextDraw();
 
+        int GetTextWidth();
+
         int SetText(EyerString text);
 
         int SetSize(float size);
@@ -223,7 +225,7 @@ namespace Eyer
         EyerGLDraw * textDraw = nullptr;
         EyerGLVAO * vao = nullptr;
 
-        std::map<char, EyerGLCacheTexture *> textureCache;
+        std::map<wchar_t, EyerGLCacheTexture *> textureCache;
 
         EyerVec2 pos;
 
