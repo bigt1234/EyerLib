@@ -38,7 +38,8 @@ namespace Eyer
         return 0;
     }
 
-    int EyerType::GenChar(char c, int pixel_height)
+
+    int EyerType::GenChar(wchar_t c, int pixel_height)
     {
         FT_Face face;
         if (FT_New_Face(impl->ft, typeFile.str, 0, &face))
@@ -50,7 +51,6 @@ namespace Eyer
         FT_Set_Pixel_Sizes(face, 0, pixel_height);
 
         if (FT_Load_Char(face, c, FT_LOAD_RENDER));
-
 
         unsigned int bitmapDataLen = face->glyph->bitmap.width * face->glyph->bitmap.rows;
 
