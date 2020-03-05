@@ -2,6 +2,11 @@
 #include "EyerType/EyerType.hpp"
 #include "Shader.hpp"
 
+#ifdef EYER_PLATFORM_WINDOWS
+#include <windows.h>
+#else
+#endif
+
 namespace Eyer
 {
     EyerGLTextDraw::EyerGLTextDraw(EyerString _typeFilePath)
@@ -97,14 +102,19 @@ namespace Eyer
         char * char_str = text.str;
         int char_strLen = strlen(char_str);
 
+#ifdef EYER_PLATFORM_WINDOWS
+        wchar_t * str = nullptr;
+        int strLen = MultiByteToWideChar(CP_UTF8, 0, char_str, -1, str, 0);
+        str = new wchar_t[strLen];
+        MultiByteToWideChar(CP_UTF8, 0, char_str, -1, str, strLen);
+#else
         setlocale(LC_CTYPE, "zh_CN.utf8");
 
         wchar_t * str = nullptr;
-
-
         int strLen = mbstowcs(NULL, char_str, 0) + 1;
         str = new wchar_t[strLen];
         int ret = mbstowcs(str, char_str, char_strLen + 1);
+#endif
 
         int x = 0;
         for(int i=0;i<strLen;i++){
@@ -150,6 +160,8 @@ namespace Eyer
             }
         }
 
+        delete[] str;
+
         return x;
     }
 
@@ -161,20 +173,26 @@ namespace Eyer
         char * char_str = text.str;
         int char_strLen = strlen(char_str);
 
+#ifdef EYER_PLATFORM_WINDOWS
+        wchar_t * str = nullptr;
+        int strLen = MultiByteToWideChar(CP_UTF8, 0, char_str, -1, str, 0);
+        str = new wchar_t[strLen];
+        MultiByteToWideChar(CP_UTF8, 0, char_str, -1, str, strLen);
+#else
         setlocale(LC_CTYPE, "zh_CN.utf8");
 
         wchar_t * str = nullptr;
-
-
         int strLen = mbstowcs(NULL, char_str, 0) + 1;
         str = new wchar_t[strLen];
         int ret = mbstowcs(str, char_str, char_strLen + 1);
-
+#endif
+        
 
         int x = 0;
         for(int i=0;i<strLen;i++){
             Eyer::EyerGLCacheTexture * texture = nullptr;
             wchar_t c = str[i];
+            // wchar_t c = L'大';
 
             std::map<wchar_t, EyerGLCacheTexture *>::iterator iter = textureCache.find(c);
             if(iter != textureCache.end()) {
