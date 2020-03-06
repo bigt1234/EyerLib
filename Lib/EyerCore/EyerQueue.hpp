@@ -93,7 +93,7 @@ namespace Eyer {
     template <typename T>
     int EyerQueue<T>::getHead(T& data)
     {
-        
+        return 0;
     }
 
 }
