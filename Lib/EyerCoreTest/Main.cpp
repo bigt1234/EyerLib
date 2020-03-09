@@ -105,6 +105,7 @@ TEST(EyerLinkedList_Test, insert_delete){
     EyerLog("2. data1:%d\n", data1);	
 }
 
+/*
 TEST(EyerLinkedList_Test, mem){
     Eyer::EyerGLWindow windows("aaa", 100, 100);
     windows.Open();
@@ -112,23 +113,6 @@ TEST(EyerLinkedList_Test, mem){
     while(!windows.ShouldClose()){
 
         Eyer::EyerLinkedList<Eyer::EyerGLComponent *> aList;
-
-        /*
-
-        for(int i=0;i<5;i++){
-            Eyer::EyerGLComponent * a = new Eyer::EyerGLFrameDraw();
-            aList.insertBack(a);
-        }
-
-        for(int i=0;i<aList.getLength();i++){
-            Eyer::EyerGLComponent * a = nullptr;
-            aList.find(i, a);
-            if(a != nullptr){
-                delete a;
-            }
-        }
-        */
-
         aList.clear();
 
         windows.Loop();
@@ -137,7 +121,7 @@ TEST(EyerLinkedList_Test, mem){
 
     windows.Clear();
 }
-
+*/
 
 TEST(EyerLinkedList_Test, insertBack){
     Eyer::EyerLinkedList<int> list;
@@ -246,6 +230,20 @@ TEST(EyerMap_Test, insert_clear){
         EXPECT_TRUE(value == 5);
     }
 
+}
+
+TEST(EyerLinkedList_Test, sort){
+    Eyer::EyerLinkedList<int> list;
+    for (int i = 100; i >=0; i--) {
+        if (list.insertEle(i, 100-i)) {
+			EyerLog("EyerLinkedList insert fail \n");
+		}	
+	}
+    list.sort();
+    int data1 = 20;
+    list.find(0, data1);
+    EXPECT_EQ(data1, 0);
+    
 }
 
 int main(int argc,char **argv){
