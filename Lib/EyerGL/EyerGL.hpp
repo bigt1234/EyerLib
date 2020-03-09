@@ -267,6 +267,8 @@ namespace Eyer
         int SetUTexture(EyerGLTexture * uTex);
         int SetVTexture(EyerGLTexture * vTex);
 
+        int SetMVP(EyerMat4x4 & mvp);
+
         virtual int Draw();
 
     private:
@@ -276,6 +278,8 @@ namespace Eyer
         EyerGLTexture * yTex = nullptr;
         EyerGLTexture * uTex = nullptr;
         EyerGLTexture * vTex = nullptr;
+
+        EyerMat4x4 * mvp = nullptr;
 
         int videoW = 0;
         int videoH = 0;

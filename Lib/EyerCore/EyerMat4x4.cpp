@@ -70,6 +70,15 @@ namespace Eyer {
         return 0;
     }
 
+    int EyerMat4x4::SetOrtho(float l, float r, float t, float b, float near, float far)
+    {
+        mat[0][0] = 2.0 / (r - l);                              mat[0][1] = 0.0f;                               mat[0][2] = 0.0f;                               mat[0][3] = - (r + l) / (r - l);
+        mat[1][0] = 0.0f;                                       mat[1][1] = 2.0 / (t - b);                      mat[1][2] = 0.0f;                               mat[1][3] = - (t + b) / (t - b);
+        mat[2][0] = 0.0f;                                       mat[2][1] = 0.0f;                               mat[2][2] = -2.0 / (far - near);                mat[2][3] = - (far + near) / (far - near);
+        mat[3][0] = 0.0f;                                       mat[3][1] = 0.0f;                               mat[3][2] = 0.0f;                               mat[3][3] = 1.0f;
+        return 0;
+    }
+
     int EyerMat4x4::SetPerspective(float fov, float aspect, float near, float far)
     {
         mat[0][0] = tan(M_PI / 2.0 - (fov / 2.0)) / aspect;     mat[0][1] = 0.0f;                               mat[0][2] = 0.0f;                               mat[0][3] = 0.0f;
