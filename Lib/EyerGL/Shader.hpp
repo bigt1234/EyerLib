@@ -24,6 +24,13 @@ namespace Eyer {
 
         static char * FRAME_VERTEX_SHADER;
         static char * FRAME_FRAGMENT_SHADER;
+
+
+        static char * YUV_2_TEXTURE_VERTEX_SHADER;
+        static char * YUV_2_TEXTURE_FRAGMENT_SHADER;
+
+        static char * MVP_TEXTURE_VERTEX_SHADER;
+        static char * MVP_TEXTURE_FRAGMENT_SHADER;
     };
 }
 

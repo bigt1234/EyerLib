@@ -157,4 +157,72 @@ namespace Eyer
                 color = vec4(rgb, 1.0);
             }
             );
+
+
+    char * GL_SHADER::YUV_2_TEXTURE_VERTEX_SHADER = SHADER(
+              layout (location = 0) in vec3 pos;
+              layout (location = 1) in vec3 coor;
+
+              out vec3 outCoor;
+
+              void main()
+              {
+                  outCoor = coor;
+                  gl_Position = vec4(pos, 1.0);
+              }
+            );
+
+    char * GL_SHADER::YUV_2_TEXTURE_FRAGMENT_SHADER = SHADER(
+
+              out vec4 color;
+
+              uniform sampler2D y;
+              uniform sampler2D u;
+              uniform sampler2D v;
+
+              in vec3 outCoor;
+              void main(){
+                  vec2 t = vec2(outCoor.x, outCoor.y);
+
+                  vec3 yuv;
+                  vec3 rgb;
+
+                  yuv.x = texture(y, t).r;
+                  yuv.y = texture(u, t).r - 0.5;
+                  yuv.z = texture(v, t).r - 0.5;
+
+                  rgb = mat3( 1,       1,         1,
+                              0,       -0.39465,  2.03211,
+                              1.13983, -0.58060,  0) * yuv;
+
+                  color = vec4(rgb, 1.0);
+              }
+            );
+
+
+
+    char * GL_SHADER::MVP_TEXTURE_VERTEX_SHADER = SHADER(
+             layout (location = 0) in vec3 pos;
+             layout (location = 1) in vec3 coor;
+
+             out vec3 outCoor;
+
+             uniform mat4 mvp;
+
+             void main(){
+                 outCoor = coor;
+                 gl_Position = mvp * vec4(pos, 1.0);
+             }
+     );
+
+    char * GL_SHADER::MVP_TEXTURE_FRAGMENT_SHADER = SHADER(
+           out vec4 color;
+           uniform sampler2D imageTex;
+           in vec3 outCoor;
+           void main(){
+               vec2 TexCoords = vec2(outCoor.x, 1.0 - outCoor.y);
+               vec3 rgb = texture(imageTex, TexCoords).rgb;
+               color = vec4(rgb, 1.0);
+           }
+    );
 }
