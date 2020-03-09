@@ -18,6 +18,7 @@ namespace Eyer {
         int find(int pos, T & data) const;
         int getLength() const;
         int clear();
+        int sort();
 
     private:
         EyerLinkedEle<T> * head;
@@ -162,12 +163,13 @@ namespace Eyer {
     {
         //printf("in circleElement\n");
         EyerLinkedEle<T> * temp = head;
-        while (temp->next != nullptr)
+        while (temp != nullptr)
         {
             //printf("circle data: %d\n", temp->data);
             temp = temp->next;
 
         }
+        //printf("circle data: %d\n", temp->data);
         return 0;
     }
 
@@ -205,6 +207,27 @@ namespace Eyer {
         if(length != 0){
             head->next = nullptr;
             length = 0;
+        }
+        return 0;
+    }
+
+    template <typename T>
+    int EyerLinkedList<T>::sort()
+    {
+        EyerLinkedEle<T> * currentEle = head;
+        for(int i=0; i<length-1; i++){
+            EyerLinkedEle<T> * temp = currentEle->next;
+            while (temp != nullptr){
+                if(temp->data < currentEle->data){
+                    T data = currentEle->data;
+                    currentEle->data = temp->data;
+                    temp->data = data;
+                }
+                temp = temp->next;
+            }
+            if(currentEle->next != nullptr){
+                currentEle = currentEle->next;
+            }
         }
         return 0;
     }
