@@ -20,7 +20,7 @@ namespace Eyer {
         int clear();
         int sort();
 
-    private:
+    public:
         EyerLinkedEle<T> * head;
 
     private:
@@ -225,6 +225,7 @@ namespace Eyer {
                 }
                 temp = temp->next;
             }
+            //circleElement();
             if(currentEle->next != nullptr){
                 currentEle = currentEle->next;
             }
