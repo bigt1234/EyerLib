@@ -213,6 +213,39 @@ TEST(EyerQueue_Test, enQueue_deQueue){
 	}
     EXPECT_EQ(queue.getSize(), 90);
 
+    queue.clear();
+    EXPECT_EQ(queue.getSize(), 0);
+
+}
+
+TEST(EyerMap_Test, insert_clear){
+    Eyer::EyerMap<int, int> map;
+    for(int i=0; i<10; i++){
+        map.insert(i, i);
+    }
+    EXPECT_EQ(map.getSize(), 10);
+    int value = 0;
+    int ret = map.find(2, value);
+    if(ret < 0){
+        EXPECT_FALSE(value == 2);
+    }else{
+        EXPECT_TRUE(value == 2);
+    }
+
+    map.clear();
+    map.clear();
+
+    for(int i=0; i<100; i++){
+        map.insert(i, i);
+    }
+    EXPECT_EQ(map.getSize(), 100);
+    ret = map.find(5, value);
+    if(ret < 0){
+        EXPECT_FALSE(value == 5);
+    }else{
+        EXPECT_TRUE(value == 5);
+    }
+
 }
 
 int main(int argc,char **argv){

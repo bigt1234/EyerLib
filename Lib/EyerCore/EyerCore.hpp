@@ -8,5 +8,6 @@
 #include "EyerTime.hpp"
 #include "EyerLinkedList.hpp"
 #include "EyerQueue.hpp"
+#include "EyerMap.hpp"
 
 #endif
