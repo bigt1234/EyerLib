@@ -31,6 +31,8 @@ namespace Eyer
 
         AVCodec * codec = avcodec_find_decoder(piml->codecContext->codec_id);
 
+        piml->codecContext->thread_count = 4;
+
         int ret = avcodec_open2(piml->codecContext, codec, nullptr);
         if(ret){
             RedLog("Open Decoder Fail\n");

@@ -42,6 +42,8 @@ IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
 
     target_link_libraries (EyerAV dl)
     target_link_libraries (EyerAV z)
+    target_link_libraries (EyerAV bz2)
+    target_link_libraries (EyerAV lzma)
 
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Windows")
     MESSAGE(STATUS "current platform: Windows")

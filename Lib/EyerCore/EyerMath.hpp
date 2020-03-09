@@ -82,6 +82,7 @@ namespace Eyer {
         int SetScale(float x, float y, float z);
         int SetTrans(float x, float y, float z);
         int SetPerspective(float fov, float aspect, float near, float far);
+        int SetOrtho(float l, float r, float t, float b, float near, float far);
 
         int SetRotate(float x, float y, float z, float a);
 

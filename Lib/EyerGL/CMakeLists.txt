@@ -18,9 +18,7 @@ add_library(
         EyerGLComponent.cpp
         EyerGLSingleTextureDraw.cpp
         EyerGLFrameDraw.cpp
-
         Shader.cpp
-
         glad/src/glad.c
         )
 
@@ -31,9 +29,10 @@ target_link_libraries (EyerGL EyerType)
 target_link_libraries (EyerGL ${CMAKE_SOURCE_DIR}/../../Lib/glfw_install/lib/libglfw3.a)
 
 IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
-        MESSAGE(STATUS "current platform: Linux ")
+        MESSAGE(STATUS "current platform: Linux")
         target_link_libraries (EyerGL dl)
         target_link_libraries (EyerGL X11)
+        target_link_libraries (EyerGL bz2)
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Windows")
         MESSAGE(STATUS "current platform: Windows")
         target_link_libraries (EyerGL bz2)

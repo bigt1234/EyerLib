@@ -45,6 +45,10 @@ namespace Eyer
             delete vao;
             vao = nullptr;
         }
+        if(mvp != nullptr){
+            delete mvp;
+            mvp = nullptr;
+        }
     }
 
     int EyerGLFrameDraw::SetYTexture(EyerGLTexture * _yTex)
@@ -72,6 +76,18 @@ namespace Eyer
         return 0;
     }
 
+    int EyerGLFrameDraw::SetMVP(EyerMat4x4 & _mvp)
+    {
+        if(mvp != nullptr){
+            delete mvp;
+            mvp = nullptr;
+        }
+
+        mvp = new EyerMat4x4(_mvp);
+
+        return 0;
+    }
+
     int EyerGLFrameDraw::Draw()
     {
         if(yTex != nullptr){
@@ -83,6 +99,12 @@ namespace Eyer
         if(vTex != nullptr){
             textureDraw->PutTexture("v",vTex, 2);
         }
+
+        if(mvp != nullptr){
+            // mvp->Print();
+            textureDraw->PutMatrix4fv("mvp", *mvp);
+        }
+
         textureDraw->Draw();
         return 0;
     }

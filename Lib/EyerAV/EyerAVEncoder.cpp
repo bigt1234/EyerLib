@@ -62,6 +62,8 @@ namespace Eyer
             piml->codecContext->width = param->width;
             piml->codecContext->height = param->height;
 
+            piml->codecContext->thread_count = 4;
+
             piml->codecContext->me_range = 16;
             piml->codecContext->max_qdiff = 4;
             piml->codecContext->qmin = 10;
