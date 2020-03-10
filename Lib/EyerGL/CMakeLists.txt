@@ -18,6 +18,8 @@ add_library(
         EyerGLComponent.cpp
         EyerGLSingleTextureDraw.cpp
         EyerGLFrameDraw.cpp
+        EyerGLYUV2TextureComponent.cpp
+        EyerGLMVPTextureDraw.cpp
         Shader.cpp
         glad/src/glad.c
         )

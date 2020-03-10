@@ -255,6 +255,27 @@ namespace Eyer
         EyerGLDraw * textureDraw = nullptr;
     };
 
+
+    class EyerGLMVPTextureDraw : public EyerGLComponent
+    {
+    public:
+        EyerGLMVPTextureDraw();
+        ~EyerGLMVPTextureDraw();
+
+        int SetTexture(EyerGLTexture * texture);
+        int SetMVP(EyerMat4x4 & mvp);
+
+        virtual int Draw();
+
+    private:
+        EyerMat4x4 mvp;
+
+        EyerGLTexture * texture = nullptr;
+
+        EyerGLVAO * vao = nullptr;
+        EyerGLDraw * textureDraw = nullptr;
+    };
+
     class EyerGLFrameDraw : public EyerGLComponent
     {
     public:
@@ -283,6 +304,27 @@ namespace Eyer
 
         int videoW = 0;
         int videoH = 0;
+    };
+
+    class EyerGLYUV2TextureComponent : public EyerGLComponent
+    {
+    public:
+        EyerGLYUV2TextureComponent();
+        ~EyerGLYUV2TextureComponent();
+
+        int SetYTexture(EyerGLTexture * yTex);
+        int SetUTexture(EyerGLTexture * uTex);
+        int SetVTexture(EyerGLTexture * vTex);
+
+        virtual int Draw();
+
+    private:
+        EyerGLDraw * yuv2texture = nullptr;
+        EyerGLVAO * vao = nullptr;
+
+        EyerGLTexture * yTex = nullptr;
+        EyerGLTexture * uTex = nullptr;
+        EyerGLTexture * vTex = nullptr;
     };
 
     class EyerGLCacheTexture
