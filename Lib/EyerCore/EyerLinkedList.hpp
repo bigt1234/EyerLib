@@ -11,6 +11,8 @@ namespace Eyer {
     public:
         EyerLinkedList();
         ~EyerLinkedList();
+        EyerLinkedList & operator = (const EyerLinkedList & list);
+
         int circleElement();
         int insertEle(const T & data, int pos);
         int insertBack(const T & data);
@@ -54,6 +56,20 @@ namespace Eyer {
         }
         delete head;
         head = nullptr;
+    }
+
+    template <typename T>
+    EyerLinkedList<T> & EyerLinkedList<T>::operator = (const EyerLinkedList<T> & list)
+    {
+        if(this == &list){
+            return *this;
+        }
+        head = list.head;
+        head =new EyerLinkedEle<T>(0);
+        *head=*(list.head);
+        length = list.length;
+
+        return *this;
     }
 
     template <typename T>
