@@ -68,7 +68,6 @@ namespace Eyer {
 
 
 
-
         // Copy linesize
         for(int i=0;i<AV_NUM_DATA_POINTERS;i++){
             piml->frame->linesize[i] = frame.piml->frame->linesize[i];
@@ -107,7 +106,7 @@ namespace Eyer {
     int EyerAVFrame::GetYData(unsigned char * yData)
     {
         memcpy(yData, piml->frame->data[0], piml->frame->width * piml->frame->height);
-        return 0;
+        return 0;`
     }
 
     int EyerAVFrame::GetUData(unsigned char * uData)
@@ -156,11 +155,26 @@ namespace Eyer {
             printf("Linesize %d: %d\n", i, piml->frame->linesize[i]);
         }
 
+        printf("===============================================================\n");
         printf("Width:%d\n", piml->frame->width);
         printf("Height:%d\n", piml->frame->height);
         printf("Channels:%d\n", piml->frame->channels);
         printf("nb_samples:%d\n", piml->frame->nb_samples);
         printf("nb_samples:%lld\n", piml->frame->channel_layout);
+
+        printf("format:%d\n", piml->frame->format);
+
+        // printf("AVPixelFormat::AV_PIX_FMT_YUV420P:%d\n", AVPixelFormat::AV_PIX_FMT_YUV420P);
+
+        if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUV420P){
+            printf("Format: AV_PIX_FMT_YUV420P\n");
+        }
+        if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUVJ420P){
+            printf("Format: AV_PIX_FMT_YUVJ420P\n");
+        }
+        if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUVJ422P){
+            printf("Format: AV_PIX_FMT_YUVJ422P\n");
+        }
 
         return 0;
     }
