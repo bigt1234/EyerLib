@@ -106,7 +106,7 @@ namespace Eyer {
     int EyerAVFrame::GetYData(unsigned char * yData)
     {
         memcpy(yData, piml->frame->data[0], piml->frame->width * piml->frame->height);
-        return 0;`
+        return 0;
     }
 
     int EyerAVFrame::GetUData(unsigned char * uData)
