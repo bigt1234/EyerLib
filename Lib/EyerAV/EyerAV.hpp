@@ -22,6 +22,15 @@ namespace Eyer
 
     class EyerAVRational;
 
+    enum EyerAVPixelFormat
+    {
+        Eyer_AV_PIX_FMT_UNKNOW = 0,
+        Eyer_AV_PIX_FMT_YUV420P = 101,
+        Eyer_AV_PIX_FMT_YUVJ420P = 102,
+        Eyer_AV_PIX_FMT_YUV444P = 103,
+        Eyer_AV_PIX_FMT_YUVJ444P = 104
+    };
+
     enum EyerAVStreamType{
         STREAM_TYPE_UNKNOW = 0,
         STREAM_TYPE_AUDIO = 1,
@@ -85,6 +94,8 @@ namespace Eyer
         int GetHeight();
 
         int GetInfo();
+
+        EyerAVPixelFormat GetPixFormat() const;
     };
 
     class EyerAVReader

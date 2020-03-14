@@ -36,52 +36,68 @@ namespace Eyer {
     }
     EyerAVFrame & EyerAVFrame::operator = (const EyerAVFrame & frame)
     {
-        /*
-        av_frame_copy_props(piml->frame, frame.piml->frame);
-        av_frame_copy(piml->frame, frame.piml->frame);
-        piml->frame->width = frame.piml->frame->width;
-        piml->frame->height = frame.piml->frame->height;
-        */
-
         // Copy data
         // YUV 420 Data
         int width = frame.piml->frame->width;
         int height = frame.piml->frame->height;
-        {
-            int linesizeIndex = 0;
-            int h = height;
 
-            int dataLen = h * frame.piml->frame->linesize[linesizeIndex];
-            unsigned char * data = (unsigned char *)malloc(dataLen);
+        if(frame.GetPixFormat() < 200 && frame.GetPixFormat() >= 100){
+            // 图像
+            {
+                int linesizeIndex = 0;
+                int h = height;
+                if(frame.GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV420P || frame.GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ420P){
+                    h = height;
+                }
+                if(frame.GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV444P || frame.GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ444P){
+                    h = height;
+                }
 
-            memcpy(data, frame.piml->frame->data[linesizeIndex], dataLen);
 
-            piml->frame->data[linesizeIndex] = data;
-            dataManager.push_back(data);
-        }
-        {
-            int linesizeIndex = 1;
-            int h = height / 2;
+                int dataLen = h * frame.piml->frame->linesize[linesizeIndex];
+                unsigned char * data = (unsigned char *)malloc(dataLen);
 
-            int dataLen = h * frame.piml->frame->linesize[linesizeIndex];
-            unsigned char * data = (unsigned char *)malloc(dataLen);
+                memcpy(data, frame.piml->frame->data[linesizeIndex], dataLen);
 
-            memcpy(data, frame.piml->frame->data[linesizeIndex], dataLen);
+                piml->frame->data[linesizeIndex] = data;
+                dataManager.push_back(data);
+            }
+            {
+                int linesizeIndex = 1;
+                int h = height;
+                if(frame.GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV420P || frame.GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ420P){
+                    h = height / 2;
+                }
+                if(frame.GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV444P || frame.GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ444P){
+                    h = height;
+                }
 
-            piml->frame->data[linesizeIndex] = data;
-            dataManager.push_back(data);
-        }
-        {
-            int linesizeIndex = 2;
-            int h = height / 2;
+                int dataLen = h * frame.piml->frame->linesize[linesizeIndex];
+                unsigned char * data = (unsigned char *)malloc(dataLen);
 
-            int dataLen = h * frame.piml->frame->linesize[linesizeIndex];
-            unsigned char * data = (unsigned char *)malloc(dataLen);
+                memcpy(data, frame.piml->frame->data[linesizeIndex], dataLen);
 
-            memcpy(data, frame.piml->frame->data[linesizeIndex], dataLen);
+                piml->frame->data[linesizeIndex] = data;
+                dataManager.push_back(data);
+            }
+            {
+                int linesizeIndex = 2;
+                int h = height;
+                if(frame.GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV420P || frame.GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ420P){
+                    h = height / 2;
+                }
+                if(frame.GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV444P || frame.GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ444P){
+                    h = height;
+                }
 
-            piml->frame->data[linesizeIndex] = data;
-            dataManager.push_back(data);
+                int dataLen = h * frame.piml->frame->linesize[linesizeIndex];
+                unsigned char * data = (unsigned char *)malloc(dataLen);
+
+                memcpy(data, frame.piml->frame->data[linesizeIndex], dataLen);
+
+                piml->frame->data[linesizeIndex] = data;
+                dataManager.push_back(data);
+            }
         }
 
         // Copy linesize
@@ -124,10 +140,22 @@ namespace Eyer {
         int width = GetWidth();
         int height = GetHeight();
 
+        int h = height;
+        int w = width;
+
+        if(GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV420P || GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ420P){
+            h = height;
+            w = width;
+        }
+        if(GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV444P || GetPixFormat() ==  EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ444P){
+            h = height;
+            w = width;
+        }
+
         int offset = 0;
-        for(int i=0;i<height;i++){
-            memcpy(yData + offset, piml->frame->data[0] + i * piml->frame->linesize[0], width);
-            offset += width;
+        for(int i=0;i<h;i++){
+            memcpy(yData + offset, piml->frame->data[0] + i * piml->frame->linesize[0], w);
+            offset += w;
         }
 
         return 0;
@@ -138,10 +166,22 @@ namespace Eyer {
         int width = GetWidth();
         int height = GetHeight();
 
+        int h = height;
+        int w = width;
+
+        if(GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV420P || GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ420P){
+            h = height / 2;
+            w = width / 2;
+        }
+        if(GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV444P || GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ444P){
+            h = height;
+            w = width;
+        }
+
         int offset = 0;
-        for(int i=0;i<height / 2;i++){
-            memcpy(uData + offset, piml->frame->data[1] + i * piml->frame->linesize[1], width / 2);
-            offset += width / 2;
+        for(int i=0;i<h;i++){
+            memcpy(uData + offset, piml->frame->data[1] + i * piml->frame->linesize[1], w);
+            offset += w;
         }
 
         return 0;
@@ -152,10 +192,22 @@ namespace Eyer {
         int width = GetWidth();
         int height = GetHeight();
 
+        int h = height;
+        int w = width;
+
+        if(GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV420P || GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ420P){
+            h = height / 2;
+            w = width / 2;
+        }
+        if(GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV444P || GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ444P){
+            h = height;
+            w = width;
+        }
+
         int offset = 0;
-        for(int i=0;i<height / 2;i++){
-            memcpy(vData + offset, piml->frame->data[2] + i * piml->frame->linesize[1], width / 2);
-            offset += width / 2;
+        for(int i=0;i<h;i++){
+            memcpy(vData + offset, piml->frame->data[2] + i * piml->frame->linesize[2], w);
+            offset += w;
         }
         return 0;
     }
@@ -214,8 +266,37 @@ namespace Eyer {
         if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUVJ422P){
             printf("Format: AV_PIX_FMT_YUVJ422P\n");
         }
+        if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_RGB24){
+            printf("Format: AV_PIX_FMT_RGB24\n");
+        }
+        if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_BGR24){
+            printf("Format: AV_PIX_FMT_BGR24\n");
+        }
+        if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUVJ444P){
+            printf("Format: AV_PIX_FMT_YUVJ444P\n");
+        }
+        if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUV444P){
+            printf("Format: AV_PIX_FMT_YUV444P\n");
+        }
 
         return 0;
+    }
+
+    EyerAVPixelFormat EyerAVFrame::GetPixFormat() const {
+        if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUV420P){
+            return EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV420P;
+        }
+        if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUVJ420P){
+            return EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ420P;
+        }
+        if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUV444P){
+            return EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV444P;
+        }
+        if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUVJ444P){
+            return EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ444P;
+        }
+
+        return EyerAVPixelFormat::Eyer_AV_PIX_FMT_UNKNOW;
     }
 
     int EyerAVFrame::SetVideoData420P(unsigned char * _y, unsigned char * _u, unsigned char * _v, int _width, int _height)
