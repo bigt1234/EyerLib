@@ -6,6 +6,9 @@ add_library(
 
         EyerGomino.cpp
         EyerGominoPip.cpp
+        EyerGominoGaussianBlur.cpp
+        EyerGaussianBlurComponent.cpp
+
 )
 
 target_link_libraries (EyerGPUDomino EyerCore)
