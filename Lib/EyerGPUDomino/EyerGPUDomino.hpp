@@ -122,6 +122,17 @@ namespace Eyer
 
 
 
+    class EyerCommonParams
+    {
+    public:
+        EyerCommonParams();
+        ~EyerCommonParams();
+
+        EyerCommonParams(const EyerCommonParams & params);
+
+        EyerCommonParams & operator = (const EyerCommonParams & params);
+    }
+
     class EyerCommonComponent : public EyerGLComponent
     {
     public:
