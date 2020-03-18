@@ -4,6 +4,8 @@
 #include "EyerCore/EyerCore.hpp"
 #include "EyerGL/EyerGL.hpp"
 
+#include <map>
+
 namespace Eyer
 {
     class EyerGomino;
@@ -127,11 +129,15 @@ namespace Eyer
     public:
         EyerCommonParams();
         ~EyerCommonParams();
-
         EyerCommonParams(const EyerCommonParams & params);
 
         EyerCommonParams & operator = (const EyerCommonParams & params);
-    }
+
+        int PutFloat(EyerString key, float val);
+
+    private:
+        std::map<EyerString, float> param;
+    };
 
     class EyerCommonComponent : public EyerGLComponent
     {
