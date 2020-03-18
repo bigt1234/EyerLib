@@ -67,6 +67,15 @@ namespace Eyer
         virtual int Go(EyerGLTexture * input, EyerGLTexture * output, int width, int height);
     };
 
+    class EyerGominoZoomBlur: public EyerGomino
+    {
+    public:
+        EyerGominoZoomBlur();
+        ~EyerGominoZoomBlur();
+
+        virtual int Go(EyerGLTexture * input, EyerGLTexture * output, int width, int height);
+    };
+
     class EyerGaussianBlurComponent : public EyerGLComponent
     {
     public:
@@ -111,6 +120,28 @@ namespace Eyer
         int h = 1080;
     };
 
+
+
+    class EyerCommonComponent : public EyerGLComponent
+    {
+    public:
+        EyerCommonComponent(char * V_SHADER, char * F_SHADER);
+        ~EyerCommonComponent();
+
+        virtual int Draw();
+
+        int SetTexture(EyerGLTexture * _texture);
+
+        int SetWH(int _w, int _h);
+
+    private:
+        EyerGLDraw * draw = nullptr;
+        EyerGLVAO * vao = nullptr;
+        EyerGLTexture * texture = nullptr;
+
+        int w = 1920;
+        int h = 1080;
+    };
 }
 
 #endif //EYE_LIB_EYERGPUDOMINO_H

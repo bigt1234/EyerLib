@@ -10,6 +10,8 @@ add_library(
         EyerGaussianBlurComponent.cpp
         EyerGominoCopy.cpp
         EyerCopyTextureComponent.cpp
+        EyerGominoZoomBlur.cpp
+        EyerCommonComponent.cpp
 )
 
 target_link_libraries (EyerGPUDomino EyerCore)
