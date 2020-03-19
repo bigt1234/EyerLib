@@ -19,7 +19,7 @@ namespace Eyer {
 
     int EyerCommonParams::PutFloat(EyerString key, float val)
     {
-        param.insert(std::pair<EyerString, float>(key, val));
+        // param.insert(std::pair<EyerString, float>(key, val));
         return 0;
     }
 }

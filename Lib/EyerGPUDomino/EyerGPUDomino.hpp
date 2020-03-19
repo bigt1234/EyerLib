@@ -13,6 +13,7 @@ namespace Eyer
     class EyerGominoGaussianBlur;
     class EyerGaussianBlurComponent;
     class EyerGominoCopy;
+    class EyerCommonParams;
 
     class EyerGomino
     {
@@ -136,7 +137,7 @@ namespace Eyer
         int PutFloat(EyerString key, float val);
 
     private:
-        std::map<EyerString, float> param;
+        // std::map<EyerString, float> param;
     };
 
     class EyerCommonComponent : public EyerGLComponent
