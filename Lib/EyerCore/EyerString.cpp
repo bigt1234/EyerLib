@@ -69,6 +69,16 @@ namespace Eyer {
         return false;
     }
 
+    bool EyerString::operator > (const EyerString & s)
+    {
+        return true;
+    }
+
+    bool EyerString::operator < (const EyerString & s)
+    {
+        return true;
+    }
+
     EyerString EyerString::operator + (const EyerString & s){
         EyerString outStr;
 
