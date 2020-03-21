@@ -38,8 +38,30 @@ namespace Eyer {
     {
         // Copy data
         // YUV 420 Data
-        int width = frame.piml->frame->width;
-        int height = frame.piml->frame->height;
+        int width                           = frame.piml->frame->width;
+        int height                          = frame.piml->frame->height;
+
+        // Copy width ,height
+        piml->frame->width                  = frame.piml->frame->width;
+        piml->frame->height                 = frame.piml->frame->height;
+
+        piml->frame->channels               = frame.piml->frame->channels;
+        piml->frame->channel_layout         = frame.piml->frame->channel_layout;
+        piml->frame->nb_samples             = frame.piml->frame->nb_samples;
+        piml->frame->format                 = frame.piml->frame->format;
+        piml->frame->key_frame              = frame.piml->frame->key_frame;
+        piml->frame->pict_type              = frame.piml->frame->pict_type;
+        piml->frame->sample_aspect_ratio    = frame.piml->frame->sample_aspect_ratio;
+        piml->frame->pts                    = frame.piml->frame->pts;
+        piml->frame->pkt_dts                = frame.piml->frame->pkt_dts;
+        piml->frame->coded_picture_number   = frame.piml->frame->coded_picture_number;
+        piml->frame->display_picture_number = frame.piml->frame->display_picture_number;
+        piml->frame->quality                = frame.piml->frame->quality;
+
+        // Copy linesize
+        for(int i=0;i<AV_NUM_DATA_POINTERS;i++){
+            piml->frame->linesize[i] = frame.piml->frame->linesize[i];
+        }
 
         if(frame.GetPixFormat() < 200 && frame.GetPixFormat() >= 100){
             // 图像
@@ -52,7 +74,6 @@ namespace Eyer {
                 if(frame.GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV444P || frame.GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ444P){
                     h = height;
                 }
-
 
                 int dataLen = h * frame.piml->frame->linesize[linesizeIndex];
                 unsigned char * data = (unsigned char *)malloc(dataLen);
@@ -100,39 +121,25 @@ namespace Eyer {
             }
         }
 
-        // Copy linesize
-        for(int i=0;i<AV_NUM_DATA_POINTERS;i++){
-            piml->frame->linesize[i] = frame.piml->frame->linesize[i];
+        {
+            if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_FLTP){
+                int sizePerSample = av_get_bytes_per_sample((AVSampleFormat)piml->frame->format);
+                int channelSize = piml->frame->nb_samples * sizePerSample;
+
+                for(int channelIndex=0; channelIndex<piml->frame->channels; channelIndex++){
+                    unsigned char * data = (unsigned char *)malloc(channelSize);
+                    memcpy(data, frame.piml->frame->data[channelIndex], channelSize);
+                    piml->frame->data[channelIndex] = data;
+                    dataManager.push_back(data);
+                }
+            }
         }
+
+        
 
         // Copy extended_data
 
-        // Copy width ,height
-        piml->frame->width = frame.piml->frame->width;
-        piml->frame->height = frame.piml->frame->height;
 
-        piml->frame->channels = frame.piml->frame->channels;
-        piml->frame->channel_layout = frame.piml->frame->channel_layout;
-        
-        piml->frame->nb_samples = frame.piml->frame->nb_samples;
-
-        piml->frame->format = frame.piml->frame->format;
-
-        piml->frame->key_frame = frame.piml->frame->key_frame;
-
-        piml->frame->pict_type = frame.piml->frame->pict_type;
-
-        piml->frame->sample_aspect_ratio = frame.piml->frame->sample_aspect_ratio;
-
-        piml->frame->pts = frame.piml->frame->pts;
-
-        piml->frame->pkt_dts = frame.piml->frame->pkt_dts;
-
-        piml->frame->coded_picture_number = frame.piml->frame->coded_picture_number;
-
-        piml->frame->display_picture_number = frame.piml->frame->display_picture_number;
-
-        piml->frame->quality = frame.piml->frame->quality;
 
 
         return *this;
@@ -242,15 +249,18 @@ namespace Eyer {
         printf("===============================================================\n");
 
         for(int i=0;i<AV_NUM_DATA_POINTERS;i++) {
-            printf("Linesize %d: %d\n", i, piml->frame->linesize[i]);
+            printf("Linesize [%d]: %d\n", i, piml->frame->linesize[i]);
         }
         
-        printf("Width:%d\n", piml->frame->width);
-        printf("Height:%d\n", piml->frame->height);
-        printf("Channels:%d\n", piml->frame->channels);
-        printf("channel_layout:%d\n", piml->frame->channel_layout);
-        printf("nb_samples:%d\n", piml->frame->nb_samples);
-        printf("format:%d\n", piml->frame->format);
+        printf("Width: %d\n", piml->frame->width);
+        printf("Height: %d\n", piml->frame->height);
+        printf("Channels: %d\n", piml->frame->channels);
+        printf("channel_layout: %d\n", piml->frame->channel_layout);
+        printf("nb_samples: %d\n", piml->frame->nb_samples);
+        printf("format: %d\n", piml->frame->format);
+
+        int sizePerSample = av_get_bytes_per_sample((AVSampleFormat)piml->frame->format);
+        printf("Size Per Sample: %d\n", sizePerSample);
 
         {
             if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUV420P){
