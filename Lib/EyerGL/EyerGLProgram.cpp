@@ -42,6 +42,9 @@ namespace Eyer
             std::vector<char> ProgramErrorMessage(InfoLogLength+1);
             glGetProgramInfoLog(programId, InfoLogLength, NULL, &ProgramErrorMessage[0]);
             EyerLog("%s\n", &ProgramErrorMessage[0]);
+
+            EyerLog("%s\n", vertexShaderSrc.str);
+            EyerLog("%s\n", fragmentShaderSrc.str);
         }
 
         return 0;

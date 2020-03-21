@@ -45,6 +45,8 @@ namespace Eyer{
             std::vector<char> ShaderErrorMessage(InfoLogLength+1);
             glGetShaderInfoLog(shaderId, InfoLogLength, NULL, &ShaderErrorMessage[0]);
             EyerLog("%s\n", &ShaderErrorMessage[0]);
+
+            EyerLog("Shader Src:\n %s\n", src.str);
         }
 
         return 0;
