@@ -20,6 +20,8 @@ namespace Eyer
     class EyerAVEncoderPrivate;
     class EyerAVWriterPrivate;
 
+    class EyerAVAudioFrameUtil;
+    class EyerAVFrameWeight;
     class EyerAVRational;
 
     enum EyerAVPixelFormat
@@ -257,6 +259,35 @@ namespace Eyer
         ~EyerAVRational();
 
         EyerAVRational & operator = (const EyerAVRational & avRational);
+    };
+
+
+    class EyerAVFrameWeight
+    {
+    public:
+        EyerAVFrameWeight();
+        ~EyerAVFrameWeight();
+
+        EyerAVFrameWeight(EyerAVFrameWeight & frameWeight);
+
+        EyerAVFrameWeight & operator = (EyerAVFrameWeight & frameWeight);
+
+    private:
+        EyerAVFrame * frame = nullptr;
+        float weight = 1.0;
+    };
+
+    class EyerAVAudioFrameUtil
+    {
+    public:
+        EyerAVAudioFrameUtil();
+        ~EyerAVAudioFrameUtil();
+
+        int AddAudioFrame(EyerAVFrame & frame, float weight);
+        int MergeAudioFrame(EyerAVFrame & outFrame);
+
+    private:
+        EyerLinkedList<EyerAVFrameWeight *> frameList
     };
 }
 
