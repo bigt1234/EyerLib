@@ -21,7 +21,8 @@ add_library(
     EyerAVWriterPrivate.hpp
     EyerAVBitmap.cpp
     EyerAVRational.cpp
-        EyerAVAudioFrameUtil.cpp
+    EyerAVAudioFrameUtil.cpp
+    EyerAVFrameWeight.cpp
 )
 
 target_link_libraries (EyerAV pthread)

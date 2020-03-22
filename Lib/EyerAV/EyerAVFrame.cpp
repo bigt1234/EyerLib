@@ -385,6 +385,7 @@ namespace Eyer {
         return EyerAVPixelFormat::Eyer_AV_PIX_FMT_UNKNOW;
     }
 
+
     int EyerAVFrame::SetVideoData420P(unsigned char * _y, unsigned char * _u, unsigned char * _v, int _width, int _height)
     {
         unsigned char * y = (unsigned char *)malloc(_width * _height);
@@ -432,6 +433,74 @@ namespace Eyer {
     {
         memcpy(data, piml->frame->data[0], 8192 / 2);
         memcpy(data + 8192 / 2, piml->frame->data[1], 8192 / 2);
+        return 0;
+    }
+
+    int EyerAVFrame::GetChannels()
+    {
+        return piml->frame->channels;
+    }
+
+    int EyerAVFrame::GetNBSamples()
+    {
+        return piml->frame->nb_samples;
+    }
+
+    int EyerAVFrame::GetPerSampleSize()
+    {
+        int sizePerSample = av_get_bytes_per_sample((AVSampleFormat)piml->frame->format);
+        return sizePerSample;
+    }
+
+    int EyerAVFrame::InitAACFrame(int channels)
+    {
+        if(channels >= AV_NUM_DATA_POINTERS){
+            channels = AV_NUM_DATA_POINTERS;
+        }
+
+        piml->frame->format = AVSampleFormat::AV_SAMPLE_FMT_FLTP;
+        piml->frame->channels = channels;
+        piml->frame->nb_samples = 1024;
+
+        for(int channelIndex=0; channelIndex<channels; channelIndex++){
+            int len = GetPerSampleSize() * GetNBSamples();
+
+            unsigned char * d = (unsigned char *)malloc(len);
+            memset(d, 0, len);
+
+            piml->frame->data[channelIndex] = d;
+            dataManager.push_back(d);
+        }
+        return 0;
+    }
+
+    float EyerAVFrame::GetAudioFloatData(int channel, int index)
+    {
+        if(channel >= GetChannels()){
+            return 0;
+        }
+
+        if(index >= GetNBSamples()){
+            return 0;
+        }
+
+        float * d = (float *)piml->frame->data[channel];
+        return d[index];
+    }
+
+    int EyerAVFrame::SetAudioFloatData(int channel, int index, float d)
+    {
+        if(channel >= GetChannels()){
+            return 0;
+        }
+
+        if(index >= GetNBSamples()){
+            return 0;
+        }
+
+        float * dArr = (float *)piml->frame->data[channel];
+        dArr[index] = d;
+
         return 0;
     }
 
