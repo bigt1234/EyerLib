@@ -69,6 +69,22 @@ namespace Eyer {
         return false;
     }
 
+    bool EyerString::operator > (const EyerString & s)
+    {
+        if(strcmp(str, s.str) > 0){
+            return false;
+        }
+        return true;
+    }
+
+    bool EyerString::operator < (const EyerString & s)
+    {
+        if(strcmp(str, s.str) < 0){
+            return false;
+        }
+        return true;
+    }
+
     EyerString EyerString::operator + (const EyerString & s){
         EyerString outStr;
 

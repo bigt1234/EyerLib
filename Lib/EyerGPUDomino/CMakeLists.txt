@@ -8,7 +8,11 @@ add_library(
         EyerGominoPip.cpp
         EyerGominoGaussianBlur.cpp
         EyerGaussianBlurComponent.cpp
-
+        EyerGominoCopy.cpp
+        EyerCopyTextureComponent.cpp
+        EyerGominoZoomBlur.cpp
+        EyerCommonComponent.cpp
+        EyerCommonParams.cpp
 )
 
 target_link_libraries (EyerGPUDomino EyerCore)

@@ -20,6 +20,8 @@ namespace Eyer
     class EyerAVEncoderPrivate;
     class EyerAVWriterPrivate;
 
+    class EyerAVAudioFrameUtil;
+    class EyerAVFrameWeight;
     class EyerAVRational;
 
     enum EyerAVPixelFormat
@@ -83,6 +85,9 @@ namespace Eyer
         int GetUData(unsigned char * uData);
         int GetVData(unsigned char * vData);
 
+        float GetAudioFloatData(int channel, int index);
+        int SetAudioFloatData(int channel, int index, float d);
+
         int GetAudioData(unsigned char * data);
         int SetAudioData(unsigned char * data, int dataLen, int nbSamples, int channel, EyerAVFormat format);
 
@@ -92,6 +97,12 @@ namespace Eyer
 
         int GetWidth();
         int GetHeight();
+
+        int GetChannels();
+        int GetNBSamples();
+        int GetPerSampleSize();
+
+        int InitAACFrame(int channels);
 
         int GetInfo();
 
@@ -257,6 +268,36 @@ namespace Eyer
         ~EyerAVRational();
 
         EyerAVRational & operator = (const EyerAVRational & avRational);
+    };
+
+
+    class EyerAVFrameWeight
+    {
+    public:
+        EyerAVFrameWeight();
+        EyerAVFrameWeight(EyerAVFrame & frame, float weight);
+        ~EyerAVFrameWeight();
+
+        EyerAVFrameWeight(EyerAVFrameWeight & frameWeight);
+
+        EyerAVFrameWeight & operator = (EyerAVFrameWeight & frameWeight);
+
+    public:
+        EyerAVFrame * frame = nullptr;
+        float weight = 1.0;
+    };
+
+    class EyerAVAudioFrameUtil
+    {
+    public:
+        EyerAVAudioFrameUtil();
+        ~EyerAVAudioFrameUtil();
+
+        int AddAudioFrame(EyerAVFrame & frame, float weight);
+        int MergeAudioFrame(EyerAVFrame & outFrame);
+
+    private:
+        EyerLinkedList<EyerAVFrameWeight *> frameList;
     };
 }
 

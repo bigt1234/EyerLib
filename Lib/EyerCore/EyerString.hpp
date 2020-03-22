@@ -19,6 +19,9 @@ namespace Eyer {
         EyerString & operator = (const EyerString & s);
         bool operator == (const EyerString & s);
 
+        bool operator > (const EyerString & s);
+        bool operator < (const EyerString & s);
+
         EyerString operator + (const EyerString & s);
 
         static EyerString Number(int num, EyerString format = "%d");

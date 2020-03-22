@@ -4,12 +4,16 @@
 #include "EyerCore/EyerCore.hpp"
 #include "EyerGL/EyerGL.hpp"
 
+#include <map>
+
 namespace Eyer
 {
     class EyerGomino;
     class EyerGominoPip;
     class EyerGominoGaussianBlur;
     class EyerGaussianBlurComponent;
+    class EyerGominoCopy;
+    class EyerCommonParams;
 
     class EyerGomino
     {
@@ -57,6 +61,24 @@ namespace Eyer
         virtual int Go(EyerGLTexture * input, EyerGLTexture * output, int width, int height);
     };
 
+    class EyerGominoCopy: public EyerGomino
+    {
+    public:
+        EyerGominoCopy();
+        ~EyerGominoCopy();
+
+        virtual int Go(EyerGLTexture * input, EyerGLTexture * output, int width, int height);
+    };
+
+    class EyerGominoZoomBlur: public EyerGomino
+    {
+    public:
+        EyerGominoZoomBlur();
+        ~EyerGominoZoomBlur();
+
+        virtual int Go(EyerGLTexture * input, EyerGLTexture * output, int width, int height);
+    };
+
     class EyerGaussianBlurComponent : public EyerGLComponent
     {
     public:
@@ -78,6 +100,66 @@ namespace Eyer
         int h = 1080;
     };
 
+
+
+    class EyerCopyTextureComponent : public EyerGLComponent
+    {
+    public:
+        EyerCopyTextureComponent();
+        ~EyerCopyTextureComponent();
+
+        virtual int Draw();
+
+        int SetTexture(EyerGLTexture * _texture);
+
+        int SetWH(int _w, int _h);
+
+    private:
+        EyerGLDraw * draw = nullptr;
+        EyerGLVAO * vao = nullptr;
+        EyerGLTexture * texture = nullptr;
+
+        int w = 1920;
+        int h = 1080;
+    };
+
+
+
+    class EyerCommonParams
+    {
+    public:
+        EyerCommonParams();
+        ~EyerCommonParams();
+        EyerCommonParams(const EyerCommonParams & params);
+
+        EyerCommonParams & operator = (const EyerCommonParams & params);
+
+        int PutFloat(EyerString key, float val);
+
+    private:
+        // std::map<EyerString, float> param;
+    };
+
+    class EyerCommonComponent : public EyerGLComponent
+    {
+    public:
+        EyerCommonComponent(char * V_SHADER, char * F_SHADER);
+        ~EyerCommonComponent();
+
+        virtual int Draw();
+
+        int SetTexture(EyerGLTexture * _texture);
+
+        int SetWH(int _w, int _h);
+
+    private:
+        EyerGLDraw * draw = nullptr;
+        EyerGLVAO * vao = nullptr;
+        EyerGLTexture * texture = nullptr;
+
+        int w = 1920;
+        int h = 1080;
+    };
 }
 
 #endif //EYE_LIB_EYERGPUDOMINO_H

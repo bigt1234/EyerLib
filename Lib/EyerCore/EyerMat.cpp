@@ -131,16 +131,16 @@ namespace Eyer {
     EyerMat EyerMat::operator * (const float a)
     {
         EyerMat res(row, col);
-        if (row == row && col == col) {
+        // if (row == row && col == col) {
             for (int i = 0; i < row; i++) {
                 for (int j = 0; j < col; j++) {
                     res.mat[i][j] = mat[i][j] * a;
                 }
             }
-        } 
-        else{
+        // } 
+        // else{
 
-        }
+        // }
 
         return res;
     }
