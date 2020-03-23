@@ -208,7 +208,6 @@ namespace Eyer
         int SetText(EyerString text);
 
         int SetSize(float size);
-        int SetPos(EyerVec2 & pos);
         int SetPos(float x, float y);
 
         int SetColor(float r, float g, float b);
@@ -229,7 +228,8 @@ namespace Eyer
 
         std::map<wchar_t, EyerGLCacheTexture *> textureCache;
 
-        EyerVec2 pos;
+        float positionX = 0.0f;
+        float positionY = 0.0f;
 
         int size = 100;
 

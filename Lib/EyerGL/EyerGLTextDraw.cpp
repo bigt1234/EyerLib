@@ -233,8 +233,8 @@ namespace Eyer
             Eyer::EyerMat4x4 matScale;
             matScale.SetScale(widthScale, heightScale, 1.0);
 
-            float posX = pos.x() / width * 2.0 - 1.0;
-            float posY = -(pos.y() / height * 2.0 - 1.0);
+            float posX = positionX / width * 2.0 - 1.0;
+            float posY = -(positionY / height * 2.0 - 1.0);
 
             Eyer::EyerMat4x4 matTrans;
             matTrans.SetTrans(posX + widthScale + (x * 1.0 / width * 2.0), posY - heightScale + bearingYScale, 0.0);
@@ -273,16 +273,10 @@ namespace Eyer
         return 0;
     }
 
-    int EyerGLTextDraw::SetPos(EyerVec2 & _pos)
-    {
-        pos = _pos;
-        return 0;
-    }
-
     int EyerGLTextDraw::SetPos(float x, float y)
     {
-        pos.SetX(x);
-        pos.SetY(y);
+        positionX = x;
+        positionY = y;
         return 0;
     }
 

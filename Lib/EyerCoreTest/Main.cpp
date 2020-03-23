@@ -246,6 +246,13 @@ TEST(EyerLinkedList_Test, sort){
     
 }
 
+
+
+TEST(EyerMath, mat){
+    Eyer::EyerVec2 a;
+}
+
+
 int main(int argc,char **argv){
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

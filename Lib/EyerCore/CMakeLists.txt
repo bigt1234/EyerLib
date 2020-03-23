@@ -3,6 +3,7 @@ include_directories (./)
 
 add_library(
     EyerCore
+    # SHARED
 
     RedThread.cpp
     RedTime.cpp
