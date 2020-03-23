@@ -9,6 +9,9 @@ TEST(EyerMath, Mat_Base){
     for(int i=0;i<100;i++){
         Eyer::EyerMat mat(4, 4);
     }
+
+    Eyer::EyerVec2 a;
+    EyerLog("EyerVec2 x:%f\n", a.x());
 }
 
 #endif
