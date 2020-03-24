@@ -13,19 +13,15 @@ add_library(
         EyerGLDraw.cpp
         EyerGLTexture.cpp
         EyerGLFrameBuffer.cpp
-        EyerGLTextDraw.cpp
         EyerGLComponent.cpp
-        EyerGLSingleTextureDraw.cpp
-        EyerGLFrameDraw.cpp
-        EyerGLYUV2TextureComponent.cpp
-        EyerGLMVPTextureDraw.cpp
+        
+        
         Shader.cpp
         )
 
 target_link_libraries (EyerGL EyerCore)
 target_link_libraries (EyerGL pthread)
 target_link_libraries (EyerGL gtest)
-target_link_libraries (EyerGL EyerType)
 target_link_libraries (EyerGL EyerGLAD)
 target_link_libraries (EyerGL ${CMAKE_SOURCE_DIR}/../../Lib/glfw_install/lib/libglfw3.a)
 

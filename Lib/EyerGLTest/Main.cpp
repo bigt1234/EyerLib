@@ -3,11 +3,10 @@
 
 #include "EyerGLWindow/EyerGLWindow.hpp"
 #include "EyerGL/EyerGL.hpp"
-#include "EyerGL/EyerGLComponent.hpp"
 #include "EyerGL/Shader.hpp"
 #include "EyerType/EyerType.hpp"
 
-
+/*
 TEST(GLWindows, GLWindows){
 
     Eyer::EyerGLWindow windows("miaowu", 1280, 720);
@@ -120,6 +119,7 @@ TEST(GLWindows, GLWindowsText){
     windows.Close();
 
 }
+*/
 
 int main(int argc,char **argv)
 {
