@@ -35,7 +35,7 @@ namespace Eyer
 
         int ret = avcodec_open2(piml->codecContext, codec, nullptr);
         if(ret){
-            RedLog("Open Decoder Fail\n");
+            EyerLog("Open Decoder Fail\n");
             return -1;
         }
 
