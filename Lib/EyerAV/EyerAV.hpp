@@ -3,6 +3,9 @@
 
 #include "EyerCore/EyerCore.hpp"
 #include <vector>
+#include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
 
 namespace Eyer
 {

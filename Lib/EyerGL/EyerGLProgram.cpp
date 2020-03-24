@@ -1,6 +1,8 @@
 #include "EyerGL.hpp"
 
 #include "GLHeader.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 namespace Eyer
 {
