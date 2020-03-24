@@ -2,12 +2,11 @@ include_directories (../)
 include_directories (./)
 
 include_directories (${CMAKE_SOURCE_DIR}/../../Lib/glfw_install/include)
-include_directories (glad/include/)
+include_directories (../EyerGLAD/glad/include/)
 
 add_library(
         EyerGL
         EyerGL.hpp
-        EyerGLWindow.cpp
         EyerGLShader.cpp
         EyerGLProgram.cpp
         EyerGLVAO.cpp
@@ -21,13 +20,13 @@ add_library(
         EyerGLYUV2TextureComponent.cpp
         EyerGLMVPTextureDraw.cpp
         Shader.cpp
-        glad/src/glad.c
         )
 
 target_link_libraries (EyerGL EyerCore)
 target_link_libraries (EyerGL pthread)
 target_link_libraries (EyerGL gtest)
 target_link_libraries (EyerGL EyerType)
+target_link_libraries (EyerGL EyerGLAD)
 target_link_libraries (EyerGL ${CMAKE_SOURCE_DIR}/../../Lib/glfw_install/lib/libglfw3.a)
 
 IF (CMAKE_SYSTEM_NAME MATCHES "Linux")

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <gtest/gtest.h>
 
+#include "EyerGLWindow/EyerGLWindow.hpp"
 #include "EyerGL/EyerGL.hpp"
 #include "EyerGL/EyerGLComponent.hpp"
 #include "EyerGL/Shader.hpp"

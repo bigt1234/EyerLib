@@ -21,28 +21,6 @@ namespace Eyer
     class EyerGLVAO;
     class EyerGLTexture;
 
-    class EyerGLWindow
-    {
-    private:
-        EyerString title = "Eyer GL";
-
-        int width = 0;
-        int height = 0;
-
-        EyerGLWindowPrivate * window = nullptr;
-    public:
-        EyerGLWindow(EyerString title, int width, int height);
-        ~EyerGLWindow();
-
-        int SetBGColor(float r, float g, float b, float a);
-        int Clear();
-
-        int Open();
-        int Close();
-        int ShouldClose();
-        int Loop();
-    };
-
 
     class EyerGLCMD
     {

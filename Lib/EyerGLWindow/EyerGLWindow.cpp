@@ -1,11 +1,10 @@
 //
 // Created by redknot on 2020/1/5.
 //
-#include "EyerGL.hpp"
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "EyerGLWindow.hpp"
 #include "EyerGLWindowPrivate.hpp"
 
 namespace Eyer
