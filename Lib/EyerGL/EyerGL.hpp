@@ -126,7 +126,7 @@ namespace Eyer
 
         EyerGLContext * ctx = nullptr;
     public:
-        EyerGLDraw(EyerString vertexShaderSrc, EyerString fragmentShaderSrc, EyerGLContext * ctx = nullptr;);
+        EyerGLDraw(EyerString vertexShaderSrc, EyerString fragmentShaderSrc, EyerGLContext * ctx = nullptr);
         ~EyerGLDraw();
 
         int Init();
