@@ -4,12 +4,14 @@
 
 namespace Eyer
 {
-    EyerGLDraw::EyerGLDraw(EyerString _vertexShaderSrc, EyerString _fragmentShaderSrc)
+    EyerGLDraw::EyerGLDraw(EyerString _vertexShaderSrc, EyerString _fragmentShaderSrc, EyerGLContext * _ctx)
     {
+        ctx = _ctx;
+
         vertexShaderSrc = _vertexShaderSrc;
         fragmentShaderSrc = _fragmentShaderSrc;
 
-        program = new EyerGLProgram(vertexShaderSrc, fragmentShaderSrc);
+        program = new EyerGLProgram(vertexShaderSrc, fragmentShaderSrc, ctx);
     }
 
     EyerGLDraw::~EyerGLDraw()
@@ -35,8 +37,13 @@ namespace Eyer
     {
         program->UseProgram();
 
+#ifdef QT_EYER_PLAYER
+        ctx->glActiveTexture(GL_TEXTURE0 + textureIndex);
+        ctx->glBindTexture(GL_TEXTURE_2D, texture->GL_GetTextureId());
+#else
         glActiveTexture(GL_TEXTURE0 + textureIndex);
         glBindTexture(GL_TEXTURE_2D, texture->GL_GetTextureId());
+#endif
         program->PutUniform1i(uniform.str, textureIndex);
 
         return 0;
@@ -76,7 +83,11 @@ namespace Eyer
 
         vao->DrawVAO();
 
+#ifdef QT_EYER_PLAYER
+        ctx->glFinish();
+#else
         glFinish();
+#endif
 
         return 0;
     }
