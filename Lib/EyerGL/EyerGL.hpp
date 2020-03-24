@@ -4,6 +4,12 @@
 #include "EyerCore/EyerCore.hpp"
 #include <vector>
 
+#ifdef QT_EYER_PLAYER
+#include <QOpenGLWidget>
+#include <QOpenGLFunctions_3_3_Core>
+#else
+#endif
+
 namespace Eyer
 {
     class EyerGLWindow;
@@ -20,6 +26,15 @@ namespace Eyer
     class EyerGLVAO;
     class EyerGLTexture;
 
+    class _EyerGLContext
+    {
+    };
+
+#ifdef QT_EYER_PLAYER
+#define EyerGLContext QOpenGLFunctions_3_3_Core
+#else
+#define EyerGLContext _EyerGLContext
+#endif
 
     class EyerGLCMD
     {
@@ -42,8 +57,10 @@ namespace Eyer
         EyerGLShaderType type = EyerGLShaderType::VERTEX_SHADER;
         EyerString src;
         unsigned int shaderId = 0;
+
+        EyerGLContext * ctx = nullptr;
     public:
-        EyerGLShader(EyerGLShaderType type, EyerString src);
+        EyerGLShader(EyerGLShaderType type, EyerString src, EyerGLContext * ctx = nullptr);
         ~EyerGLShader();
 
         int Compile();

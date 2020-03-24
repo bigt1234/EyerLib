@@ -2,7 +2,7 @@
 #define	EYER_LIB_TYPE_AV_H
 
 #include "EyerCore/EyerCore.hpp"
-
+#include <string.h>
 #include <map>
 
 namespace Eyer
