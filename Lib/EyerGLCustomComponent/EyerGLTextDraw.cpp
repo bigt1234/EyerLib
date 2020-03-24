@@ -1,6 +1,6 @@
-#include "EyerGLComponent.hpp"
+#include "EyerGLCustomComponent.hpp"
 #include "EyerType/EyerType.hpp"
-#include "Shader.hpp"
+#include "EyerGL/Shader.hpp"
 
 #ifdef EYER_PLATFORM_WINDOWS
 #include <windows.h>
@@ -120,6 +120,7 @@ namespace Eyer
         int x = 0;
         for(int i=0;i<strLen;i++){
             wchar_t c = str[i];
+            // wchar_t c = L'喵';
 
             Eyer::EyerGLCacheTexture * texture = nullptr;
             std::map<wchar_t, EyerGLCacheTexture *>::iterator iter = textureCache.find(c);
@@ -193,6 +194,7 @@ namespace Eyer
         for(int i=0;i<strLen;i++){
             Eyer::EyerGLCacheTexture * texture = nullptr;
             wchar_t c = str[i];
+            // wchar_t c = L'喵';
             // wchar_t c = L'大';
 
             std::map<wchar_t, EyerGLCacheTexture *>::iterator iter = textureCache.find(c);

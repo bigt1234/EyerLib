@@ -1,7 +1,7 @@
 #ifndef	EYER_LIB_GL_WINDOWS_PRIVATE_H
 #define	EYER_LIB_GL_WINDOWS_PRIVATE_H
 
-#include "EyerGL.hpp"
+#include "EyerGLWindow.hpp"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 

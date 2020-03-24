@@ -1,7 +1,6 @@
 #include "EyerGL.hpp"
 
 #include "GLHeader.h"
-#include "EyerGLComponent.hpp"
 
 namespace Eyer {
     EyerGLFrameBuffer::EyerGLFrameBuffer(int w, int h, EyerGLTexture * _texture)

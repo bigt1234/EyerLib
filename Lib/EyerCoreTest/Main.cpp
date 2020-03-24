@@ -40,22 +40,13 @@ TEST(EyerString, string){
 }
 
 TEST(RedString_Test,string){
-    RedString a;
-    RedString b("eyer test str");
-    EXPECT_TRUE(a == "");
-    EXPECT_FALSE(a == b);
-
-    a = b;
-    EXPECT_TRUE(a == b);
+    
 }
 
 TEST(RedArgs_Test, args){
-    RedArg argA(0, NULL);
-    EXPECT_EQ(argA.GetCount(), 0);
 }
 
 TEST(RedBtte_Test, byte){
-    RedByte byte;
 }
 
 TEST(EyerTime, time){
