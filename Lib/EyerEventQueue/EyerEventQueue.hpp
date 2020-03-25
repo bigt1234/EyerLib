@@ -27,6 +27,7 @@ namespace Eyer
         int Front(EyerEvent * & event);
 
         int FrontTarget(EyerEvent * & event, const EyerString & target);
+        int FrontTargetAndPop(EyerEvent * & event, const EyerString & target);
 
     private:
         std::queue<EyerEvent *> eventQueue;

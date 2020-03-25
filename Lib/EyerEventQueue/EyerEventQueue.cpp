@@ -16,14 +16,42 @@ namespace Eyer
 
     }
 
+    int EyerEventQueue::FrontTargetAndPop(EyerEvent * & event, const EyerString & target)
+    {
+        mutex.lock();
+        if(eventQueue.size() > 0) {
+            EyerEvent * e = eventQueue.front();
+            if(e == nullptr){
+                mutex.unlock();
+                return -1;
+            }
+            if(e->GetTo() == target){
+                event = e;
+                eventQueue.pop();
+                mutex.unlock();
+                return 0;
+            }
+        }
+        mutex.unlock();
+        return -1;
+    }
+
     int EyerEventQueue::FrontTarget(EyerEvent * & event, const EyerString & target)
     {
-        EyerEvent * e = eventQueue.front();
-        if(e->GetTo() == target){
-            event = e;
-            return 0;
+        mutex.lock();
+        if(eventQueue.size() > 0) {
+            EyerEvent * e = eventQueue.front();
+            if(e == nullptr){
+                mutex.unlock();
+                return 0;
+            }
+            if(e->GetTo() == target){
+                event = e;
+                mutex.unlock();
+                return 0;
+            }
         }
-
+        mutex.unlock();
         return -1;
     }
 
@@ -39,7 +67,9 @@ namespace Eyer
     int EyerEventQueue::Pop()
     {
         mutex.lock();
-        eventQueue.pop();
+        if(eventQueue.size() > 0){
+            eventQueue.pop();
+        }
         mutex.unlock();
 
         return 0;
@@ -48,7 +78,9 @@ namespace Eyer
     int EyerEventQueue::Front(EyerEvent * & event)
     {
         mutex.lock();
-        event = eventQueue.front();
+        if(eventQueue.size() > 0){
+            event = eventQueue.front();
+        }
         mutex.unlock();
 
         return 0;
