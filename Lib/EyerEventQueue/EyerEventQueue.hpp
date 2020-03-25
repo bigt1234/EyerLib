@@ -49,6 +49,9 @@ namespace Eyer
         EyerString GetFrom();
         EyerString GetTo();
 
+        int SetFrom(EyerString & from);
+        int SetTo(EyerString & to);
+
     private:
         EyerString from;
         EyerString to;

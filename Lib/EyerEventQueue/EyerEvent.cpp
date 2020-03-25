@@ -38,4 +38,16 @@ namespace Eyer
     {
         return to;
     }
+
+    int EyerEvent::SetFrom(EyerString & _from)
+    {
+        from = _from;
+        return 0;
+    }
+    
+    int EyerEvent::SetTo(EyerString & _to)
+    {
+        to = _to;
+        return 0;
+    }
 }
