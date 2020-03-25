@@ -14,9 +14,6 @@ add_library(
         EyerGLTexture.cpp
         EyerGLFrameBuffer.cpp
         EyerGLComponent.cpp
-        
-        
-        Shader.cpp
         )
 
 target_link_libraries (EyerGL EyerCore)
@@ -44,8 +41,6 @@ ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux")
 
 set(head_files
         EyerGL.hpp
-        ShaderH.hpp
-        Shader.hpp
         )
 
 INSTALL(FILES ${head_files} DESTINATION include/EyerGL)

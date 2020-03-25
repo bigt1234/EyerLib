@@ -3,7 +3,7 @@
 
 #include "EyerGLWindow/EyerGLWindow.hpp"
 #include "EyerGL/EyerGL.hpp"
-#include "EyerGL/Shader.hpp"
+#include "EyerGLShader/Shader.hpp"
 #include "EyerType/EyerType.hpp"
 
 /*

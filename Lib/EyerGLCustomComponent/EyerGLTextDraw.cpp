@@ -1,6 +1,6 @@
 #include "EyerGLCustomComponent.hpp"
 #include "EyerType/EyerType.hpp"
-#include "EyerGL/Shader.hpp"
+#include "EyerGLShader/Shader.hpp"
 
 #ifdef EYER_PLATFORM_WINDOWS
 #include <windows.h>
