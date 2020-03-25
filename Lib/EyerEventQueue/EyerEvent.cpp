@@ -39,13 +39,13 @@ namespace Eyer
         return to;
     }
 
-    int EyerEvent::SetFrom(EyerString & _from)
+    int EyerEvent::SetFrom(const EyerString & _from)
     {
         from = _from;
         return 0;
     }
-    
-    int EyerEvent::SetTo(EyerString & _to)
+
+    int EyerEvent::SetTo(const EyerString & _to)
     {
         to = _to;
         return 0;
