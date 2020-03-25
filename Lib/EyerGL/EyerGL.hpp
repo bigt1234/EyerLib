@@ -60,7 +60,7 @@ namespace Eyer
 
         EyerGLContext * ctx = nullptr;
     public:
-        EyerGLShader(EyerGLShaderType type, EyerString src, EyerGLContext * ctx = nullptr);
+        EyerGLShader(EyerGLShaderType type, EyerString src, EyerGLContext * _ctx = nullptr);
         ~EyerGLShader();
 
         int Compile();
@@ -75,8 +75,10 @@ namespace Eyer
         EyerString fragmentShaderSrc;
 
         unsigned int programId = 0;
+
+        EyerGLContext * ctx = nullptr;
     public:
-        EyerGLProgram(EyerString vertexShaderSrc, EyerString fragmentShaderSrc);
+        EyerGLProgram(EyerString vertexShaderSrc, EyerString fragmentShaderSrc, EyerGLContext * _ctx = nullptr);
         ~EyerGLProgram();
         int LinkProgram();
         int UseProgram();
@@ -94,8 +96,10 @@ namespace Eyer
         std::vector<unsigned int> vboList;
 
         int DrawTime = 0;
+
+        EyerGLContext * ctx = nullptr;
     public:
-        EyerGLVAO();
+        EyerGLVAO(EyerGLContext * ctx = nullptr);
         ~EyerGLVAO();
 
         int SetEBO(unsigned int * EBOdata, int bufferSize);
@@ -120,8 +124,9 @@ namespace Eyer
         EyerGLProgram * program = nullptr;
         EyerGLVAO * vao = nullptr;
 
+        EyerGLContext * ctx = nullptr;
     public:
-        EyerGLDraw(EyerString vertexShaderSrc, EyerString fragmentShaderSrc);
+        EyerGLDraw(EyerString vertexShaderSrc, EyerString fragmentShaderSrc, EyerGLContext * ctx = nullptr);
         ~EyerGLDraw();
 
         int Init();
@@ -138,8 +143,9 @@ namespace Eyer
     {
     private:
         unsigned int textureId = 0;
+        EyerGLContext * ctx = nullptr;
     public:
-        EyerGLTexture();
+        EyerGLTexture(EyerGLContext * ctx = nullptr);
         ~EyerGLTexture();
 
         unsigned int GL_GetTextureId();
@@ -160,8 +166,9 @@ namespace Eyer
         int height = 0;
 
         EyerGLTexture * texture = nullptr;
+        EyerGLContext * ctx = nullptr;
     public:
-        EyerGLFrameBuffer(int w, int h, EyerGLTexture * texture = nullptr);
+        EyerGLFrameBuffer(int w, int h, EyerGLTexture * texture = nullptr, EyerGLContext * ctx = nullptr);
         ~EyerGLFrameBuffer();
 
         int AddDraw(EyerGLDraw * draw);

@@ -1,5 +1,5 @@
 #include "EyerGLCustomComponent.hpp"
-#include "EyerGL/Shader.hpp"
+#include "EyerGLShader/Shader.hpp"
 
 namespace Eyer
 {
