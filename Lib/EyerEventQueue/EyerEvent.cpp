@@ -28,4 +28,14 @@ namespace Eyer
 
         return *this;
     }
+
+    EyerString EyerEvent::GetFrom()
+    {
+        return from;
+    }
+
+    EyerString EyerEvent::GetTo()
+    {
+        return to;
+    }
 }

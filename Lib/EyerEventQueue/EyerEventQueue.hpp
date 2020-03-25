@@ -8,6 +8,7 @@
 #include "EyerCore/EyerCore.hpp"
 
 #include <queue>
+#include <mutex>
 
 namespace Eyer
 {
@@ -25,8 +26,11 @@ namespace Eyer
 
         int Front(EyerEvent * & event);
 
+        int FrontTarget(EyerEvent * & event, EyerString & target);
+
     private:
         std::queue<EyerEvent *> eventQueue;
+        std::mutex mutex;
     };
 
 
@@ -41,6 +45,9 @@ namespace Eyer
         EyerEvent & operator = (EyerEvent & event);
 
         virtual int GetType() = 0;
+
+        EyerString GetFrom();
+        EyerString GetTo();
 
     private:
         EyerString from;

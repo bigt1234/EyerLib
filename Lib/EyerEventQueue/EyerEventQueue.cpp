@@ -16,18 +16,41 @@ namespace Eyer
 
     }
 
+    int EyerEventQueue::FrontTarget(EyerEvent * & event, EyerString & target)
+    {
+        EyerEvent * e = eventQueue.front();
+        if(e->GetTo() == target){
+            event = e;
+            return 0;
+        }
+
+        return -1;
+    }
+
     int EyerEventQueue::Push(EyerEvent * event)
     {
+        mutex.lock();
+        eventQueue.push(event);
+        mutex.unlock();
+
         return 0;
     }
 
     int EyerEventQueue::Pop()
     {
+        mutex.lock();
+        eventQueue.pop();
+        mutex.unlock();
+
         return 0;
     }
 
     int EyerEventQueue::Front(EyerEvent * & event)
     {
+        mutex.lock();
+        event = eventQueue.front();
+        mutex.unlock();
+
         return 0;
     }
 }
