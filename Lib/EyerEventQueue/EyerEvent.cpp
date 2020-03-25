@@ -21,7 +21,7 @@ namespace Eyer
         *this = event;
     }
 
-    EyerEvent & EyerEvent::operator = (EyerEvent & event)
+    EyerEvent & EyerEvent::operator = (const EyerEvent & event)
     {
         from = event.from;
         to = event.to;

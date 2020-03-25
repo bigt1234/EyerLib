@@ -26,7 +26,7 @@ namespace Eyer
 
         int Front(EyerEvent * & event);
 
-        int FrontTarget(EyerEvent * & event, EyerString & target);
+        int FrontTarget(EyerEvent * & event, const EyerString & target);
 
     private:
         std::queue<EyerEvent *> eventQueue;
@@ -42,7 +42,7 @@ namespace Eyer
 
         EyerEvent(EyerEvent & event);
 
-        EyerEvent & operator = (EyerEvent & event);
+        EyerEvent & operator = (const EyerEvent & event);
 
         virtual int GetType() = 0;
 

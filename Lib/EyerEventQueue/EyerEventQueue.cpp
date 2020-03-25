@@ -16,7 +16,7 @@ namespace Eyer
 
     }
 
-    int EyerEventQueue::FrontTarget(EyerEvent * & event, EyerString & target)
+    int EyerEventQueue::FrontTarget(EyerEvent * & event, const EyerString & target)
     {
         EyerEvent * e = eventQueue.front();
         if(e->GetTo() == target){
