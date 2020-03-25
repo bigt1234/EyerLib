@@ -15,13 +15,13 @@ namespace Eyer
 
         virtual void Run() = 0;
 
-        int Stop(int t = 500);
+        int Stop(int t = 1000);
 
         int IsRunning();
         void Detach();
         void Join();
 
-    private:
+    protected:
         void SetRunning();
         void SetStoping();
 
