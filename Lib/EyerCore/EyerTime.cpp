@@ -28,4 +28,14 @@ namespace Eyer
 
         return EyerString(now);
     }
+
+    int EyerTime::EyerSleep(int time)
+    {
+#ifdef _MSC_VER
+        Sleep(time);
+#else
+        usleep(time);
+#endif // _MSC_VER
+        return 0;
+    }
 }
