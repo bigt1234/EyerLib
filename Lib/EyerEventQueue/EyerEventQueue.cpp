@@ -85,4 +85,10 @@ namespace Eyer
 
         return 0;
     }
+
+    long long EyerEventQueue::GetEventId()
+    {
+        idIndex++;
+        return idIndex;
+    }
 }

@@ -29,9 +29,12 @@ namespace Eyer
         int FrontTarget(EyerEvent * & event, const EyerString & target);
         int FrontTargetAndPop(EyerEvent * & event, const EyerString & target);
 
+        long long GetEventId();
     private:
         std::queue<EyerEvent *> eventQueue;
         std::mutex mutex;
+
+        long long idIndex = 0;
     };
 
 
@@ -53,9 +56,13 @@ namespace Eyer
         int SetFrom(const EyerString & from);
         int SetTo(const EyerString & to);
 
+        int SetId(long long id);
+        long long GetId();
     private:
         EyerString from;
         EyerString to;
+
+        long long id = 0;
     };
 }
 

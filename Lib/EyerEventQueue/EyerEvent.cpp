@@ -25,6 +25,7 @@ namespace Eyer
     {
         from = event.from;
         to = event.to;
+        id = event.id;
 
         return *this;
     }
@@ -49,5 +50,16 @@ namespace Eyer
     {
         to = _to;
         return 0;
+    }
+
+    int EyerEvent::SetId(long long _id)
+    {
+        id = _id;
+        return  0;
+    }
+
+    long long EyerEvent::GetId()
+    {
+        return id;
     }
 }
