@@ -62,4 +62,14 @@ namespace Eyer
     {
         return id;
     }
+
+    int EyerEvent::SetRequestId(long long id)
+    {
+        requestId = id;
+        return 0;
+    }
+    long long EyerEvent::GetRequestId()
+    {
+        return requestId;
+    }
 }

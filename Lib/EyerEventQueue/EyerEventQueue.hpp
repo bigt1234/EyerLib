@@ -58,11 +58,15 @@ namespace Eyer
 
         int SetId(long long id);
         long long GetId();
+
+        int SetRequestId(long long id);
+        long long GetRequestId();
     private:
         EyerString from;
         EyerString to;
 
         long long id = 0;
+        long long requestId = 0;
     };
 }
 
