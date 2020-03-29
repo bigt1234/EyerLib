@@ -13,14 +13,72 @@ namespace Eyer
     template<typename T>
     class EyerAVQueue {
     public:
-        EyerAVQueue();
-        ~EyerAVQueue();
+        EyerAVQueue()
+        {
 
-        int Push(T * t);
-        int Front(T ** t);
-        int FrontPop(T ** t);
+        }
 
-        int Size();
+        ~EyerAVQueue()
+        {
+            mut.lock();
+
+            T * t = queue.front();
+            queue.pop();
+            delete t;
+
+            mut.unlock();
+        }
+
+        int Push(T * t)
+        {
+            mut.lock();
+
+            queue.push(t);
+
+            mut.unlock();
+            return 0;
+        }
+
+        int Front(T ** t)
+        {
+            int ret = -1;
+            mut.lock();
+
+            if(queue.size() > 0){
+                *t = queue.front();
+                ret = 0;
+            }
+
+            mut.unlock();
+            return ret;
+        }
+
+        int FrontPop(T ** t)
+        {
+            int ret = -1;
+            mut.lock();
+
+            if(queue.size() > 0) {
+                *t = queue.front();
+                queue.pop();
+                ret = 0;
+            }
+
+            mut.unlock();
+            return ret;
+        }
+
+        int Size()
+        {
+            int size = 0;
+            mut.lock();
+
+            size = queue.size();
+
+            mut.unlock();
+
+            return size;
+        }
     private:
         std::mutex mut;
         std::queue<T *> queue;
