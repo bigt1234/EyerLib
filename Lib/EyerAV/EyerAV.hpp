@@ -74,6 +74,8 @@ namespace Eyer
         EyerAVFramePrivate * piml = nullptr;
 
         std::vector<void *> dataManager;
+
+        int custom = 0;
     public:
         EyerAVFrame();
         ~EyerAVFrame();
