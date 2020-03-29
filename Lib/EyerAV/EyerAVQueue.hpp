@@ -37,6 +37,18 @@ namespace Eyer
             mut.unlock();
         }
 
+        int Lock()
+        {
+            mut.lock();
+            return 0;
+        }
+
+        int UnLock()
+        {
+            mut.unlock();
+            return 0;
+        }
+
         int Push(T * t)
         {
             mut.lock();
