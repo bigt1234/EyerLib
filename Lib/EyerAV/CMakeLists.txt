@@ -23,7 +23,12 @@ add_library(
     EyerAVRational.cpp
     EyerAVAudioFrameUtil.cpp
     EyerAVFrameWeight.cpp
-)
+        EyerAVPacketQueue.cpp
+        EyerAVPacketQueue.hpp
+        EyerAVFrameQueue.cpp
+        EyerAVFrameQueue.hpp
+        EyerAVQueue.cpp
+        EyerAVQueue.hpp)
 
 target_link_libraries (EyerAV pthread)
 target_link_libraries (EyerAV EyerCore)
@@ -103,7 +108,10 @@ ELSE ()
 ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux")
 
 set(head_files 
-    EyerAV.hpp 
+    EyerAV.hpp
+        EyerAVPacketQueue.hpp
+        EyerAVFrameQueue.hpp
+        EyerAVQueue.hpp
 )
 
 INSTALL(FILES ${head_files} DESTINATION include/EyerAV)
