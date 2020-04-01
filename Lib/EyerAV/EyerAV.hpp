@@ -173,6 +173,9 @@ namespace Eyer
 
         int SetDuration(double _duration);
         double GetDuration();
+
+        int GetWidth();
+        int GetHeight();
     };
 
     class EyerAVDecoder
