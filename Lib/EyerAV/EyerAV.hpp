@@ -76,6 +76,8 @@ namespace Eyer
         std::vector<void *> dataManager;
 
         int custom = 0;
+
+        double timePts = 0.0;
     public:
         EyerAVFrame();
         ~EyerAVFrame();
