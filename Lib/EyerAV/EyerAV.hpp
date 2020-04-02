@@ -315,7 +315,8 @@ namespace Eyer
 
     enum EyerAVCropType
     {
-        FIT_CENTER = 0
+        FIT_CENTER = 0,
+        FIT_XY = 1
     };
 
     class EyerAVCropUtil

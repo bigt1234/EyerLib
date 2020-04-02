@@ -28,6 +28,11 @@ namespace Eyer
                 targetH = imageH * 1.0 / imageW * targetW;
             }
         }
+
+        if(cropType == EyerAVCropType::FIT_XY){
+            targetW = viewW;
+            targetH = viewH;
+        }
         return 0;
     }
 }
