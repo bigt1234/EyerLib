@@ -302,6 +302,7 @@ namespace Eyer {
             if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_SMPTE2085){
                 printf("AVColorSpace: AVCOL_SPC_SMPTE2085\n");
             }
+            /*
             if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_CHROMA_DERIVED_NCL){
                 printf("AVColorSpace: AVCOL_SPC_CHROMA_DERIVED_NCL\n");
             }
@@ -311,6 +312,7 @@ namespace Eyer {
             if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_ICTCP){
                 printf("AVColorSpace: AVCOL_SPC_ICTCP\n");
             }
+            */
             if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_NB){
                 printf("AVColorSpace: AVCOL_SPC_NB\n");
             }
