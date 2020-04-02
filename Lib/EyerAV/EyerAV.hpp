@@ -309,6 +309,23 @@ namespace Eyer
     private:
         EyerLinkedList<EyerAVFrameWeight *> frameList;
     };
+
+
+
+
+    enum EyerAVCropType
+    {
+        FIT_CENTER = 0
+    };
+
+    class EyerAVCropUtil
+    {
+    public:
+        EyerAVCropUtil();
+        ~EyerAVCropUtil();
+
+        int GetCrop(int viewW, int viewH, int imageW, int imageH, int & targetW, int & targetH,EyerAVCropType cropType = EyerAVCropType::FIT_CENTER);
+    };
 }
 
 #endif
