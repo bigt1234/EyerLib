@@ -44,4 +44,14 @@ namespace Eyer
     {
         return duration;
     }
+
+    int EyerAVStream::GetWidth()
+    {
+        return piml->codecContext->width;
+    }
+
+    int EyerAVStream::GetHeight()
+    {
+        return piml->codecContext->height;
+    }
 }

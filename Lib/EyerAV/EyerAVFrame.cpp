@@ -263,6 +263,62 @@ namespace Eyer {
         printf("Size Per Sample: %d\n", sizePerSample);
 
         {
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_RGB){
+                printf("AVColorSpace: AVCOL_SPC_RGB\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_BT709){
+                printf("AVColorSpace: AVCOL_SPC_BT709\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_UNSPECIFIED){
+                printf("AVColorSpace: AVCOL_SPC_UNSPECIFIED\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_RESERVED){
+                printf("AVColorSpace: AVCOL_SPC_RESERVED\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_FCC){
+                printf("AVColorSpace: AVCOL_SPC_FCC\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_BT470BG){
+                printf("AVColorSpace: AVCOL_SPC_BT470BG\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_SMPTE170M){
+                printf("AVColorSpace: AVCOL_SPC_SMPTE170M\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_SMPTE240M){
+                printf("AVColorSpace: AVCOL_SPC_SMPTE240M\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_YCGCO){
+                printf("AVColorSpace: AVCOL_SPC_YCGCO\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_YCOCG){
+                printf("AVColorSpace: AVCOL_SPC_YCOCG\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_BT2020_NCL){
+                printf("AVColorSpace: AVCOL_SPC_BT2020_NCL\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_BT2020_CL){
+                printf("AVColorSpace: AVCOL_SPC_BT2020_CL\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_SMPTE2085){
+                printf("AVColorSpace: AVCOL_SPC_SMPTE2085\n");
+            }
+            /*
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_CHROMA_DERIVED_NCL){
+                printf("AVColorSpace: AVCOL_SPC_CHROMA_DERIVED_NCL\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_CHROMA_DERIVED_CL){
+                printf("AVColorSpace: AVCOL_SPC_CHROMA_DERIVED_CL\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_ICTCP){
+                printf("AVColorSpace: AVCOL_SPC_ICTCP\n");
+            }
+            */
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_NB){
+                printf("AVColorSpace: AVCOL_SPC_NB\n");
+            }
+        }
+
+        {
             if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUV420P){
                 printf("Format: AV_PIX_FMT_YUV420P\n");
             }

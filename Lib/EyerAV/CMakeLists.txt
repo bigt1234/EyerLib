@@ -28,7 +28,9 @@ add_library(
         EyerAVFrameQueue.cpp
         EyerAVFrameQueue.hpp
         EyerAVQueue.cpp
-        EyerAVQueue.hpp)
+        EyerAVQueue.hpp
+        EyerAVCropUtil.cpp
+        )
 
 target_link_libraries (EyerAV pthread)
 target_link_libraries (EyerAV EyerCore)
