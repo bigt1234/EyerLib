@@ -52,6 +52,54 @@ TEST(EyerAVFormat3, format3_read_frame){
 }
 */
 
+TEST(Audio, Audio){
+    Eyer::EyerAVReader reader("/home/redknot/Videos/bbb_sunflower_2160p_60fps_normal.mp4");
+
+    reader.Open();
+
+    Eyer::EyerAVStream stream;
+    reader.GetStream(stream, 1);
+
+    Eyer::EyerAVDecoder decoder;
+    decoder.Init(&stream);
+
+    while(1)
+    {
+        Eyer::EyerAVPacket pkt;
+        int ret = reader.Read(&pkt);
+        if(ret){
+            break;
+        }
+
+        if(pkt.GetStreamId() == 1){
+            decoder.SendPacket(&pkt);
+            while(1){
+                Eyer::EyerAVFrame frame;
+                ret = decoder.RecvFrame(&frame);
+                if(ret){
+                    break;
+                }
+
+                int audioSize = frame.GetAudioPackedData(nullptr);
+
+                EyerLog("Audio Size: %d\n", audioSize);
+
+                unsigned char * audioData = (unsigned char *)malloc(audioSize);
+
+                frame.GetAudioPackedData(audioData);
+
+                if(audioData){
+                    free(audioData);
+                }
+
+                frame.GetInfo();
+            }
+        }
+    }
+
+    reader.Close();
+}
+
 TEST(Encoder, Encoder){
     int width = 1280;
     int height = 720;
@@ -70,7 +118,7 @@ TEST(Encoder, Encoder){
 
     writer.WriteHand();
 
-    for(int i=0;i<60 * 25 * 60;i++){
+    for(int i=0;i<60 * 25 * 1;i++){
         unsigned char * y = (unsigned char *)malloc(width * height);
         unsigned char * u = (unsigned char *)malloc(width * height / 4);
         unsigned char * v = (unsigned char *)malloc(width * height / 4);

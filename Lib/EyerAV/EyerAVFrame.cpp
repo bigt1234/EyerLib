@@ -328,6 +328,9 @@ namespace Eyer {
             }
         }
 
+        {
+        }
+
         // Print Channel Layout
         {
             if(piml->frame->channel_layout == AV_CH_LAYOUT_MONO){
@@ -385,6 +388,33 @@ namespace Eyer {
         return EyerAVPixelFormat::Eyer_AV_PIX_FMT_UNKNOW;
     }
 
+    int EyerAVFrame::GetAudioPackedData(unsigned char * data)
+    {
+        int sizePerSample = av_get_bytes_per_sample((AVSampleFormat)piml->frame->format);
+        int bufferSize = sizePerSample * piml->frame->nb_samples * piml->frame->channels;
+        if(data == nullptr){
+            return bufferSize;
+        }
+
+        // 判断是 Packed 还是 Plane
+        int isPanar = av_sample_fmt_is_planar((AVSampleFormat)piml->frame->format);
+        if(isPanar){
+            // EyerLog("Panar\n");
+            int channel = piml->frame->channels;
+            for(int i = 0; i< piml->frame->nb_samples;i++){
+                for(int channelIndex = 0;channelIndex < channel; channelIndex++){
+                    // data[i * channel + channelIndex * sizePerSample] = 0;
+                    memcpy(data + (i * channel + channelIndex * sizePerSample), ((unsigned char *)piml->frame->data[channelIndex]) + i * sizePerSample, sizePerSample);
+                }
+            }
+        }
+        else{
+            // EyerLog("Packed\n");
+            memcpy(data, piml->frame->data[0], bufferSize);
+        }
+
+        return 0;
+    }
 
     int EyerAVFrame::SetVideoData420P(unsigned char * _y, unsigned char * _u, unsigned char * _v, int _width, int _height)
     {

@@ -93,6 +93,8 @@ namespace Eyer
         float GetAudioFloatData(int channel, int index);
         int SetAudioFloatData(int channel, int index, float d);
 
+        int GetAudioPackedData(unsigned char * data);
+
         int GetAudioData(unsigned char * data);
         int SetAudioData(unsigned char * data, int dataLen, int nbSamples, int channel, EyerAVFormat format);
 
