@@ -459,8 +459,9 @@ namespace Eyer {
             int channel = piml->frame->channels;
             for(int i = 0; i< piml->frame->nb_samples;i++){
                 for(int channelIndex = 0;channelIndex < channel; channelIndex++){
-                    // data[i * channel + channelIndex * sizePerSample] = 0;
-                    memcpy(data + (i * channel + channelIndex * sizePerSample), ((unsigned char *)piml->frame->data[channelIndex]) + i * sizePerSample, sizePerSample);
+                    int distOffset = i * (channel + sizePerSample) + channelIndex * sizePerSample;
+                    int srcOffset = i * sizePerSample;
+                    memcpy(data + distOffset, (unsigned char *)piml->frame->data[channelIndex] + srcOffset, sizePerSample);
                 }
             }
         }
