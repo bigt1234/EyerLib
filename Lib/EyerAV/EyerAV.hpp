@@ -68,6 +68,13 @@ namespace Eyer
         int SetStreamId(int id);
     };
 
+    enum EyerAVAudioDateType
+    {
+        UNSIGNEDINT,
+        SIGNEDINT,
+        FLOAT
+    };
+
     class EyerAVFrame
     {
     public:
@@ -110,6 +117,8 @@ namespace Eyer
         int GetChannels();
         int GetNBSamples();
         int GetPerSampleSize();
+        int GetSampleRate();
+        EyerAVAudioDateType GetAudioDateType();
 
         int InitAACFrame(int channels);
 

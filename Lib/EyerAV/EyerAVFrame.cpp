@@ -427,6 +427,24 @@ namespace Eyer {
         return 0;
     }
 
+    EyerAVAudioDateType EyerAVFrame::GetAudioDateType()
+    {
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_U8 || piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_U8P){
+            return EyerAVAudioDateType::UNSIGNEDINT;
+        }
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S16 || piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S16P){
+            return EyerAVAudioDateType::SIGNEDINT;
+        }
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S32 || piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S32P){
+            return EyerAVAudioDateType::UNSIGNEDINT;
+        }
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_FLT || piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_FLT){
+            return EyerAVAudioDateType::FLOAT;
+        }
+
+        return EyerAVAudioDateType::UNSIGNEDINT;
+    }
+
     EyerAVPixelFormat EyerAVFrame::GetPixFormat() const {
         if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUV420P){
             return EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV420P;
@@ -528,8 +546,14 @@ namespace Eyer {
         return piml->frame->channels;
     }
 
+    int EyerAVFrame::GetSampleRate()
+    {
+        return piml->frame->sample_rate;
+    }
+
     int EyerAVFrame::GetNBSamples()
     {
+
         return piml->frame->nb_samples;
     }
 
