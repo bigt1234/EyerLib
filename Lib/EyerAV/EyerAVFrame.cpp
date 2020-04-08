@@ -2,6 +2,7 @@
 
 extern "C"{
 #include <libavformat/avformat.h>
+#include <libswresample/swresample.h>
 #include <libavutil/imgutils.h>
 }
 
@@ -429,16 +430,35 @@ namespace Eyer {
 
     EyerAVAudioDateType EyerAVFrame::GetAudioDateType()
     {
-        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_U8 || piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_U8P){
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_U8){
             return EyerAVAudioDateType::UNSIGNEDINT;
         }
-        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S16 || piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S16P){
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_U8P){
+            return EyerAVAudioDateType::UNSIGNEDINT;
+        }
+
+
+
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S16){
             return EyerAVAudioDateType::SIGNEDINT;
         }
-        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S32 || piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S32P){
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S16P){
+            return EyerAVAudioDateType::SIGNEDINT;
+        }
+
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S32){
             return EyerAVAudioDateType::UNSIGNEDINT;
         }
-        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_FLT || piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_FLT){
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S32P){
+            return EyerAVAudioDateType::UNSIGNEDINT;
+        }
+
+
+
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_FLT){
+            return EyerAVAudioDateType::FLOAT;
+        }
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_FLTP){
             return EyerAVAudioDateType::FLOAT;
         }
 
@@ -474,14 +494,26 @@ namespace Eyer {
         int isPanar = av_sample_fmt_is_planar((AVSampleFormat)piml->frame->format);
         if(isPanar){
             // EyerLog("Panar\n");
-            int channel = piml->frame->channels;
-            for(int i = 0; i< piml->frame->nb_samples;i++){
-                for(int channelIndex = 0;channelIndex < channel; channelIndex++){
-                    int distOffset = i * (channel + sizePerSample) + channelIndex * sizePerSample;
-                    int srcOffset = i * sizePerSample;
-                    memcpy(data + distOffset, (unsigned char *)piml->frame->data[channelIndex] + srcOffset, sizePerSample);
-                }
-            }
+            SwrContext * swrCtx = swr_alloc_set_opts(
+                        NULL,
+                        piml->frame->channel_layout,
+                        av_get_packed_sample_fmt((AVSampleFormat)piml->frame->format),
+                        piml->frame->sample_rate,
+
+                        piml->frame->channel_layout,
+                        (AVSampleFormat)piml->frame->format,
+                        piml->frame->sample_rate,
+
+                        0,
+                        NULL
+                        );
+
+
+            swr_init(swrCtx);
+
+            int ret = swr_convert(swrCtx, &data, piml->frame->nb_samples, (const uint8_t **)piml->frame->data, piml->frame->nb_samples);
+
+            swr_free(&swrCtx);
         }
         else{
             // EyerLog("Packed\n");
