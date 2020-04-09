@@ -89,6 +89,11 @@ namespace Eyer
         return piml->formatCtx->nb_streams;
     }
 
+    double EyerAVReader::GetDuration()
+    {
+        return piml->formatCtx->duration / 1000000;
+    }
+
     int EyerAVReader::GetStream(EyerAVStream & stream, int index)
     {
         if(piml->formatCtx == nullptr){

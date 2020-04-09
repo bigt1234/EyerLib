@@ -138,6 +138,8 @@ namespace Eyer
         int Open();
         int Close();
 
+        double GetDuration();
+
         int SeekFrame(int streamIndex, int64_t timestamp);
         int SeekFrame(int streamIndex, double timestamp);
 
