@@ -256,7 +256,7 @@ namespace Eyer {
         printf("Width: %d\n", piml->frame->width);
         printf("Height: %d\n", piml->frame->height);
         printf("Channels: %d\n", piml->frame->channels);
-        printf("channel_layout: %d\n", piml->frame->channel_layout);
+        // printf("channel_layout: %lld\n", piml->frame->channel_layout);
         printf("nb_samples: %d\n", piml->frame->nb_samples);
         printf("format: %d\n", piml->frame->format);
 

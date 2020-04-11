@@ -27,7 +27,7 @@ namespace Eyer
 
     int EyerAVDecoder::Init(EyerAVStream * stream)
     {
-        avcodec_copy_context(piml->codecContext, stream->piml->codecContext);
+        avcodec_parameters_to_context(piml->codecContext, stream->piml->codecpar);
 
         AVCodec * codec = avcodec_find_decoder(piml->codecContext->codec_id);
 

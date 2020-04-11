@@ -7,7 +7,8 @@
 
 TEST(Eyer, EyerImg){
     int width, height, nrChannels;
-    unsigned char * data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
+    unsigned char * data = stbi_load("1.jpg", &width, &height, &nrChannels, 0);
+    printf("width:%d height:%d\n",width, height);
 }
 
 int main(int argc,char **argv)
