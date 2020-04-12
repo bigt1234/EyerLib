@@ -17,6 +17,8 @@ namespace Eyer
 
         int Stop(int t = 1000);
 
+        int WaitForStop(int t = 1000);
+
         int IsRunning();
         void Detach();
         void Join();

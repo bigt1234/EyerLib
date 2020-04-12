@@ -32,10 +32,10 @@ namespace Eyer
 
     int EyerGLProgram::LinkProgram()
     {
-        Eyer::EyerGLShader vertexShader(Eyer::EyerGLShaderType::VERTEX_SHADER, vertexShaderSrc);
+        Eyer::EyerGLShader vertexShader(Eyer::EyerGLShaderType::VERTEX_SHADER, vertexShaderSrc, ctx);
         vertexShader.Compile();
 
-        Eyer::EyerGLShader fragmentShader(Eyer::EyerGLShaderType::FRAGMENT_SHADER, fragmentShaderSrc);
+        Eyer::EyerGLShader fragmentShader(Eyer::EyerGLShaderType::FRAGMENT_SHADER, fragmentShaderSrc, ctx);
         fragmentShader.Compile();
 
 #ifdef QT_EYER_PLAYER

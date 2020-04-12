@@ -28,7 +28,10 @@ add_library(
         EyerAVFrameQueue.cpp
         EyerAVFrameQueue.hpp
         EyerAVQueue.cpp
-        EyerAVQueue.hpp)
+        EyerAVQueue.hpp
+        EyerAVCropUtil.cpp
+        EyerAVQueueManager.hpp
+        )
 
 target_link_libraries (EyerAV pthread)
 target_link_libraries (EyerAV EyerCore)
@@ -112,6 +115,7 @@ set(head_files
         EyerAVPacketQueue.hpp
         EyerAVFrameQueue.hpp
         EyerAVQueue.hpp
+        EyerAVQueueManager.hpp
 )
 
 INSTALL(FILES ${head_files} DESTINATION include/EyerAV)

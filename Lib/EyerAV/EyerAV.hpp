@@ -33,7 +33,9 @@ namespace Eyer
         Eyer_AV_PIX_FMT_YUV420P = 101,
         Eyer_AV_PIX_FMT_YUVJ420P = 102,
         Eyer_AV_PIX_FMT_YUV444P = 103,
-        Eyer_AV_PIX_FMT_YUVJ444P = 104
+        Eyer_AV_PIX_FMT_YUVJ444P = 104,
+        Eyer_AV_PIX_FMT_YUVNV12 = 105,
+        Eyer_AV_PIX_FMT_YUVNV21 = 106,
     };
 
     enum EyerAVStreamType{
@@ -68,12 +70,23 @@ namespace Eyer
         int SetStreamId(int id);
     };
 
+    enum EyerAVAudioDateType
+    {
+        UNSIGNEDINT,
+        SIGNEDINT,
+        FLOAT
+    };
+
     class EyerAVFrame
     {
     public:
         EyerAVFramePrivate * piml = nullptr;
 
         std::vector<void *> dataManager;
+
+        int custom = 0;
+
+        double timePts = 0.0;
     public:
         EyerAVFrame();
         ~EyerAVFrame();
@@ -87,9 +100,12 @@ namespace Eyer
         int GetYData(unsigned char * yData);
         int GetUData(unsigned char * uData);
         int GetVData(unsigned char * vData);
+        int GetUVData(unsigned char * uvData);
 
         float GetAudioFloatData(int channel, int index);
         int SetAudioFloatData(int channel, int index, float d);
+
+        int GetAudioPackedData(unsigned char * data);
 
         int GetAudioData(unsigned char * data);
         int SetAudioData(unsigned char * data, int dataLen, int nbSamples, int channel, EyerAVFormat format);
@@ -104,6 +120,8 @@ namespace Eyer
         int GetChannels();
         int GetNBSamples();
         int GetPerSampleSize();
+        int GetSampleRate();
+        EyerAVAudioDateType GetAudioDateType();
 
         int InitAACFrame(int channels);
 
@@ -122,6 +140,8 @@ namespace Eyer
 
         int Open();
         int Close();
+
+        double GetDuration();
 
         int SeekFrame(int streamIndex, int64_t timestamp);
         int SeekFrame(int streamIndex, double timestamp);
@@ -171,6 +191,9 @@ namespace Eyer
 
         int SetDuration(double _duration);
         double GetDuration();
+
+        int GetWidth();
+        int GetHeight();
     };
 
     class EyerAVDecoder
@@ -182,6 +205,7 @@ namespace Eyer
         ~EyerAVDecoder();
 
         int Init(EyerAVStream * stream);
+        int InitHW(EyerAVStream * stream);
 
         int SendPacket(EyerAVPacket * packet);
         int RecvFrame(EyerAVFrame * frame);
@@ -301,6 +325,24 @@ namespace Eyer
 
     private:
         EyerLinkedList<EyerAVFrameWeight *> frameList;
+    };
+
+
+
+
+    enum EyerAVCropType
+    {
+        FIT_CENTER = 0,
+        FIT_XY = 1
+    };
+
+    class EyerAVCropUtil
+    {
+    public:
+        EyerAVCropUtil();
+        ~EyerAVCropUtil();
+
+        int GetCrop(int viewW, int viewH, int imageW, int imageH, int & targetW, int & targetH,EyerAVCropType cropType = EyerAVCropType::FIT_CENTER);
     };
 }
 

@@ -21,12 +21,34 @@ namespace Eyer
         ~EyerAVQueue()
         {
             mut.lock();
+            /*
+            while(queue.size() > 0){
+                T * t = queue.front();
+                queue.pop();
+                delete t;
+            }
+            */
 
-            T * t = queue.front();
-            queue.pop();
-            delete t;
+            while(queue.size() > 0){
+                T * t = queue.front();
+                queue.pop();
+            }
 
             mut.unlock();
+        }
+
+
+
+        int Lock()
+        {
+            mut.lock();
+            return 0;
+        }
+
+        int UnLock()
+        {
+            mut.unlock();
+            return 0;
         }
 
         int Push(T * t)

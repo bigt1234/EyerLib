@@ -2,6 +2,7 @@
 
 extern "C"{
 #include <libavformat/avformat.h>
+#include <libswresample/swresample.h>
 #include <libavutil/imgutils.h>
 }
 
@@ -135,13 +136,6 @@ namespace Eyer {
             }
         }
 
-        
-
-        // Copy extended_data
-
-
-
-
         return *this;
     }
 
@@ -165,6 +159,28 @@ namespace Eyer {
         int offset = 0;
         for(int i=0;i<h;i++){
             memcpy(yData + offset, piml->frame->data[0] + i * piml->frame->linesize[0], w);
+            offset += w;
+        }
+
+        return 0;
+    }
+
+    int EyerAVFrame::GetUVData(unsigned char * uvData)
+    {
+        int width = GetWidth();
+        int height = GetHeight();
+
+        int h = height;
+        int w = width;
+
+        if(GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVNV12 || GetPixFormat() ==  EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVNV21){
+            h = height / 2;
+            w = width;
+        }
+
+        int offset = 0;
+        for(int i=0;i<h;i++){
+            memcpy(uvData + offset, piml->frame->data[1] + i * piml->frame->linesize[1], w);
             offset += w;
         }
 
@@ -255,12 +271,68 @@ namespace Eyer {
         printf("Width: %d\n", piml->frame->width);
         printf("Height: %d\n", piml->frame->height);
         printf("Channels: %d\n", piml->frame->channels);
-        printf("channel_layout: %d\n", piml->frame->channel_layout);
+        // printf("channel_layout: %lld\n", piml->frame->channel_layout);
         printf("nb_samples: %d\n", piml->frame->nb_samples);
         printf("format: %d\n", piml->frame->format);
 
         int sizePerSample = av_get_bytes_per_sample((AVSampleFormat)piml->frame->format);
         printf("Size Per Sample: %d\n", sizePerSample);
+
+        {
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_RGB){
+                printf("AVColorSpace: AVCOL_SPC_RGB\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_BT709){
+                printf("AVColorSpace: AVCOL_SPC_BT709\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_UNSPECIFIED){
+                printf("AVColorSpace: AVCOL_SPC_UNSPECIFIED\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_RESERVED){
+                printf("AVColorSpace: AVCOL_SPC_RESERVED\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_FCC){
+                printf("AVColorSpace: AVCOL_SPC_FCC\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_BT470BG){
+                printf("AVColorSpace: AVCOL_SPC_BT470BG\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_SMPTE170M){
+                printf("AVColorSpace: AVCOL_SPC_SMPTE170M\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_SMPTE240M){
+                printf("AVColorSpace: AVCOL_SPC_SMPTE240M\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_YCGCO){
+                printf("AVColorSpace: AVCOL_SPC_YCGCO\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_YCOCG){
+                printf("AVColorSpace: AVCOL_SPC_YCOCG\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_BT2020_NCL){
+                printf("AVColorSpace: AVCOL_SPC_BT2020_NCL\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_BT2020_CL){
+                printf("AVColorSpace: AVCOL_SPC_BT2020_CL\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_SMPTE2085){
+                printf("AVColorSpace: AVCOL_SPC_SMPTE2085\n");
+            }
+            /*
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_CHROMA_DERIVED_NCL){
+                printf("AVColorSpace: AVCOL_SPC_CHROMA_DERIVED_NCL\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_CHROMA_DERIVED_CL){
+                printf("AVColorSpace: AVCOL_SPC_CHROMA_DERIVED_CL\n");
+            }
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_ICTCP){
+                printf("AVColorSpace: AVCOL_SPC_ICTCP\n");
+            }
+            */
+            if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_NB){
+                printf("AVColorSpace: AVCOL_SPC_NB\n");
+            }
+        }
 
         {
             if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUV420P){
@@ -328,6 +400,9 @@ namespace Eyer {
             }
         }
 
+        {
+        }
+
         // Print Channel Layout
         {
             if(piml->frame->channel_layout == AV_CH_LAYOUT_MONO){
@@ -368,6 +443,43 @@ namespace Eyer {
         return 0;
     }
 
+    EyerAVAudioDateType EyerAVFrame::GetAudioDateType()
+    {
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_U8){
+            return EyerAVAudioDateType::UNSIGNEDINT;
+        }
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_U8P){
+            return EyerAVAudioDateType::UNSIGNEDINT;
+        }
+
+
+
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S16){
+            return EyerAVAudioDateType::SIGNEDINT;
+        }
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S16P){
+            return EyerAVAudioDateType::SIGNEDINT;
+        }
+
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S32){
+            return EyerAVAudioDateType::UNSIGNEDINT;
+        }
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_S32P){
+            return EyerAVAudioDateType::UNSIGNEDINT;
+        }
+
+
+
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_FLT){
+            return EyerAVAudioDateType::FLOAT;
+        }
+        if(piml->frame->format == AVSampleFormat::AV_SAMPLE_FMT_FLTP){
+            return EyerAVAudioDateType::FLOAT;
+        }
+
+        return EyerAVAudioDateType::UNSIGNEDINT;
+    }
+
     EyerAVPixelFormat EyerAVFrame::GetPixFormat() const {
         if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUV420P){
             return EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUV420P;
@@ -381,10 +493,56 @@ namespace Eyer {
         if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUVJ444P){
             return EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ444P;
         }
+        if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_NV12){
+            return EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVNV12;
+        }
+        if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_NV21){
+            return EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVNV21;
+        }
 
         return EyerAVPixelFormat::Eyer_AV_PIX_FMT_UNKNOW;
     }
 
+    int EyerAVFrame::GetAudioPackedData(unsigned char * data)
+    {
+        int sizePerSample = av_get_bytes_per_sample((AVSampleFormat)piml->frame->format);
+        int bufferSize = sizePerSample * piml->frame->nb_samples * piml->frame->channels;
+        if(data == nullptr){
+            return bufferSize;
+        }
+
+        // 判断是 Packed 还是 Plane
+        int isPanar = av_sample_fmt_is_planar((AVSampleFormat)piml->frame->format);
+        if(isPanar){
+            // EyerLog("Panar\n");
+            SwrContext * swrCtx = swr_alloc_set_opts(
+                        NULL,
+                        piml->frame->channel_layout,
+                        av_get_packed_sample_fmt((AVSampleFormat)piml->frame->format),
+                        piml->frame->sample_rate,
+
+                        piml->frame->channel_layout,
+                        (AVSampleFormat)piml->frame->format,
+                        piml->frame->sample_rate,
+
+                        0,
+                        NULL
+                        );
+
+
+            swr_init(swrCtx);
+
+            int ret = swr_convert(swrCtx, &data, piml->frame->nb_samples, (const uint8_t **)piml->frame->data, piml->frame->nb_samples);
+
+            swr_free(&swrCtx);
+        }
+        else{
+            // EyerLog("Packed\n");
+            memcpy(data, piml->frame->data[0], bufferSize);
+        }
+
+        return 0;
+    }
 
     int EyerAVFrame::SetVideoData420P(unsigned char * _y, unsigned char * _u, unsigned char * _v, int _width, int _height)
     {
@@ -441,8 +599,14 @@ namespace Eyer {
         return piml->frame->channels;
     }
 
+    int EyerAVFrame::GetSampleRate()
+    {
+        return piml->frame->sample_rate;
+    }
+
     int EyerAVFrame::GetNBSamples()
     {
+
         return piml->frame->nb_samples;
     }
 

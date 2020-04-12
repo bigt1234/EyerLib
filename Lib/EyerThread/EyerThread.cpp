@@ -28,6 +28,17 @@ namespace Eyer
         return 0;
     }
 
+    int EyerThread::WaitForStop(int t)
+    {
+        while(1){
+            if(!IsRunning()){
+                break;
+            }
+            EyerTime::EyerSleep(t);
+        }
+        return 0;
+    }
+
     int EyerThread::IsRunning()
     {
         return isRun;

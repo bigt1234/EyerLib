@@ -48,7 +48,19 @@ namespace Eyer
         }
 
         // TODO 判断文件是否打开成功
-
+        /**
+         * Seek to the keyframe at timestamp.
+         * 'timestamp' in 'stream_index'.
+         *
+         * @param s media file handle
+         * @param stream_index If stream_index is (-1), a default
+         * stream is selected, and timestamp is automatically converted
+         * from AV_TIME_BASE units to the stream specific time_base.
+         * @param timestamp Timestamp in AVStream.time_base units
+         *        or, if no stream is specified, in AV_TIME_BASE units.
+         * @param flags flags which select direction and seeking mode
+         * @return >= 0 on success
+         */
         int ret = av_seek_frame(piml->formatCtx, streamIndex, timestamp, AVSEEK_FLAG_BACKWARD);
 
         return ret;
@@ -89,6 +101,11 @@ namespace Eyer
         return piml->formatCtx->nb_streams;
     }
 
+    double EyerAVReader::GetDuration()
+    {
+        return piml->formatCtx->duration / 1000000;
+    }
+
     int EyerAVReader::GetStream(EyerAVStream & stream, int index)
     {
         if(piml->formatCtx == nullptr){
@@ -99,17 +116,17 @@ namespace Eyer
         if(index < 0){
             return -1;
         }
-        if(index >= GetStreamCount()){
+        if(index >= GetStreamCount()) {
             return -1;
         }
 
         double duration = piml->formatCtx->streams[index]->duration * 1.0 * piml->formatCtx->streams[index]->time_base.num / piml->formatCtx->streams[index]->time_base.den;
-
         stream.SetDuration(duration);
 
         stream.streamIndex = piml->formatCtx->streams[index]->index;
         stream.piml->type = EyerAVStreamType::STREAM_TYPE_UNKNOW;
-        avcodec_copy_context(stream.piml->codecContext, piml->formatCtx->streams[index]->codec);
+
+        avcodec_parameters_copy(stream.piml->codecpar, piml->formatCtx->streams[index]->codecpar);
 
         return 0;
     }
