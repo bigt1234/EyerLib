@@ -151,6 +151,7 @@ namespace Eyer
         unsigned int GL_GetTextureId();
 
         int SetDataRedChannel(unsigned char * data,int width,int height);
+        int SetDataRGChannel(unsigned char * data,int width,int height);
         int SetDataRGBAChannel(unsigned char * data,int width,int height);
     };
 
