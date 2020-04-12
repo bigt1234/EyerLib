@@ -136,13 +136,6 @@ namespace Eyer {
             }
         }
 
-        
-
-        // Copy extended_data
-
-
-
-
         return *this;
     }
 
@@ -166,6 +159,28 @@ namespace Eyer {
         int offset = 0;
         for(int i=0;i<h;i++){
             memcpy(yData + offset, piml->frame->data[0] + i * piml->frame->linesize[0], w);
+            offset += w;
+        }
+
+        return 0;
+    }
+
+    int EyerAVFrame::GetUVData(unsigned char * uvData)
+    {
+        int width = GetWidth();
+        int height = GetHeight();
+
+        int h = height;
+        int w = width;
+
+        if(GetPixFormat() == EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVNV12 || GetPixFormat() ==  EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVNV21){
+            h = height / 2;
+            w = width;
+        }
+
+        int offset = 0;
+        for(int i=0;i<h;i++){
+            memcpy(uvData + offset, piml->frame->data[1] + i * piml->frame->linesize[1], w);
             offset += w;
         }
 
@@ -477,6 +492,12 @@ namespace Eyer {
         }
         if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_YUVJ444P){
             return EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVJ444P;
+        }
+        if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_NV12){
+            return EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVNV12;
+        }
+        if(piml->frame->format == AVPixelFormat::AV_PIX_FMT_NV21){
+            return EyerAVPixelFormat::Eyer_AV_PIX_FMT_YUVNV21;
         }
 
         return EyerAVPixelFormat::Eyer_AV_PIX_FMT_UNKNOW;

@@ -25,6 +25,24 @@ namespace Eyer
         }
     }
 
+    int EyerAVDecoder::InitHW(EyerAVStream * stream)
+    {
+        avcodec_parameters_to_context(piml->codecContext, stream->piml->codecpar);
+        AVCodec * codec = avcodec_find_decoder(piml->codecContext->codec_id);
+
+        if(codec->id == AVCodecID::AV_CODEC_ID_H264){
+
+        }
+
+        int ret = avcodec_open2(piml->codecContext, codec, nullptr);
+        if(ret){
+            EyerLog("Open Decoder Fail\n");
+            return -1;
+        }
+
+        return 0;
+    }
+
     int EyerAVDecoder::Init(EyerAVStream * stream)
     {
         avcodec_parameters_to_context(piml->codecContext, stream->piml->codecpar);
