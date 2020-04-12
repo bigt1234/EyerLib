@@ -137,8 +137,8 @@ namespace Eyer
     {
         // TODO 判断解码器是否打开
 #ifdef EYER_HW_DECODER
-        int ret
-        if(isHW){
+        int ret;
+        if(piml->isHW){
             EyerAVFrame f;
             ret = avcodec_receive_frame(piml->codecContext, f.piml->frame);
             if(!ret){
