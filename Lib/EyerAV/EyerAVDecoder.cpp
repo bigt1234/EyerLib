@@ -68,12 +68,15 @@ namespace Eyer
                     continue;
                 }
 
+                int err;
                 AVBufferRef *hw_device_ctx = NULL;
                 if ((err = av_hwdevice_ctx_create(&hw_device_ctx, type, NULL, NULL, 0)) < 0) {
                     continue;
                 }
 
                 piml->codecContext->hw_device_ctx = hw_device_ctx;
+
+                isHW = 1;
             }
         }
 
@@ -133,7 +136,24 @@ namespace Eyer
     int EyerAVDecoder::RecvFrame(EyerAVFrame * frame)
     {
         // TODO 判断解码器是否打开
+#ifdef EYER_HW_DECODER
+        int ret
+        if(isHW){
+            EyerAVFrame f;
+            ret = avcodec_receive_frame(piml->codecContext, f.piml->frame);
+            if(!ret){
+                av_hwframe_transfer_data(frame->piml->frame, f.piml->frame, 0);
+                frame->piml->frame->pts = f.piml->frame->pts;
+            }
+        }
+        else{
+            ret = avcodec_receive_frame(piml->codecContext, frame->piml->frame);
+        }
+
+        return ret;
+#else
         int ret = avcodec_receive_frame(piml->codecContext, frame->piml->frame);
         return ret;
+#endif
     }
 }
