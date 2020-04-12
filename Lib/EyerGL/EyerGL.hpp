@@ -135,6 +135,7 @@ namespace Eyer
         int PutTexture(EyerString uniform, EyerGLTexture * texture, int textureIndex = 0);
         int PutMatrix4fv(EyerString uniform, EyerMat4x4 & mat);
         int PutUniform1f(EyerString uniform, float val);
+        int PutUniform1i(EyerString uniform, int val);
 
         int Draw();
     };
