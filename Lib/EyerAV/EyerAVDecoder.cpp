@@ -76,7 +76,7 @@ namespace Eyer
 
                 piml->codecContext->hw_device_ctx = hw_device_ctx;
 
-                isHW = 1;
+                piml->isHW = 1;
             }
         }
 
