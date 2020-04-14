@@ -41,15 +41,9 @@ namespace Eyer
             return -1;
         }
 
-        int streamCount = GetStreamCount();
-        for(int streamIndex=0; streamIndex<streamCount; streamCount++){
-            AVStream * st = piml->formatCtx->streams[streamIndex];
-            if(st->codecpar->codec_type == AVMEDIA_TYPE_VIDEO){
-                return streamIndex;
-            }
-        }
+        int videoStream = av_find_best_stream(piml->formatCtx, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);
 
-        return -1;
+        return videoStream;
     }
 
     int EyerAVReader::GetAudioStreamIndex()
@@ -58,15 +52,9 @@ namespace Eyer
             return -1;
         }
 
-        int streamCount = GetStreamCount();
-        for(int streamIndex=0; streamIndex<streamCount; streamCount++){
-            AVStream * st = piml->formatCtx->streams[streamIndex];
-            if(st->codecpar->codec_type == AVMEDIA_TYPE_AUDIO){
-                return streamIndex;
-            }
-        }
+        int audioStream = av_find_best_stream(piml->formatCtx, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);
 
-        return -1;
+        return audioStream;
     }
 
     int EyerAVReader::SeekFrame(int streamIndex, double timestamp)
@@ -108,6 +96,8 @@ namespace Eyer
         }
 
         avformat_find_stream_info(piml->formatCtx, NULL);
+
+        av_dump_format(piml->formatCtx, 0, piml->path.str, 0);
 
         return 0;
     }
