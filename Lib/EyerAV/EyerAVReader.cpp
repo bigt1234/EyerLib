@@ -35,6 +35,40 @@ namespace Eyer
         }
     }
 
+    int EyerAVReader::GetVideoStreamIndex()
+    {
+        if(piml->formatCtx == nullptr){
+            return -1;
+        }
+
+        int streamCount = GetStreamCount();
+        for(int streamIndex=0; streamIndex<streamCount; streamCount++){
+            AVStream * st = piml->formatCtx->streams[streamIndex];
+            if(st->codecpar->codec_type == AVMEDIA_TYPE_VIDEO){
+                return streamIndex;
+            }
+        }
+
+        return -1;
+    }
+
+    int EyerAVReader::GetAudioStreamIndex()
+    {
+        if(piml->formatCtx == nullptr){
+            return -1;
+        }
+
+        int streamCount = GetStreamCount();
+        for(int streamIndex=0; streamIndex<streamCount; streamCount++){
+            AVStream * st = piml->formatCtx->streams[streamIndex];
+            if(st->codecpar->codec_type == AVMEDIA_TYPE_AUDIO){
+                return streamIndex;
+            }
+        }
+
+        return -1;
+    }
+
     int EyerAVReader::SeekFrame(int streamIndex, double timestamp)
     {
         int64_t t = timestamp / av_q2d(piml->formatCtx->streams[streamIndex]->time_base);
