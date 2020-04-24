@@ -10,6 +10,12 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions_3_3_Core>
 
+#elif defined(EYER_PLATFORM_ANDROID)
+
+#include <EGL/egl.h>
+#include <GLES3/gl3.h>
+#include <GLES3/gl3ext.h>
+
 #else
 
 #include <glad/glad.h>
