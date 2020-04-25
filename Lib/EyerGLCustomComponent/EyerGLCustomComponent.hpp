@@ -118,6 +118,12 @@ namespace Eyer
         EyerGLDraw * textureDraw = nullptr;
     };
 
+    enum EyerGLYUV2TextureComponentColorRange
+    {
+        COLOR_RANGE_FULL = 1,
+        COLOR_RANGE_JPEG = 2,
+    };
+
     class EyerGLYUV2TextureComponent : public EyerGLComponent
     {
     public:
@@ -128,6 +134,8 @@ namespace Eyer
         int SetUTexture(EyerGLTexture * uTex);
         int SetVTexture(EyerGLTexture * vTex);
 
+        int SetColoRange(EyerGLYUV2TextureComponentColorRange _colorRange);
+
         virtual int Draw();
 
     private:
@@ -137,6 +145,8 @@ namespace Eyer
         EyerGLTexture * yTex = nullptr;
         EyerGLTexture * uTex = nullptr;
         EyerGLTexture * vTex = nullptr;
+
+        EyerGLYUV2TextureComponentColorRange colorRange = EyerGLYUV2TextureComponentColorRange::COLOR_RANGE_FULL;
     };
 
     class EyerGLCacheTexture
