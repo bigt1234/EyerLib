@@ -134,7 +134,7 @@ namespace Eyer {
 #else
         glBindFramebuffer(GL_FRAMEBUFFER, fbo);
         glViewport(0, 0, width, height);
-        glClearColor(0.0, 0.0, 0.0, 0.0);
+        glClearColor(1.0, 1.0, 1.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 #endif
@@ -150,7 +150,13 @@ namespace Eyer {
         ctx->glBindFramebuffer(GL_FRAMEBUFFER, 0);
 #else
         glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+        #ifdef EYER_PLATFORM_ANDROID
+        glReadPixels(x, y, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
+        #else
         glReadPixels(x, y, width, height, GL_BGR, GL_UNSIGNED_BYTE, data);
+        #endif
+        
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 #endif
 

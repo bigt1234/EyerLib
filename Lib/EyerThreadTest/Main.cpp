@@ -31,8 +31,8 @@ TEST(Eyer, EyerThread){
     TimeThread a("A");
     TimeThread b("B");
 
-    a.Detach();
-    b.Detach();
+    a.Start();
+    b.Start();
 
     Eyer::EyerTime::EyerSleep(1000 * 1000 * 10);
 
