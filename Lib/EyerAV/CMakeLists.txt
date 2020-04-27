@@ -29,7 +29,6 @@ add_library(
     EyerAVFrameQueue.hpp
     EyerAVQueue.cpp
     EyerAVQueue.hpp
-    EyerAVCropUtil.cpp
     EyerAVQueueManager.hpp
 )
 
