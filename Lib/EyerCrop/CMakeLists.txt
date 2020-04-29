@@ -4,6 +4,7 @@ include_directories (./)
 add_library(
     EyerCrop
     EyerAVCropUtil.cpp
+    EyerAVCrop.cpp
 )
 
 target_link_libraries (EyerCrop EyerCore)
