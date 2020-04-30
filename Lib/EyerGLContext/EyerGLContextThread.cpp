@@ -28,7 +28,7 @@ namespace Eyer
         EGLContext mEglContext;
         EGLConfig eglConfig;
         EGLSurface window;
-        EGLDisplay mEglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+        EGLDisplay mEglDisplay;
         
 
         const EGLint attrib_config_list[] = {
@@ -49,7 +49,8 @@ namespace Eyer
         EGLint num_config;
 
         EyerGLJulia * glTest = nullptr;
-    
+
+        mEglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
         if (mEglDisplay == EGL_NO_DISPLAY) {
             EyerLog("eglGetDisplay error\n");
             goto END;
@@ -63,14 +64,6 @@ namespace Eyer
             EyerLog("eglChooseConfig error\n");
             goto END;
         }
-
-        EyerLog("eglChooseConfig num_config: %d\n", num_config);
-        /*
-        if (!eglChooseConfig(mEglDisplay, attrib_config_list, &eglConfig, num_config, &num_config)) {
-            EyerLog("eglChooseConfig error\n");
-            goto END;
-        }
-        */
 
         mEglContext = eglCreateContext(mEglDisplay, eglConfig, NULL, attrib_ctx_list);
         if (mEglContext == EGL_NO_CONTEXT) {
@@ -102,6 +95,10 @@ namespace Eyer
         }
 
         delete glTest;
+
+        eglDestroySurface(mEglDisplay, window);
+        eglDestroyContext(mEglDisplay, mEglContext);
+        eglTerminate(mEglDisplay);
 
     END:
         SetStoping();
