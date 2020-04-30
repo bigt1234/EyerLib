@@ -159,6 +159,40 @@ namespace Eyer
         int bearingX = 0;
         int advance = 0;
     };
+
+
+    class EyerGLTest : public EyerGLComponent
+    {
+    public:
+        EyerGLTest();
+        ~EyerGLTest();
+
+        virtual int Draw();
+
+    private:
+        EyerGLVAO * vao = nullptr;
+        EyerGLDraw * textureDraw = nullptr;
+    };
+
+
+    class EyerGLJulia : public EyerGLComponent
+    {
+    public:
+        EyerGLJulia();
+        ~EyerGLJulia();
+
+        int SetWH(int w, int h);
+
+        virtual int Draw();
+
+    private:
+        EyerGLVAO * vao = nullptr;
+        EyerGLDraw * textureDraw = nullptr;
+
+        float startTime = 0;
+        int w = 0;
+        int h = 0;
+    };
 }
 
 
