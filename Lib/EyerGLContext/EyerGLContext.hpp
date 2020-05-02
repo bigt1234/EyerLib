@@ -4,6 +4,7 @@
 #include "EyerCore/EyerCore.hpp"
 #include "EyerThread/EyerThread.hpp"
 #include "EyerGLCustomComponent/EyerGLCustomComponent.hpp"
+#include "EyerGLRenderTask/EyerGLRenderTask.hpp"
 
 #include <android/native_window_jni.h>
 #include <GLES3/gl3.h>
@@ -19,11 +20,17 @@ namespace Eyer
         virtual void Run();
 
         int SetWH(int w, int h);
+
+        int AddTaskToRenderQueue(EyerGLRenderTask * task);
+        int AddTaskToDestoryQueue(EyerGLRenderTask * task);
     private:
         ANativeWindow * nativeWindow = nullptr;
 
         int w = 0;
         int h = 0;
+
+        EyerGLRenderTaskQueue taskQueue;
+        EyerLockQueue<EyerGLRenderTask> destoryTaskQueue;
     };
 }
 

@@ -79,7 +79,8 @@ ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Android")
     ADD_SUBDIRECTORY(EyerGLContext)
     ADD_SUBDIRECTORY(EyerThread)
     ADD_SUBDIRECTORY(EyerType)
-    
+    ADD_SUBDIRECTORY(EyerGLRenderTask)
+    # ADD_SUBDIRECTORY(EyerAV)
     
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     MESSAGE(STATUS "current platform: Darwin")
