@@ -155,6 +155,8 @@ namespace Eyer
         int GetVideoStreamIndex();
 
         int GetStreamTimeBase(EyerAVRational & rational, int streamIndex);
+
+        int PrintInfo();
     };
 
     class EyerAVWriter

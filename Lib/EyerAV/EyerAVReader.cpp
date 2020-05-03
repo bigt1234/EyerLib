@@ -169,4 +169,24 @@ namespace Eyer
 
         return 0;
     }
+
+
+    int EyerAVReader::PrintInfo()
+    {
+        EyerLog("=============================\n");
+
+        EyerLog("Url: %s\n", piml->path.str);
+
+        int streamCount = GetStreamCount();
+        EyerLog("Stream Count: %d\n", streamCount);
+
+        for(int index=0;index<streamCount;index++){
+            EyerLog("# Stream %d:\n", index);
+            double duration = piml->formatCtx->streams[index]->duration * 1.0 * piml->formatCtx->streams[index]->time_base.num / piml->formatCtx->streams[index]->time_base.den;
+            EyerLog("    Duration: %f s\n", duration);
+        }
+
+        EyerLog("=============================\n");
+        return 0;
+    }
 }
