@@ -58,7 +58,7 @@ namespace Eyer
 
     int EyerGLJulia::Draw()
     {
-        startTime += 0.01f;
+        startTime += 0.1f;
         textureDraw->PutUniform1f("width", w);
         textureDraw->PutUniform1f("height", h);
         textureDraw->PutUniform1f("iTime", startTime * 1.0f);
