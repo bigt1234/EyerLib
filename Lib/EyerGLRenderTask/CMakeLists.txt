@@ -6,10 +6,12 @@ add_library(
         EyerGLRenderTask.cpp
         EyerGLRenderTaskQueue.cpp
         JuliaRenderTask.cpp
+        YUVRenderTask.cpp
         )
 
 target_link_libraries (EyerGLRenderTask EyerGL)
 target_link_libraries (EyerGLRenderTask EyerCore)
+target_link_libraries (EyerGLRenderTask EyerGLCustomComponent)
 
 set(head_files
         EyerGLRenderTask.hpp

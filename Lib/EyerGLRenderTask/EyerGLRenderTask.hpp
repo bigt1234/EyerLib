@@ -52,6 +52,21 @@ namespace Eyer
     private:
         EyerGLJulia * julia = nullptr;
     };
+
+
+    class YUVRenderTask : public EyerGLRenderTask
+    {
+    public:
+        YUVRenderTask();
+        ~YUVRenderTask();
+
+        virtual int Render();
+        virtual int Init();
+        virtual int Destory();
+
+    private:
+        EyerGLYUV2TextureComponent * yuv2text = nullptr;
+    };
 }
 
 

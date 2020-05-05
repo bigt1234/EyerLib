@@ -65,9 +65,15 @@ ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Android")
         add_library(
                 EyerGLCustomComponent
                 EyerGLCustomComponent.hpp
+                EyerGLTextDraw.cpp
+                EyerGLMVPTextureDraw.cpp
+                EyerGLFrameDraw.cpp
+                EyerGLSingleTextureDraw.cpp
+                EyerGLYUV2TextureComponent.cpp
                 EyerGLTest.cpp
-                EyerGLJulia.cpp
                 )
+
+        target_link_libraries (EyerGLCustomComponent EyerGL)
 
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Darwin")
         MESSAGE(STATUS "current platform: Darwin")

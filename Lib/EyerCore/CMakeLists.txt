@@ -22,8 +22,6 @@ add_library(
 
 )
 
-target_link_libraries (EyerCore gtest)
-
 set(head_files 
     EyerString.hpp
     EyerCore.hpp
