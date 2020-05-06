@@ -3,8 +3,8 @@
 
 #include "EyerCore/EyerCore.hpp"
 #include "EyerThread/EyerThread.hpp"
-#include "EyerGLCustomComponent/EyerGLCustomComponent.hpp"
-#include "EyerGLRenderTask/EyerGLRenderTask.hpp"
+#include "EyerGL/EyerGLCustomComponent/EyerGLCustomComponent.hpp"
+#include "EyerGL/EyerGLRenderTask/EyerGLRenderTask.hpp"
 
 #include <android/native_window_jni.h>
 #include <GLES3/gl3.h>

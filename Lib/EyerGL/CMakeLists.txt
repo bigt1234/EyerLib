@@ -14,6 +14,19 @@ add_library(
         EyerGLTexture.cpp
         EyerGLFrameBuffer.cpp
         EyerGLComponent.cpp
+
+        EyerGLCustomComponent/EyerGLFrameDraw.cpp
+        EyerGLCustomComponent/EyerGLJulia.cpp
+        EyerGLCustomComponent/EyerGLMVPTextureDraw.cpp
+        EyerGLCustomComponent/EyerGLSingleTextureDraw.cpp
+        EyerGLCustomComponent/EyerGLTest.cpp
+        EyerGLCustomComponent/EyerGLTextDraw.cpp
+        EyerGLCustomComponent/EyerGLYUV2TextureComponent.cpp
+
+        EyerGLRenderTask/EyerGLRenderTask.cpp
+        EyerGLRenderTask/EyerGLRenderTaskQueue.cpp
+        EyerGLRenderTask/JuliaRenderTask.cpp
+        EyerGLRenderTask/YUVRenderTask.cpp
         )
 
 target_link_libraries (EyerGL EyerCore)
@@ -45,6 +58,8 @@ set(head_files
         )
 
 INSTALL(FILES ${head_files} DESTINATION include/EyerGL)
+INSTALL(FILES EyerGLRenderTask/EyerGLRenderTask.hpp DESTINATION include/EyerGL/EyerGLRenderTask/)
+INSTALL(FILES EyerGLCustomComponent/EyerGLCustomComponent.hpp DESTINATION include/EyerGL/EyerGLCustomComponent/)
 INSTALL(
         TARGETS EyerGL
         RUNTIME DESTINATION bin

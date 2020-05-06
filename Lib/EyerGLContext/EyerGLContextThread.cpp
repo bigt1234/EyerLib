@@ -3,7 +3,7 @@
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
 
-#include "EyerGLRenderTask/EyerGLRenderTask.hpp"
+#include "EyerGL/EyerGLRenderTask/EyerGLRenderTask.hpp"
 
 namespace Eyer
 {
