@@ -151,7 +151,12 @@ namespace Eyer
         int GetStreamCount();
         int GetStream(EyerAVStream & stream, int index);
 
+        int GetAudioStreamIndex();
+        int GetVideoStreamIndex();
+
         int GetStreamTimeBase(EyerAVRational & rational, int streamIndex);
+
+        int PrintInfo();
     };
 
     class EyerAVWriter
@@ -325,24 +330,6 @@ namespace Eyer
 
     private:
         EyerLinkedList<EyerAVFrameWeight *> frameList;
-    };
-
-
-
-
-    enum EyerAVCropType
-    {
-        FIT_CENTER = 0,
-        FIT_XY = 1
-    };
-
-    class EyerAVCropUtil
-    {
-    public:
-        EyerAVCropUtil();
-        ~EyerAVCropUtil();
-
-        int GetCrop(int viewW, int viewH, int imageW, int imageH, int & targetW, int & targetH,EyerAVCropType cropType = EyerAVCropType::FIT_CENTER);
     };
 }
 

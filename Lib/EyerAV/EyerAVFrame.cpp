@@ -279,6 +279,20 @@ namespace Eyer {
         printf("Size Per Sample: %d\n", sizePerSample);
 
         {
+            if(piml->frame->color_range == AVColorRange::AVCOL_RANGE_UNSPECIFIED){
+                printf("AVColorRange: AVCOL_RANGE_UNSPECIFIED\n");
+            }
+            if(piml->frame->color_range == AVColorRange::AVCOL_RANGE_MPEG){
+                printf("AVColorRange: AVCOL_RANGE_MPEG\n");
+            }
+            if(piml->frame->color_range == AVColorRange::AVCOL_RANGE_JPEG){
+                printf("AVColorRange: AVCOL_RANGE_JPEG\n");
+            }
+            if(piml->frame->color_range == AVColorRange::AVCOL_RANGE_NB){
+                printf("AVColorRange: AVCOL_RANGE_NB\n");
+            }
+        }
+        {
             if(piml->frame->colorspace == AVColorSpace::AVCOL_SPC_RGB){
                 printf("AVColorSpace: AVCOL_SPC_RGB\n");
             }

@@ -23,17 +23,15 @@ add_library(
     EyerAVRational.cpp
     EyerAVAudioFrameUtil.cpp
     EyerAVFrameWeight.cpp
-        EyerAVPacketQueue.cpp
-        EyerAVPacketQueue.hpp
-        EyerAVFrameQueue.cpp
-        EyerAVFrameQueue.hpp
-        EyerAVQueue.cpp
-        EyerAVQueue.hpp
-        EyerAVCropUtil.cpp
-        EyerAVQueueManager.hpp
-        )
+    EyerAVPacketQueue.cpp
+    EyerAVPacketQueue.hpp
+    EyerAVFrameQueue.cpp
+    EyerAVFrameQueue.hpp
+    EyerAVQueue.cpp
+    EyerAVQueue.hpp
+    EyerAVQueueManager.hpp
+)
 
-target_link_libraries (EyerAV pthread)
 target_link_libraries (EyerAV EyerCore)
 
 include_directories (${CMAKE_SOURCE_DIR}/../../Lib/ffmpeg_install/include)
@@ -112,10 +110,10 @@ ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux")
 
 set(head_files 
     EyerAV.hpp
-        EyerAVPacketQueue.hpp
-        EyerAVFrameQueue.hpp
-        EyerAVQueue.hpp
-        EyerAVQueueManager.hpp
+    EyerAVPacketQueue.hpp
+    EyerAVFrameQueue.hpp
+    EyerAVQueue.hpp
+    EyerAVQueueManager.hpp
 )
 
 INSTALL(FILES ${head_files} DESTINATION include/EyerAV)

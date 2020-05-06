@@ -7,7 +7,6 @@ add_library(
 )
 
 target_link_libraries (EyerThread pthread)
-target_link_libraries (EyerThread gtest)
 
 set(head_files
         EyerThread.hpp
