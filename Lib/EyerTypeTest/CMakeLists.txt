@@ -5,8 +5,10 @@ add_executable(
 
 include_directories (../)
 
+target_link_libraries (EyerTypeTest gtest gtest_main)
 target_link_libraries (EyerTypeTest EyerCore)
 target_link_libraries (EyerTypeTest EyerType)
+
 
 INSTALL(
         TARGETS EyerTypeTest

@@ -7,6 +7,7 @@
 #include "EyerGLWindow.hpp"
 #include "EyerGLWindowPrivate.hpp"
 
+
 namespace Eyer
 {
 
