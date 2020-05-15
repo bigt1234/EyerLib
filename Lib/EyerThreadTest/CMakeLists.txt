@@ -5,6 +5,7 @@ add_executable(
 
 include_directories (../)
 
+target_link_libraries (EyerThreadTest gtest gtest_main)
 target_link_libraries (EyerThreadTest EyerCore)
 target_link_libraries (EyerThreadTest EyerThread)
 
