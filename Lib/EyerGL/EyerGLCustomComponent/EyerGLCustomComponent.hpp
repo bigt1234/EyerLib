@@ -135,6 +135,7 @@ namespace Eyer
         int SetVTexture(EyerGLTexture * vTex);
 
         int SetColoRange(EyerGLYUV2TextureComponentColorRange _colorRange);
+        int SetReverseY(int reverseY);
 
         virtual int Draw();
 
@@ -145,6 +146,8 @@ namespace Eyer
         EyerGLTexture * yTex = nullptr;
         EyerGLTexture * uTex = nullptr;
         EyerGLTexture * vTex = nullptr;
+
+        int reverseY = 0;
 
         EyerGLYUV2TextureComponentColorRange colorRange = EyerGLYUV2TextureComponentColorRange::COLOR_RANGE_FULL;
     };
