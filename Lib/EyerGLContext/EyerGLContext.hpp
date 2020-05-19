@@ -25,6 +25,9 @@ namespace Eyer
         int AddTaskToRenderAndFreeQueue(EyerGLRenderTask * task);
         
         int AddTaskToDestoryQueue(EyerGLRenderTask * task);
+
+        int GetW();
+        int GetH();
     private:
         ANativeWindow * nativeWindow = nullptr;
 

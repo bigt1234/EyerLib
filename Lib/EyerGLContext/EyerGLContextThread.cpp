@@ -24,6 +24,16 @@ namespace Eyer
         return 0;
     }
 
+    int EyerGLContextThread::GetW()
+    {
+        return w;
+    }
+    
+    int EyerGLContextThread::GetH()
+    {
+        return h;
+    }
+
     void EyerGLContextThread::Run()
     {
         EyerLog("EyerGLContextThread Start\n");
