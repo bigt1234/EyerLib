@@ -14,3 +14,9 @@ INSTALL(
     LIBRARY DESTINATION lib        
     ARCHIVE DESTINATION lib
 )
+
+file(COPY
+        ${CMAKE_CURRENT_SOURCE_DIR}/1.jpg
+        DESTINATION
+        ${CMAKE_CURRENT_BINARY_DIR}/
+        )

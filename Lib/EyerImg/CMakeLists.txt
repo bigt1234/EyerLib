@@ -3,8 +3,7 @@ include_directories (./)
 
 add_library(
         EyerImg
-        stb_image.h
-        stb_image.cpp
+        EyerImg.cpp
 )
 
 target_link_libraries (EyerImg gtest)
