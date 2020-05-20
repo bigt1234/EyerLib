@@ -196,6 +196,22 @@ namespace Eyer
         int w = 0;
         int h = 0;
     };
+
+
+    class EyerGLChessboard : public EyerGLComponent
+    {
+    public:
+        EyerGLChessboard();
+        ~EyerGLChessboard();
+
+        int SetWH(int w, int h);
+
+        virtual int Draw();
+
+    private:
+        int w = 0;
+        int h = 0;
+    };
 }
 
 
