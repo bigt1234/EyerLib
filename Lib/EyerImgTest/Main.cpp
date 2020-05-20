@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include <gtest/gtest.h>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "EyerImg/stb_image.h"
+#include "EyerImg/EyerImg.hpp"
 #include "EyerCore/EyerCore.hpp"
 
 TEST(Eyer, EyerImg){
-    int width, height, nrChannels;
-    unsigned char * data = stbi_load("1.jpg", &width, &height, &nrChannels, 0);
-    printf("width:%d height:%d\n",width, height);
+    Eyer::EyerImg img("1.jpg");
+    img.LoadImg();
+    printf("width:%d height:%d\n",img.GetImgW(), img.GetImgH());
+    unsigned char * _imgData = (unsigned char *)malloc(img.GetImgW() * img.GetImgH() * img.GetImgChannel());
+    img.GetImgData(_imgData);
+    img.WriteJPG("out.jpg", img.GetImgW(), img.GetImgH(), img.GetImgChannel(), _imgData,0);
 }
 
 int main(int argc,char **argv)
